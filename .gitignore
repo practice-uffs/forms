@@ -1,12 +1,15 @@
+/config/google/*
+!/config/google/.gitkeep
 /node_modules
 /public/hot
 /public/storage
+/public/css/app.css
 /storage/*.key
 /vendor
+public/js/app.js
 .env
 .env.backup
 .phpunit.result.cache
-docker-compose.override.yml
 Homestead.json
 Homestead.yaml
 npm-debug.log

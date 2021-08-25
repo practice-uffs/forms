@@ -4,6 +4,15 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Application version
+    |--------------------------------------------------------------------------
+    |
+    */
+
+   'version' => '2.0.0',
+
+    /*
+    |--------------------------------------------------------------------------
     | Application Name
     |--------------------------------------------------------------------------
     |
@@ -39,7 +48,19 @@ return [
     |
     */
 
-    'debug' => (bool) env('APP_DEBUG', false),
+    'debug' => env('APP_DEBUG', false),
+
+    /*
+    |--------------------------------------------------------------------------
+    | API CC
+    |--------------------------------------------------------------------------
+    |
+    | Configurações relacionadas à API-CC.
+    |
+    */
+
+    'apicc_url' => env('APICC_URL', 'http://localhost'),
+    'apicc_token' => env('APICC_TOKEN', ''),
 
     /*
     |--------------------------------------------------------------------------
@@ -55,6 +76,8 @@ return [
     'url' => env('APP_URL', 'http://localhost'),
 
     'asset_url' => env('ASSET_URL', null),
+
+    'mix_url' => env('APP_URL', 'http://localhost'),
 
     /*
     |--------------------------------------------------------------------------
@@ -80,7 +103,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'pt',
 
     /*
     |--------------------------------------------------------------------------
@@ -93,7 +116,7 @@ return [
     |
     */
 
-    'fallback_locale' => 'en',
+    'fallback_locale' => 'pt',
 
     /*
     |--------------------------------------------------------------------------
@@ -106,7 +129,7 @@ return [
     |
     */
 
-    'faker_locale' => 'en_US',
+    'faker_locale' => 'pt_BR',
 
     /*
     |--------------------------------------------------------------------------
@@ -161,10 +184,12 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+        Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
 
         /*
          * Package Service Providers...
          */
+        Mydnic\Subscribers\SubscribersServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -174,8 +199,6 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        App\Providers\FortifyServiceProvider::class,
-        App\Providers\JetstreamServiceProvider::class,
 
     ],
 
@@ -217,7 +240,7 @@ return [
         'Password' => Illuminate\Support\Facades\Password::class,
         'Queue' => Illuminate\Support\Facades\Queue::class,
         'Redirect' => Illuminate\Support\Facades\Redirect::class,
-        // 'Redis' => Illuminate\Support\Facades\Redis::class,
+        'Redis' => Illuminate\Support\Facades\Redis::class,
         'Request' => Illuminate\Support\Facades\Request::class,
         'Response' => Illuminate\Support\Facades\Response::class,
         'Route' => Illuminate\Support\Facades\Route::class,
@@ -228,7 +251,7 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-
+        'Item' => App\Item::class,
     ],
 
 ];

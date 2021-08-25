@@ -1,9 +1,18 @@
 module.exports = {
-  purge: [
-    './resources/**/*.blade.php',
-    './resources/**/*.js',
-    './resources/**/*.vue',
-  ],
+  purge: {
+    content: [
+        './resources/**/*.blade.php',
+        './resources/**/*.js',
+    ],
+    options: {
+        safelist: [
+            /text-*/,
+            /bg-*/,
+            /border-*/,
+            /rotate-*/
+        ]
+    }
+  },
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {},
@@ -11,5 +20,13 @@ module.exports = {
   variants: {
     extend: {},
   },
-  plugins: [],
+  plugins: [
+    require('daisyui'),
+  ],
+  daisyui: {
+    themes: [
+      'light', // first one will be the default theme
+      'dark',
+    ],
+  },
 }
