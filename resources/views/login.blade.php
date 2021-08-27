@@ -4,7 +4,7 @@
 <div class="login container row mx-auto my-5 pt-5" >
     <div class="login-img col-md-5 pr-lg-5 mb-5 mb-md-0 mt-5">
         <img src="assets/img/undow.co/login.svg" alt="" class="img-fluid">
-        <h1>Conecte-se ao PRACTICE <b>Mural</b></h1>
+        <h1>Conecte-se ao PRACTICE <b>Forms</b></h1>
         <p class="font-italic text-muted mb-0">Utilize seu idUFFS para conectar-se e aproveitar tudo que nossa plataforma oferece.</p>
     </div>
 

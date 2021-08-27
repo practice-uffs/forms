@@ -13,6 +13,14 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $forms = auth()->user()->forms;
+
+        if ($forms == null) {
+            $forms = [];
+        }
+
+        return view('home', [
+            'forms' => $forms
+        ]);
     }
 }

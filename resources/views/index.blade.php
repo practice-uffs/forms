@@ -11,8 +11,8 @@
           <h2 data-aos="fade-up" data-aos-delay="400">Uma ponte entre você e a construção de uma universidade melhor</h2>
           <div data-aos="fade-up" data-aos-delay="600">
             <div class="text-center text-lg-start">
-              <a href="{{ route('services') }}" class="btn-get-started d-inline-flex align-items-center justify-content-center align-self-center">
-                  <span>Solicitar serviço</span>
+              <a href="{{ route('form.create') }}" class="btn-get-started d-inline-flex align-items-center justify-content-center align-self-center">
+                  <span>Criar enquete</span>
                   <i class="bi bi-arrow-right-circle"></i>
               </a>
             </div>
@@ -55,11 +55,6 @@
 
         </div>
       </div>
-
     </section><!-- End About Section -->
-    @include('components.valores')
-    @include('components.contador')
-    @include('components.servicos')
-    @include('components.testemunho')   
   </main><!-- End #main -->
 @endsection

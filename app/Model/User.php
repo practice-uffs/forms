@@ -118,16 +118,8 @@ class User extends Authenticatable implements JWTSubject
     /**
      * Get all of the user's comments.
      */
-    public function comments()
+    public function forms()
     {
-        return $this->morphMany(Comment::class, 'commentable');
+        return $this->hasMany(Form::class);
     }
-
-    /**
-     * Get all of the user's orders
-     */
-    public function orders()
-    {
-        return $this->hasMany(Order::class);
-    }    
 }

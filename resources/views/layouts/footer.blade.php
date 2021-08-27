@@ -125,7 +125,7 @@
             </p>
             <p class="text-sm text-gray-400 ml-6 mr-6">|</p>
             <p class="text-sm text-gray-400">
-                <a href="https://github.com/practice-uffs/mural" rel="noopener noreferrer" class="text-gray-600 ml-1" target="_blank">v{{ config('app.version') }}</a>
+                <a href="https://github.com/practice-uffs/forms" rel="noopener noreferrer" class="text-gray-600 ml-1" target="_blank">v{{ config('app.version') }}</a>
             </p>
             <p class="text-sm text-gray-400 ml-6 mr-6">|</p>
             <p class="">

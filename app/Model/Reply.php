@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 
-class Comment extends Model
+class Reply extends Model
 {
     use Notifiable;
     use HasFactory;
@@ -36,18 +36,18 @@ class Comment extends Model
     ];
 
     /**
-     * Get the parent commentable model (post or video).
-     */
-    public function commentable()
-    {
-        return $this->morphTo();
-    }
-
-    /**
      * Get the ower of this comment
      */
     public function user()
     {
         return $this->belongsTo(User::class);
     }
+
+    /**
+     * Get the form of this reply
+     */
+    public function form()
+    {
+        return $this->belongsTo(Form::class);
+    }    
 }
