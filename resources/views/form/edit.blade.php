@@ -16,7 +16,7 @@
                 <div class="col-8">
                     <img src="{{ asset('img/qrcode.svg') }}" class="w-24 float-left mr-2" title="">
                     <p class="text-md text-gray-500 mt-3">Para que outras pessoas possam responder, compartilhe o código QR ao lado ou o link baixo:</p>
-                    <a href="#" class="text-2xl font-semibold text-blue-400">{{ config('app.url') }}</a>
+                    <a href="{{ $reply_link }}" class="text-xl font-semibold text-blue-400" target="_blank">{{ $reply_link }}</a>
                 </div>
                 <div class="col-4">
                     

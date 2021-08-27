@@ -48,7 +48,7 @@ class Form extends Model
     ];
 
     /**
-     * Meta information about Livewire crud crud
+     * Meta information about Livewire crud
      *
      * @var array
      */

@@ -36,6 +36,10 @@ class FormController extends Controller
     {
         return view('form.edit', [
             'form' => $form,
+            'reply_link' => route('reply.create', [
+                'form' => $form,
+                'hash' => $form->hash
+            ]),
         ]);
     }
 

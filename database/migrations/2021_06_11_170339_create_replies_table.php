@@ -15,13 +15,10 @@ class CreateRepliesTable extends Migration
     {
         Schema::create('replies', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('type')->nullable();
-            $table->text('data')->nullable();
-            $table->boolean('is_hidden')->default(false);
-            $table->timestamps();
-
             $table->foreignId('user_id');
             $table->foreignId('form_id');
+            $table->text('data');
+            $table->timestamps();            
         });
     }
 

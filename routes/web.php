@@ -17,6 +17,7 @@ use App\Http\Controllers\Livewire\FileUploadHandler;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\OrderEvaluationController;
 use App\Http\Controllers\PoolController;
+use App\Http\Controllers\ReplyController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\TestController;
 use Illuminate\Support\Facades\Route;
@@ -64,7 +65,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/inicial', [HomeController::class, 'index'])->name('home');
     Route::get('/criar', [FormController::class, 'create'])->name('form.create');
     Route::get('/editar/{form}', [FormController::class, 'edit'])->name('form.edit');
-    Route::get('/{form}/{hash}', [FormController::class, 'interact'])->name('form.interact');
+    Route::get('/{form}/{hash}', [ReplyController::class, 'create'])->name('reply.create');
 
     // Admin
     Route::group(['middleware' => 'check.admin'], function () {

@@ -19,11 +19,9 @@ class Reply extends Model
      */
     protected $fillable = [
         'id',
-        'content',
-        'type',
-        'data',
-        'is_hidden',
-        'user_id'
+        'user_id',
+        'form_id',
+        'data'
     ];
 
     /**
@@ -33,6 +31,15 @@ class Reply extends Model
      */
     protected $casts = [
         'data' => AsArrayObject::class
+    ];
+
+    /**
+     * Meta information about Livewire crud
+     *
+     * @var array
+     */
+    public static $crud = [
+        'fields' => []           
     ];
 
     /**
