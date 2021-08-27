@@ -1,23 +1,22 @@
 <p align="center">
     <img width="600" src=".github/logo.png" title="Logo do projeto"><br />
     <img src="https://img.shields.io/maintenance/yes/2021?style=for-the-badge" title="Status do projeto">
-    <img src="https://img.shields.io/github/workflow/status/practice-uffs/mural/ci.uffs.cc?label=Build&logo=github&logoColor=white&style=for-the-badge" title="Status do build">
+    <img src="https://img.shields.io/github/workflow/status/practice-uffs/forms/ci.uffs.cc?label=Build&logo=github&logoColor=white&style=for-the-badge" title="Status do build">
 </p>
 
-# Mural
+# Forms
 
-O mural é um sistema cujo principal objetivo é estreitar a comunicação entre a comunidade da [Universidade Federal da Fronteira Sul (UFFS)](https://www.uffs.edu.br) e o programa [Practice](https://practice.uffs.edu.br). Esse estreitamento visa que ideias e demandas voltadas à melhoria da educação possam ser publicadas, discutidas, discorridas e desenvolvidas.
+O **Practice Forms** é um sistema que possibilita que usuários criem enquetes/formulários ao estilo do [Google Forms](https://google.com/forms), porém a criação (e edição) se dá em formato de texto puro. O objetivo principal é facilitar a criação através de uma interface mais intuitiva.
 
-> **IMPORTANTE:** o Practice Mural está em funcionamento em: [practice.uffs.edu.br/mural](https://practice.uffs.edu.br/mural).
+> **IMPORTANTE:** se você deseja utilizar o sistema, o Practice Forms está em funcionamento em [practice.uffs.edu.br/forms](https://practice.uffs.edu.br/forms).
 
 ## ✨ Features
 
-O mural possui um conjunto considerável de features:
+O forms possui um conjunto considerável de features:
 
-* Autenticação a partir do idUFFS;
-* Categorias de serviços, com campos dinâmicos para cada;
-* Acompanhamento de solicitações;
-* Ingragração com [Github](https://github.com) e [Google Drive](https://drive.google.com);
+* Autenticação a partir do [idUFFS](https://id.uffs.edu.br).
+* Criação de enquetes/forms a partir de texto puro.
+* Acompanhamento de respostas (em tempo real).
 
 ## 🚀 Começando
 
@@ -46,7 +45,7 @@ Feito a instalação das dependências, é necessário obter uma cópia do proje
 Para isso, rode:
 
 ```
-git clone --recurse-submodules https://github.com/practice-uffs/mural && cd mural
+git clone --recurse-submodules https://github.com/practice-uffs/forms && cd mural
 ```
 
 Isso criará e trocará para a pasta `mural` com o código do projeto.
@@ -138,7 +137,7 @@ curl -H 'Accept: application/json' -H "Authorization: Bearer c08cbbfd6eefc83ac6d
 
 ## 🤝 Contribua
 
-Sua ajuda é muito bem-vinda, independente da forma! Confira o arquivo [CONTRIBUTING.md](CONTRIBUTING.md) para conhecer todas as formas de contribuir com o projeto. Por exemplo, [sugerir uma nova funcionalidade](https://github.com/practice-uffs/mural/issues/new?assignees=&labels=&template=feature_request.md&title=), [reportar um problema/bug](https://github.com/practice-uffs/mural/issues/new?assignees=&labels=bug&template=bug_report.md&title=), [enviar um pull request](https://github.com/ccuffs/hacktoberfest/blob/master/docs/tutorial-pull-request.md), ou simplemente utilizar o projeto e comentar sua experiência.
+Sua ajuda é muito bem-vinda, independente da forma! Confira o arquivo [CONTRIBUTING.md](CONTRIBUTING.md) para conhecer todas as formas de contribuir com o projeto. Por exemplo, [sugerir uma nova funcionalidade](https://github.com/practice-uffs/forms/issues/new?assignees=&labels=&template=feature_request.md&title=), [reportar um problema/bug](https://github.com/practice-uffs/forms/issues/new?assignees=&labels=bug&template=bug_report.md&title=), [enviar um pull request](https://github.com/ccuffs/hacktoberfest/blob/master/docs/tutorial-pull-request.md), ou simplemente utilizar o projeto e comentar sua experiência.
 
 Veja o arquivo [ROADMAP.md](ROADMAP.md) para ter uma ideia de como o projeto deve evoluir.
 
@@ -157,6 +156,6 @@ Abaixo está uma lista de links interessantes e projetos similares:
 
 * [Universidade Federal da Fronteira Sul](https://www.uffs.edu.br)
 * [Programa Practice](https://practice.uffs.cc)
+* [Practice Mural](https://github.com/practice-uffs/mural)
 * [Practice Maker](https://github.com/practice-uffs/maker)
 * [Practice Bot](https://github.com/practice-uffs/bot)
-* [Practice Forms](https://github.com/practice-uffs/forms)
