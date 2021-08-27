@@ -111,7 +111,7 @@
                     <label for="{{ $key }}" class="label">
                         <span class="label-text">{{ $field['label'] }}</span>
                     </label>
-                    <input wire:model="{{ $key }}" type="text" name="{{ $key }}" placeholder="{{ @$field['placeholder'] }}" class="input input-bordered @error($key) input-error @enderror" />
+                    <input wire:model="{{ $key }}" type="text" name="{{ $key }}" placeholder="{{ @$field['placeholder'] }}" class="input input-bordered @error($key) input-error @enderror w-full" />
                     @break
                 @endswitch
 

@@ -8,7 +8,7 @@
         <nav id="navbar" class="navbar">
             <ul>
                 @auth
-                    <li><a href="{{ route('home') }}" class="nav-link @if (Route::is('home')) active @endif" >Inicial</a></li>
+                    <li><a href="{{ route('home') }}" class="nav-link @if (Route::is('home')) active @endif" >Minhas criações</a></li>
                     <li class="dropdown ml-3">
                         <a href="{{ route('form.create') }}"><div tabindex="0" class="btn btn-primary btn-outline">Nova enquete</div></a>
                     </li>                    
@@ -17,10 +17,6 @@
                         <li class="dropdown ml-3">
                             <div tabindex="1" class="btn btn-primary btn-outline">Admin <i class="bi bi-chevron-down"></i></div>
                             <ul class="shadow menu dropdown-content bg-base-100 rounded-box w-52">
-                                <li><a href="{{ route('admin.orders') }}">Pedidos</a></li> 
-                                <li><hr /></li> 
-                                <li><a href="{{ route('admin.service') }}">Serviços</a></li> 
-                                <li><hr /></li> 
                                 <li><a href="{{ route('admin.user') }}">Usuários</a></li> 
                                 <li><a href="{{ route('admin.subscriber') }}">Newsletter</a></li>
                             </ul>

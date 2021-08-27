@@ -16,14 +16,15 @@ class CreateFormsTable extends Migration
     {
         Schema::create('forms', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('status')->index()->default(Form::OPEN);
+            $table->foreignId('user_id');
+            $table->boolean('is_accepting_replies')->index()->default(true);
+            $table->boolean('is_auth_required')->index()->default(true);
+            $table->boolean('is_one_reply_only')->index()->default(true);
             $table->string('title');
             $table->text('user_questions')->default('');
             $table->text('questions');
             $table->string('hash');
             $table->timestamps();
-
-            $table->foreignId('user_id');
         });
     }
 

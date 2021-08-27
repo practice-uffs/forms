@@ -69,8 +69,6 @@ Route::group(['middleware' => 'auth'], function () {
 
     // Admin
     Route::group(['middleware' => 'check.admin'], function () {
-        Route::get('/gerenciar/pedidos', [AdminOrderController::class, 'index'])->name('admin.orders');
-        Route::get('/gerenciar/servicos', [AdminServiceController::class, 'index'])->name('admin.service');
         Route::get('/gerenciar/usuarios', [UserController::class, 'index'])->name('admin.user');
         Route::get('/gerenciar/newsletter', [SubscriberController::class, 'index'])->name('admin.subscriber');
     });

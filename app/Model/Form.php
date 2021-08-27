@@ -10,8 +10,6 @@ class Form extends Model
 {
     use HasFactory;
 
-    const OPEN = 1;
-
     /**
      * Eager load the following always
      */
@@ -28,6 +26,9 @@ class Form extends Model
     protected $fillable = [
         'id',
         'user_id',
+        'is_accepting_replies',
+        'is_auth_required',
+        'is_one_reply_only',
         'title',
         'user_questions',
         'questions',
@@ -59,6 +60,24 @@ class Form extends Model
                 'placeholder' => 'Ex.: Pesquisa de satisfação',
                 'validation' => 'present',
             ],
+            'is_accepting_replies' => [
+                'label' => 'Aceitando respostas',
+                'type' => 'boolean',
+                'placeholder' => 'Ex.: Pesquisa de satisfação',
+                'validation' => 'present',
+            ],            
+            'is_auth_required' => [
+                'label' => 'Exige autenticação para responder',
+                'type' => 'boolean',
+                'placeholder' => 'Ex.: Pesquisa de satisfação',
+                'validation' => 'present',
+            ],
+            'is_one_reply_only' => [
+                'label' => 'Somente uma resposta por usuário (obriga autenticação)',
+                'type' => 'boolean',
+                'placeholder' => 'Ex.: Pesquisa de satisfação',
+                'validation' => 'present',
+            ],            
             'user_questions' => [
                 'label' => 'Perguntas',
                 'type' => 'poll',
