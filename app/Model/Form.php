@@ -56,10 +56,10 @@ class Form extends Model
         'fields' => [
             'title' => [
                 'label' => 'Título',
-                'placeholder' => 'Ex.: Semana Acadêmica de Física',
-                'validation' => 'required|min:5',
+                'placeholder' => 'Ex.: Pesquisa de satisfação',
+                'validation' => 'present',
             ],
-            'questions' => [
+            'user_questions' => [
                 'label' => 'Perguntas',
                 'type' => 'poll',
                 'show' => 'create,edit',

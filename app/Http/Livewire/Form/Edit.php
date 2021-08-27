@@ -8,7 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Edit extends \App\Http\Livewire\Crud\Main
 {
     public $poll_view = '';
-    
+
+    public function mount($model = '', $edit = null)
+    {
+        parent::mount($model, $edit);
+        $this->renderUserQuestion($this->data['user_questions']);
+    }
+
     /**
      * 
      * 
@@ -22,15 +28,9 @@ class Edit extends \App\Http\Livewire\Crud\Main
             return $data;
         }
 
-        // Se existem campos extra para esse serviço, eles estarão
-        // descritos como um texto (uma listagem de perguntas linha a linha).
-        // Vamos pegar esse tal texto e colocar no campo "poll" do serviço
-        // para que o usuário possa editar o texto.
-        $data['questions'] = $data['questions']['user_description'];
-
         // Colocamos no campo de visualização do questionário o "render"
         // do texto de perguntas do usuário.
-        $this->poll_view = ''; // TODO: colocar o campo aqui.
+        $this->poll_view = '';
 
         return $data;
     }
@@ -42,10 +42,8 @@ class Edit extends \App\Http\Livewire\Crud\Main
      */
     protected function prepareValuesForCreate(array $values) {
         $result = parent::prepareValuesForCreate($values);
-        $result['questions'] = [
-            'user_description' => $values['questions'],
-            'fields' => PollFromText::make($values['questions'])
-        ];
+        $result['questions'] = PollFromText::make($values['user_questions']);
+
         return $result;
     }
 
@@ -57,39 +55,47 @@ class Edit extends \App\Http\Livewire\Crud\Main
      */
     protected function prepareValuesForUpdate(array $values, Model $item) {
         $result = parent::prepareValuesForUpdate($values, $item);
-        $result['questions'] = [
-            'user_description' => $values['questions'],
-            'fields' => PollFromText::make($values['questions'])
-        ];
+        $result['questions'] = PollFromText::make($values['user_questions']);
+
         return $result;
     }
 
-    public function resetInput()
+    public function resetAfterUpdate()
     {
-        parent::resetInput();
+        // não faz nada...
+    }
+
+    protected function renderUserQuestion($value)
+    {
+        if (empty($value)) {
+            return;
+        }
+
+        // TODO: colocar um pouco de carinho aqui quando PollFromText::makeHtml() existir :D
+        $poll = PollFromText::make($value);
         $this->poll_view = '';
+
+        foreach($poll as $question) {
+            $type = $question['type'];
+            $this->poll_view .= $question['text'] . '<br />';
+            switch($question['type']) {
+                case 'input': $this->poll_view .= '<input type="'.$type.'">'; break;
+                case 'select':
+                    $this->poll_view .= '<select>';
+                    foreach($question['options'] as $value) { $this->poll_view .= "<option>$value</option>";}
+                    $this->poll_view .= '</select>';
+                    break;
+            }
+            $this->poll_view .= '<br />';
+        }
     }
 
     public function updated($field, $value)
     {
-        if ($field == 'data.questions') {
-            // TODO: colocar um pouco de carinho aqui quando PollFromText::makeHtml() existir :D
-            $poll = PollFromText::make($value);
-            $this->poll_view = '';
-
-            foreach($poll as $question) {
-                $type = $question['type'];
-                $this->poll_view .= $question['text'] . '<br />';
-                switch($question['type']) {
-                    case 'input': $this->poll_view .= '<input type="'.$type.'">'; break;
-                    case 'select':
-                        $this->poll_view .= '<select>';
-                        foreach($question['options'] as $value) { $this->poll_view .= "<option>$value</option>";}
-                        $this->poll_view .= '</select>';
-                        break;
-                }
-                $this->poll_view .= '<br />';
-            }
+        $this->update();
+        
+        if ($field == 'data.user_questions') {
+            $this->renderUserQuestion($value);   
         }
     }
 }

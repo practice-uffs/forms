@@ -2,7 +2,7 @@
     @include('livewire.crud.success')
 
     @if (!$finished)
-        <div class="form-control mb-4 pb-4">
+        <div class="mb-4 pb-4">
             @foreach ($fields as $key => $field)
                 @if (isset($field['show']) && ( ($editing && !Str::contains($field['show'], 'edit')) || (!$editing && !Str::contains($field['show'], 'create'))))
                     @continue
@@ -79,21 +79,25 @@
                     @break
                 @case('poll')
                     <div class="flex w-full">
-                        <div class="w-1/2">
+                        <div class="w-1/2 p-2">
                             <label for="{{ $key }}" class="label">
                                 <span class="label-text">{{ $field['label'] }}</span>
                             </label>
-                            <textarea wire:model="{{ $key }}" name="{{ $key }}" placeholder="{{ @$field['placeholder'] }}" class="textarea textarea-bordered h-40 w-full @error($key) textarea-error @enderror"></textarea>
+                            <textarea wire:model="{{ $key }}" name="{{ $key }}" placeholder="{{ @$field['placeholder'] }}" class="textarea textarea-bordered h-screen w-full @error($key) textarea-error @enderror"></textarea>
                         </div>
-                        <div class="w-1/2">
+                        <div class="w-1/2 p-2">
                             <label class="label">
                                 <span class="label-text">Visualização</span>
                             </label>
-                            <div x-data="{ content: null }" x-init="{ content: @entangle('data.poll') }" class="w-full p-2 bg-gray-200 h-40 overflow-scroll">
-                                <div x-on:blur="content = $event.target.innerHTML">
-                                    {!! $poll_view !!}
+                            <div class="mockup-window bg-base-300">
+                                <div class="absolute top-3 right-2">kjh</div>
+                                <div x-data="{ content: null }" x-init="{ content: @entangle('data.poll') }" class="w-full h-screen p-2 bg-gray-100 overflow-scroll">
+                                    <div x-on:blur="content = $event.target.innerHTML">
+                                        {!! $poll_view !!}
+                                    </div>
                                 </div>
                             </div>
+                            
                         </div>
                     </div>
                     @break
@@ -119,13 +123,15 @@
             @endforeach
         </div>
 
-        @if (isset($data['id']) || $editing)
-            <button wire:click="update()" class="btn btn-primary float-right">Salvar</button>
-            @if (!isset($edit))
-                <button wire:click="cancel()" class="btn float-right mr-6">Cancelar</button>
+        @if ($show_action_buttons)
+            @if (isset($data['id']) || $editing)
+                <button wire:click="update()" class="btn btn-primary float-right">Salvar</button>
+                @if (!isset($edit))
+                    <button wire:click="cancel()" class="btn float-right mr-6">Cancelar</button>
+                @endif
+            @else
+                <button wire:click="store()" class="btn btn-wide btn-primary">Enviar</button>
             @endif
-        @else
-            <button wire:click="store()" class="btn btn-wide btn-primary">Enviar</button>
         @endif
     @endif
 </div> 

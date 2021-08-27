@@ -29,6 +29,7 @@ class Main extends Component
     public bool $show_create_panel = true;
     public bool $show_list = true;
     public bool $show_success = true;
+    public bool $show_action_buttons = true;
     public array $override = [];
 
     public string $model = ''; // E.g. '\App\Model\Order'
@@ -366,7 +367,11 @@ class Main extends Component
         $item->update($values);
 
         $this->modelUpdated($item);
+        $this->resetAfterUpdate();
+    }
 
+    public function resetAfterUpdate()
+    {
         $this->resetInput();
         $this->hideInlineEdit();
         $this->finished(true);
