@@ -2,37 +2,27 @@
 
 namespace App\Http\Livewire\Form;
 
+use App\Model\Form;
 use CCUFFS\Text\PollFromText;
-use Illuminate\Database\Eloquent\Model;
+use Livewire\Component;
 
-class Edit extends \App\Http\Livewire\Crud\Main
+class Edit extends Component
 {
-    public $poll_view = '';
+    public Form $form;
+    public string $poll_view = '';    
 
-    public function mount($model = '', $edit = null)
+    public $rules = [
+        'form.title' => 'present',
+        'form.user_questions' => 'present',
+        'form.is_accepting_replies' => 'present',
+        'form.is_auth_required' => 'present',
+        'form.is_one_reply_only' => 'present'
+   ];
+
+    public function mount(Form $form)
     {
-        parent::mount($model, $edit);
-        $this->renderUserQuestion($this->data['user_questions']);
-    }
-
-    /**
-     * 
-     * 
-     * @param array $data
-     * 
-     * @return array
-     */
-    protected function prepareModelData(array $data) :array
-    {
-        if (empty($data['questions'])) {
-            return $data;
-        }
-
-        // Colocamos no campo de visualização do questionário o "render"
-        // do texto de perguntas do usuário.
-        $this->poll_view = '';
-
-        return $data;
+        $this->form = $form;
+        $this->renderUserQuestion($this->form->user_questions);
     }
 
     /**
@@ -60,11 +50,6 @@ class Edit extends \App\Http\Livewire\Crud\Main
         return $result;
     }
 
-    public function resetAfterUpdate()
-    {
-        // não faz nada...
-    }
-
     protected function renderUserQuestion($value)
     {
         if (empty($value)) {
@@ -90,12 +75,18 @@ class Edit extends \App\Http\Livewire\Crud\Main
         }
     }
 
+    public function update()
+    {
+        $this->validate();
+        $this->form->save();
+    }
+
     public function updated($field, $value)
     {
-        $this->update();
-        
-        if ($field == 'data.user_questions') {
+        if ($field == 'form.user_questions') {
             $this->renderUserQuestion($value);   
         }
+
+        $this->update();        
     }
 }
