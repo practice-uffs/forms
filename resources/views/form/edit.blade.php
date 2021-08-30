@@ -32,18 +32,18 @@
 
 <script>
     $(document).ready(function () {
-        $('#replies').append('<div id="chart"></div>');
-
-        // use axios to load an array of data from a url with a json response
         axios.get('{{ $result_json_url }}')
             .then(function (response) {
-                var questions = response.data;
+                var result = response.data;
+                for(var text in result.replies) {
+                    var entry = result.replies[text];
+                    var answerLabels = Object.keys(entry);
+                    var answerValues = Object.values(entry);
 
-                for(var text in questions) {
                     var options = {
                         series: [{
                             name: 'Inflation',
-                            data: [2.3, 3.1, 4.0, 10.1, 4.0, 3.6, 3.2, 2.3, 1.4, 0.8, 0.5, 0.2]
+                            data: answerValues
                         }],
                         chart: {
                             height: 350,
@@ -70,7 +70,7 @@
                         },
             
                         xaxis: {
-                            categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+                            categories: answerLabels,
                             position: 'top',
                             axisBorder: {
                                 show: false
@@ -110,7 +110,7 @@
             
                         },
                         title: {
-                            text: 'Monthly Inflation in Argentina, 2002',
+                            text: text,
                             floating: true,
                             offsetY: 330,
                             align: 'center',
@@ -120,7 +120,9 @@
                         }
                     };
             
-                    var chart = new ApexCharts(document.querySelector("#chart"), options);
+                    var id = 'chart-' + Math.random().toString(36).substring(7);
+                    $('#replies').append('<div id="' + id + '" class="mb-4"></div>');
+                    var chart = new ApexCharts(document.querySelector('#' + id), options);
                     chart.render();
                 }
             })

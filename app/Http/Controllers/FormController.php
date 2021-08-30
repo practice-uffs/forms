@@ -76,11 +76,32 @@ class FormController extends Controller
                         $replies[$text] = [];
                     }
 
-                    $replies[$text][] = $answer;
+                    if (!isset($reply['options'])) {
+                        $replies[$text][] = $answer;
+                        continue;
+                    }
+
+                    $answerLabel = $reply['options'][$answer];
+
+                    if (!isset($replies[$text][$answerLabel])) {
+                        $replies[$text][$answerLabel] = 0;
+                    }
+
+                    $replies[$text][$answerLabel]++;
                 }
             }
         });
 
-        return response()->json($replies);
+        $quesitons = [];
+
+        collect($form->questions)->each(function ($question) use (&$quesitons) {
+            $text = $question['text'];
+            $quesitons[$text] = $question;
+        });
+
+        return response()->json([
+            'replies' => $replies,
+            'questions' => $quesitons,
+        ], 200, [], JSON_NUMERIC_CHECK);
     }    
 }
