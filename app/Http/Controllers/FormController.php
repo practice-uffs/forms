@@ -64,44 +64,6 @@ class FormController extends Controller
             abort(404);
         }
 
-        $replies = [];
-        
-        $form->replies()->chunk(100, function ($chunk) use (&$replies) {
-            foreach($chunk as $entry) {
-                foreach($entry->data as $reply) {
-                    $text = $reply['text'];
-                    $answer = $reply['answer'];
-
-                    if (!isset($replies[$text])) {
-                        $replies[$text] = [];
-                    }
-
-                    if (!isset($reply['options'])) {
-                        $replies[$text][] = $answer;
-                        continue;
-                    }
-
-                    $answerLabel = $reply['options'][$answer];
-
-                    if (!isset($replies[$text][$answerLabel])) {
-                        $replies[$text][$answerLabel] = 0;
-                    }
-
-                    $replies[$text][$answerLabel]++;
-                }
-            }
-        });
-
-        $quesitons = [];
-
-        collect($form->questions)->each(function ($question) use (&$quesitons) {
-            $text = $question['text'];
-            $quesitons[$text] = $question;
-        });
-
-        return response()->json([
-            'replies' => $replies,
-            'questions' => $quesitons,
-        ], 200, [], JSON_NUMERIC_CHECK);
+        return response()->json($form->result, 200, [], JSON_NUMERIC_CHECK);
     }    
 }

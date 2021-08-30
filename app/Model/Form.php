@@ -101,4 +101,47 @@ class Form extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function getResultAttribute()
+    {
+        $replies = [];
+        
+        $this->replies()->chunk(100, function ($chunk) use (&$replies) {
+            foreach($chunk as $entry) {
+                foreach($entry->data as $reply) {
+                    $text = $reply['text'];
+                    $answer = $reply['answer'];
+
+                    if (!isset($replies[$text])) {
+                        $replies[$text] = [];
+                    }
+
+                    if (!isset($reply['options'])) {
+                        $replies[$text][] = $answer;
+                        continue;
+                    }
+
+                    $answerLabel = $reply['options'][$answer];
+
+                    if (!isset($replies[$text][$answerLabel])) {
+                        $replies[$text][$answerLabel] = 0;
+                    }
+
+                    $replies[$text][$answerLabel]++;
+                }
+            }
+        });
+
+        $quesitons = [];
+
+        collect($this->questions)->each(function ($question) use (&$quesitons) {
+            $text = $question['text'];
+            $quesitons[$text] = $question;
+        });
+
+        return [
+            'replies' => $replies,
+            'questions' => $quesitons
+        ];
+    }
 }
