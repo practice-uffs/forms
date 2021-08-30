@@ -65,6 +65,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/inicial', [HomeController::class, 'index'])->name('home');
     Route::get('/criar', [FormController::class, 'create'])->name('form.create');
     Route::get('/editar/{form}', [FormController::class, 'edit'])->name('form.edit');
+    Route::get('/resultado/{form}/{hash}', [FormController::class, 'result'])->name('form.result');
     Route::get('/{form}/{hash}', [ReplyController::class, 'create'])->name('reply.create');
 
     // Admin

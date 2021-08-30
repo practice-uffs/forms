@@ -40,6 +40,10 @@ class FormController extends Controller
                 'form' => $form,
                 'hash' => $form->hash
             ]),
+            'result_json_url' => route('form.result', [
+                'form' => $form,
+                'hash' => $form->hash
+            ]),            
         ]);
     }
 
@@ -53,4 +57,30 @@ class FormController extends Controller
             'form' => $form,
         ]);
     }
+
+    public function result(Form $form, string $hash)
+    {
+        if ($form->hash !== $hash) {
+            abort(404);
+        }
+
+        $replies = [];
+        
+        $form->replies()->chunk(100, function ($chunk) use (&$replies) {
+            foreach($chunk as $entry) {
+                foreach($entry->data as $reply) {
+                    $text = $reply['text'];
+                    $answer = $reply['answer'];
+
+                    if (!isset($replies[$text])) {
+                        $replies[$text] = [];
+                    }
+
+                    $replies[$text][] = $answer;
+                }
+            }
+        });
+
+        return response()->json($replies);
+    }    
 }
