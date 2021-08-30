@@ -2,18 +2,19 @@
 
 namespace App\Http\Livewire\Reply;
 
+use App\Events\FormReplied;
 use Illuminate\Database\Eloquent\Model;
 
 class Create extends \App\Http\Livewire\Crud\Main
 {
     public Model $form;
 
-    protected function modelCreated(Model $model)
+    protected function modelCreated(Model $reply)
     {
-        // TODO: disparar um evento informando que um resposta foi criada.
+        event(new FormReplied($this->form, $reply));
     }
 
-    protected function modelUpdated(Model $model)
+    protected function modelUpdated(Model $reply)
     {
     }
 

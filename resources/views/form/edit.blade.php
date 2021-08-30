@@ -130,6 +130,10 @@
                 console.log(error);
             });
     });
+
+    Echo.channel('forms.{{ $form->id }}').listen('FormReplied', (e) => {
+        console.log(e.form);
+    });
 </script>
 
 @endsection

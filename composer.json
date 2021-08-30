@@ -9,6 +9,7 @@
     "license": "MIT",
     "require": {
         "php": "^7.3|^8.0",
+        "beyondcode/laravel-websockets": "^1.12",
         "ccuffs/auth-iduffs": "^1.1",
         "ccuffs/poll-from-text": "^1.0",
         "composer/ca-bundle": "^1.2",
@@ -16,6 +17,7 @@
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.2",
+        "guzzlehttp/psr7": "1.7",
         "http-interop/http-factory-guzzle": "^1.0",
         "knplabs/github-api": "^3.3",
         "laravel/framework": "^8.0",
@@ -25,6 +27,7 @@
         "livewire/livewire": "^2.4",
         "mydnic/laravel-subscribers": "^1.7",
         "paragonie/paseto": "^1.0.3",
+        "pusher/pusher-php-server": "~5.0",
         "symfony/yaml": "^5.1",
         "tailflow/laravel-orion": "^2.1",
         "tymon/jwt-auth": "^1.0"

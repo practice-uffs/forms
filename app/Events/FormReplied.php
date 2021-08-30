@@ -2,26 +2,30 @@
 
 namespace App\Events;
 
-use App\Model\Order;
+use App\Model\Form;
+use App\Model\Reply;
+use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Broadcasting\PrivateChannel;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class OrderCreated
+class FormReplied implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public Order $order;
+    public Form $form;
+    public Reply $reply;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct(Order $order)
+    public function __construct(Form $form, Reply $reply)
     {
-        $this->order = $order;
+        $this->form = $form->withoutRelations();
+        $this->reply = $reply->withoutRelations();
     }
 
     /**
@@ -31,6 +35,6 @@ class OrderCreated
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('channel-name');
+        return new Channel('forms.'.$this->form->id);
     }
 }
