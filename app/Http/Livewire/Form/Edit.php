@@ -25,31 +25,6 @@ class Edit extends Component
         $this->renderUserQuestion($this->form->user_questions);
     }
 
-    /**
-     * @param array $values
-     * 
-     * @return [type]
-     */
-    protected function prepareValuesForCreate(array $values) {
-        $result = parent::prepareValuesForCreate($values);
-        $result['questions'] = PollFromText::make($values['user_questions']);
-
-        return $result;
-    }
-
-    /**
-     * @param array $values
-     * @param Model $item
-     * 
-     * @return [type]
-     */
-    protected function prepareValuesForUpdate(array $values, Model $item) {
-        $result = parent::prepareValuesForUpdate($values, $item);
-        $result['questions'] = PollFromText::make($values['user_questions']);
-
-        return $result;
-    }
-
     protected function renderUserQuestion($value)
     {
         if (empty($value)) {
@@ -85,6 +60,7 @@ class Edit extends Component
     {
         if ($field == 'form.user_questions') {
             $this->renderUserQuestion($value);   
+            $this->form->questions = PollFromText::make($value);
         }
 
         $this->update();        
