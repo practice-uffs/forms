@@ -14,7 +14,6 @@ class FormReplied implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public Form $form;
     public Reply $reply;
 
     /**
@@ -22,9 +21,8 @@ class FormReplied implements ShouldBroadcast
      *
      * @return void
      */
-    public function __construct(Form $form, Reply $reply)
+    public function __construct(Reply $reply)
     {
-        $this->form = $form->withoutRelations();
         $this->reply = $reply->withoutRelations();
     }
 
@@ -35,6 +33,6 @@ class FormReplied implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('forms.'.$this->form->id);
+        return new Channel('forms.'.$this->reply->form_id);
     }
 }

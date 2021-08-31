@@ -7,18 +7,12 @@
         </header>
 
         <div class="row mb-8">
-            <div class="row mb-3">
-                <div class="col-12 text-right">
-                    <p class="font-semibold text-md">Acesso para responder</p>
-                </div>
-            </div>
             <div class="row">
-                <div class="col-4">
-
-                </div>
+                <div class="col-4"></div>
                 <div class="col-8 content-end text-right">
                     <img src="{{ asset('img/qrcode.svg') }}" class="w-24 float-right ml-4" title="">
-                    <p class="text-md text-gray-500 mt-3">Para que outras pessoas possam responder, compartilhe o código QR ao lado ou o link baixo:</p>
+                    <p class="font-semibold text-lg">Acesso para responder</p>
+                    <p class="text-md text-gray-500 mt-1">Para que outras pessoas possam responder, compartilhe o código QR ao lado ou o link baixo:</p>
                     <a href="{{ $reply_link }}" class="text-xl font-semibold text-blue-400" target="_blank">{{ $reply_link }}</a>
                 </div>
             </div>
@@ -35,7 +29,8 @@
         PracticeForms.init({
             formId: '{{ $form->id }}',
             resultUrl: '{{ $result_json_url }}',
-            containerId: 'replies'
+            repliesContainerId: 'replies',
+            repliesBadgeContainerId: 'repliesBadge',
         });
     });
 </script>

@@ -2,12 +2,18 @@ var PracticeForms = {
     config: {
         formId: null,
         resultUrl: null,
-        containerId: null,
+        repliesContainerId: null,
+        repliesBadgeContainerId: null,
     },
 
+    chartIds: {}, // dicionário questão -> id do elemento que contém o gráfico
+    charts: {},   // dicionário id elemento -> objeto gráfico
+
     subscribeToEchoChannels: function() {
+        var self = this;
+
         Echo.channel(`forms.${this.config.formId}`).listen('FormReplied', (e) => {
-            console.log(e.form);
+            self.loadResult();
         });      
     },
 
@@ -36,32 +42,73 @@ var PracticeForms = {
         console.error(error);
     },
 
-    renderQuestionResult: function(id, question, replies) {
+    renderQuestionResult: function(questionId, question, replies) {
         const type = question.type;
 
         if (type == 'input') {
-            this.renderQuestionResultTypedInput(id, question, replies);
+            this.renderQuestionResultTypedInput(questionId, question, replies);
 
         } else if (type == 'select') {
-            this.renderQuestionResultTypedSelect(id, question, replies);
+            this.renderQuestionResultTypedSelect(questionId, question, replies);
         }
     },
 
-    renderQuestionResultTypedInput: function(id, question) {
-        console.log('TODO: renderQuestionResultTypedInput', id, question);
+    renderNoRepliesYet: function() {
+        return `<div class="text-gray-400 text-center pt-32 text-xl">
+                   Nenhuma resposta ainda
+               </div>`
     },
 
-    renderQuestionResultTypedSelect: function(id, question, replies) {
+    getChartIdFromQuestionId: function(questionId) {
+        if (!this.chartIds[questionId]) {
+            this.chartIds[questionId] = 'chart-' + Math.random().toString(36).substring(7);
+        }
+
+        return this.chartIds[questionId];
+    },  
+
+    renderQuestionResultTypedInput: function(questionId, question, replies) {
+        var id = this.getChartIdFromQuestionId(questionId);
+        var selector = '#' + this.config.repliesContainerId;
+        var rows = [];
+
+        replies = replies || [];
+
+        replies.map(function(reply) {
+            rows.push('<div class="border h-10 p-2 chart-text-entry">' + reply + '</div>');
+        })
+
+        var rowsAsHtml = rows.join('');
+        var chartExists = document.getElementById(id);
+
+        if (chartExists) {
+            $(`#${id} .chart-text-entries`).html(rowsAsHtml);
+            $(`#${id} .chart-text-entry:last-child`).fadeOut().fadeIn();
+            return;
+        }
+
+        $(selector).append(
+            `<div id="${id}" class="mb-4 w-full">
+                <p class="font-bold text-center mb-4">${question.text}</p>
+                <div class="mb-4 w-full h-80 overflow-y-scroll chart-text-entries">` +
+                    (rows.length == 0 ? this.renderNoRepliesYet() : rowsAsHtml) +
+                `</div>
+            </div>`
+        );
+    },
+
+    renderQuestionResultTypedSelect: function(questionId, question, replies) {
         var answerLabels = Object.keys(replies);
         var answerValues = Object.values(replies);
+        var answerValuesSum = answerValues.reduce(function(a, b) { return a + b; }, 0);
 
         var options = {
             series: [{
-                name: 'Inflation',
+                name: 'Respostas',
                 data: answerValues
             }],
             chart: {
-                height: 350,
+                height: 450,
                 type: 'bar',
             },
             plotOptions: {
@@ -75,15 +122,20 @@ var PracticeForms = {
             dataLabels: {
                 enabled: true,
                 formatter: function (val) {
-                    return val + "%";
+                    return val;
                 },
-                offsetY: -20,
+                offsetY: -15,
                 style: {
-                    fontSize: '12px',
-                    colors: ["#304758"]
+                    fontSize: '1.5em',
+                    colors: ["#304758"],
                 }
             },
-
+            padding: {
+                top: '20px',
+                right: 0,
+                bottom: 0,
+                left: 0
+            },
             xaxis: {
                 categories: answerLabels,
                 position: 'top',
@@ -105,11 +157,19 @@ var PracticeForms = {
                         }
                     }
                 },
+                labels: {
+                    offsetY: -10,
+                    style: {
+                        fontSize: '1.1em',
+                        cssClass: 'text-gray-500 text-md',
+                    }                    
+                },
                 tooltip: {
-                    enabled: true,
+                    enabled: false,
                 }
             },
             yaxis: {
+                max: Math.max(...answerValues) * 1.1,
                 axisBorder: {
                     show: false
                 },
@@ -118,34 +178,47 @@ var PracticeForms = {
                 },
                 labels: {
                     show: false,
+                    offsetY: 10,
                     formatter: function (val) {
-                        return val + "%";
-                    }
+                        var percent = (val/answerValuesSum * 100).toFixed(2);
+                        return `${val} (${percent}%)`;
+                    },
                 }
 
             },
             title: {
                 text: question.text,
                 floating: true,
-                offsetY: 330,
+                margin: 70,
                 align: 'center',
                 style: {
+                    fontSize:  '1.2em',
+                    fontWeight:  '600',
+                    fontFamily:  'Roboto',
                     color: '#444'
                 }
             }
         };
         
-        this.createChart(options);
+        this.createChart(questionId, options);
     },
 
-    createChart: function(options) {
-        var id = 'chart-' + Math.random().toString(36).substring(7);
-        var selector = '#' + this.config.containerId;
+    createChart: function(questionId, options) {
+        var id = this.getChartIdFromQuestionId(questionId);
+        var selector = '#' + this.config.repliesContainerId;
+        var chartExists = document.getElementById(id);
+
+        if (chartExists) {
+            this.charts[id].updateOptions(options);
+            return;
+        }
 
         $(selector).append('<div id="' + id + '" class="mb-4"></div>');
         
         var chart = new ApexCharts(document.querySelector('#' + id), options);
         chart.render();
+
+        this.charts[id] = chart;
     },
 
     renderRepliesFromResult: function(result) {
@@ -154,9 +227,27 @@ var PracticeForms = {
         }
     },
 
+    updateRepliesCountBadge: function(result) {
+        var count = result.stats.repliesCount;
+        var selector = '#' + this.config.repliesBadgeContainerId;
+        $(selector).html(`
+            <div class="badge badge-sm badge-primary badge-outline ml-2">
+                ${count}
+            </div>`).fadeOut().fadeIn();
+    },
+
     onResultLoaded: function(result) {
-        console.log(result);
+        var noRepliesYetElement = $('#' + this.config.repliesContainerId + ' .no-replies-yet');
+
+        if (result.stats.repliesCount == 0) {
+            noRepliesYetElement.html(this.renderNoRepliesYet());
+            return;
+        }
+
+        noRepliesYetElement.empty();
+
         this.renderRepliesFromResult(result);
+        this.updateRepliesCountBadge(result);
     },
 
 };

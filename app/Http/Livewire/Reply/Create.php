@@ -11,7 +11,7 @@ class Create extends \App\Http\Livewire\Crud\Main
 
     protected function modelCreated(Model $reply)
     {
-        event(new FormReplied($this->form, $reply));
+        event(new FormReplied($reply));
     }
 
     protected function modelUpdated(Model $reply)

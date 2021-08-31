@@ -13,7 +13,7 @@
         <div class="tabs row">
             <a :class="{ 'tab-active': tab === 'questions' }" @click.prevent="tab = 'questions'; window.location.hash = 'questions'" href="#" class="tab tab-lg tab-lifted col-2">Perguntas</a>
             <a :class="{ 'tab-active': tab === 'permissions' }" @click.prevent="tab = 'permissions'; window.location.hash = 'permissions'" href="#" class="tab tab-lg tab-lifted col-2">Permissões</a>
-            <a :class="{ 'tab-active': tab === 'replies' }" @click.prevent="tab = 'replies'; window.location.hash = 'replies'" href="#" class="tab tab-lg tab-lifted col-2">Respostas</a>
+            <a :class="{ 'tab-active': tab === 'replies' }" @click.prevent="tab = 'replies'; window.location.hash = 'replies'" href="#" class="tab tab-lg tab-lifted col-2">Respostas <span id="repliesBadge"></span></a>
             <a href="#" class="tab tab-lg tab-lifted text-white col-6">|</a>
         </div>
 
@@ -85,9 +85,7 @@
         
         <div x-show="tab === 'replies'" class="row p-2" id="replies">
             <div class="row">
-                <div class="col-12">
-                    dsds
-                </div>
+                <div class="col-12 no-replies-yet"></div>
             </div>
         </div>
     </div>

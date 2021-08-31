@@ -141,7 +141,10 @@ class Form extends Model
 
         return [
             'replies' => $replies,
-            'questions' => $quesitons
+            'questions' => $quesitons,
+            'stats' => [
+                'repliesCount' => $this->replies()->count(),
+            ]
         ];
     }
 }

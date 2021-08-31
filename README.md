@@ -120,6 +120,18 @@ php artisan serve
 
 Após isso a aplicação estará rodando na porta 8000 e poderá ser acessada em [localhost:8000](http://localhost:8000).
 
+Para que as notificações em tempo real funcionem, você precisa rodar as filas (queues) do Laravel
+
+```
+php artisan queue:work
+```
+
+E também o servidor websocket (use outra sessão/aba do terminal para isso):
+
+```
+php artisan websockets:serve
+```
+
 #### 3.2 Utilização da API
 
 Se você utilizar a API dessa aplicacão, todos endpoints estarão acessivel em `/api`, por exemplo [localhost:8000/api](http://localhost:8000/api). Os endpoints que precisam de uma chave de autenticação devem ser utilizar o seguinte cabeçalho HTTP:
