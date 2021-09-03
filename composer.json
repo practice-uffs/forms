@@ -28,6 +28,7 @@
         "mydnic/laravel-subscribers": "^1.7",
         "paragonie/paseto": "^1.0.3",
         "pusher/pusher-php-server": "~5.0",
+        "simplesoftwareio/simple-qrcode": "~4",
         "symfony/yaml": "^5.1",
         "tailflow/laravel-orion": "^2.1",
         "tymon/jwt-auth": "^1.0"
