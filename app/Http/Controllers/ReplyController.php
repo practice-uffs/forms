@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Model\Form;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
+use Illuminate\Support\Facades\View;
 
 class ReplyController extends Controller
 {
@@ -13,6 +13,15 @@ class ReplyController extends Controller
     {
         if ($form->hash !== $hash) {
             abort(404);
+        }
+
+        $user = Auth::user();
+
+        View::share('layout_no_footer', true);
+        View::share('layout_header_simplified', true);
+
+        if (!$form->canBeRepliedBy($user)) {
+            return view('reply.notallowed');
         }
 
         return view('reply.create', [

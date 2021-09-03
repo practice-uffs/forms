@@ -1,27 +1,18 @@
 <?php
 
-use App\Http\Controllers\Admin\CategoryController;
-use App\Http\Controllers\Admin\LocationController;
-use App\Http\Controllers\Admin\ServiceController as AdminServiceController;
-use App\Http\Controllers\Admin\OrderController as AdminOrderController;
 use App\Http\Controllers\Admin\SubscriberController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\FormController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\IdeaController;
 use App\Http\Controllers\IndexController;
-use App\Http\Controllers\Livewire\FilePreviewHandler;
-use App\Http\Controllers\Livewire\FileUploadHandler;
-use App\Http\Controllers\OrderController;
-use App\Http\Controllers\OrderEvaluationController;
-use App\Http\Controllers\PoolController;
 use App\Http\Controllers\ReplyController;
-use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\TestController;
+
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\App;
+use App\Http\Controllers\Livewire\FilePreviewHandler;
+use App\Http\Controllers\Livewire\FileUploadHandler;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,10 +41,6 @@ if (App::environment('local')) {
     Route::get('/test', [TestController::class, 'index']);
 }
 
-// Rotas públicas
-Route::get('/', [IndexController::class, 'index'])->name('index');
-Route::view('/newsletter/subscribed', 'newsletter.subscribed')->name('newsletter.subscribed');
-
 // Autenticação
 Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
@@ -66,7 +53,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/criar', [FormController::class, 'create'])->name('form.create');
     Route::get('/editar/{form}', [FormController::class, 'edit'])->name('form.edit');
     Route::get('/resultado/{form}/{hash}', [FormController::class, 'result'])->name('form.result');
-    Route::get('/{form}/{hash}', [ReplyController::class, 'create'])->name('reply.create');
 
     // Admin
     Route::group(['middleware' => 'check.admin'], function () {
@@ -74,6 +60,11 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/gerenciar/newsletter', [SubscriberController::class, 'index'])->name('admin.subscriber');
     });
 });
+
+// Rotas públicas
+Route::get('/', [IndexController::class, 'index'])->name('index');
+Route::view('/newsletter/subscribed', 'newsletter.subscribed')->name('newsletter.subscribed');
+Route::get('/{form}/{hash}', [ReplyController::class, 'create'])->name('reply.create');
 
 // Corrige um bug no upload de arquivos no Livewire
 Route::post('/livewire/upload-file', [FileUploadHandler::class, 'handle'])->name('livewire.upload-file')->middleware(config('livewire.middleware_group', ''));

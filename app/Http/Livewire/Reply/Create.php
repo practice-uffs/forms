@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Reply;
 
 use App\Events\FormReplied;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Validation\ValidationException;
 
 class Create extends \App\Http\Livewire\Crud\Main
 {
@@ -18,6 +19,15 @@ class Create extends \App\Http\Livewire\Crud\Main
     {
     }
 
+    protected function assetUserCanReply()
+    {
+        $user = auth()->user();
+
+        if (!$this->form->canBeRepliedBy($user)) {
+            throw ValidationException::withMessages(['generic_error' => 'your error message']);
+        }
+    }
+
     /**
      * 
      * 
@@ -27,6 +37,8 @@ class Create extends \App\Http\Livewire\Crud\Main
      */
     protected function prepareModelCrudInfo(array $modelCrudInfo) :array
     {
+        $this->assetUserCanReply();
+
         if (empty($this->form->questions)) {
             // Não há campos extras para uma solicitação desse tipo de serviço,
             // então não precisamos fazer nada de especial na criação do pedido.

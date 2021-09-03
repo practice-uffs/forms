@@ -102,6 +102,19 @@ class Form extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function canBeRepliedBy(User $user = null)
+    {
+        if ($this->is_auth_required && $user == null) {
+            return false;
+        }
+
+        if ($this->is_one_reply_only && $this->replies()->where('user_id', $user->id)->exists()) {
+            return false;
+        }
+
+        return true;
+    }
+
     public function getResultAttribute()
     {
         $replies = [];

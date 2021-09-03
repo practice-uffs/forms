@@ -63,6 +63,10 @@ class Edit extends Component
             $this->form->questions = PollFromText::make($value);
         }
 
+        if ($field == 'form.is_one_reply_only' && $value == true) {
+            $this->form->is_auth_required = true;
+        }
+
         $this->update();        
     }
 }

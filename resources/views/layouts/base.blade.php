@@ -48,7 +48,10 @@
         </div>
         
         @yield('wideBottomContent')        
-        @include('layouts.footer')
+        
+        @if (@$layout_no_footer == false)
+            @include('layouts.footer')
+        @endif
         
         <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
         
