@@ -13,7 +13,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $forms = auth()->user()->forms;
+        // get all forms from the current user orderded by id desc
+        $forms = auth()->user()->forms()->orderBy('id', 'desc')->get();
 
         if ($forms == null) {
             $forms = [];

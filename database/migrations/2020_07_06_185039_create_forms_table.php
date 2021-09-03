@@ -18,8 +18,8 @@ class CreateFormsTable extends Migration
             $table->bigIncrements('id');
             $table->foreignId('user_id');
             $table->boolean('is_accepting_replies')->index()->default(true);
-            $table->boolean('is_auth_required')->index()->default(true);
-            $table->boolean('is_one_reply_only')->index()->default(true);
+            $table->boolean('is_auth_required')->index()->default(false);
+            $table->boolean('is_one_reply_only')->index()->default(false);
             $table->string('title');
             $table->text('user_questions')->default('');
             $table->text('questions');

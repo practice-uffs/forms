@@ -4,7 +4,7 @@
 <section>
     <div class="container">
         <header class="section-header">
-            <h2>Reply</h2>
+            <h2>Responder</h2>
             <p>{{ $form->title }}</p>
         </header>
 
