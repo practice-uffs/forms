@@ -112,7 +112,9 @@
                 <!-- Licensing information: https://bootstrapmade.com/license/ -->
                 <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/flexstart-bootstrap-startup-template/ -->
                 Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>.
-                As imagens utilizadas nesse site tem como fonte <a href="https://undraw.co/" rel="nofollow" target="_blank">undraw.co</a>. Created by <a href="https://twitter.com/ninaLimpi" rel="nofollow" target="_blank">Katerina Limpitsouni</a>.
+                As imagens utilizadas nesse site tem como fonte: <a href="https://undraw.co/" rel="nofollow" target="_blank">undraw.co</a> (created by <a href="https://twitter.com/ninaLimpi" rel="nofollow" target="_blank">Katerina Limpitsouni</a>);
+                <a href="https://www.manypixels.co/gallery" rel="nofollow" target="_blank">manypixels.co</a>
+                .
                 Code / Design by <a href="https://twitter.com/anges244" rel="nofollow" target="_blank" style="color: #bfbfbf;">Aggelos Gesoulis</a>.
             </div>
         </div>
