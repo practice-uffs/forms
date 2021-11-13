@@ -26,15 +26,15 @@
     <div class="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center">
         <div class="lg:flex-grow md:w-1/2 lg:pl-24 md:pl-16 flex flex-col md:items-start text-left items-center">
             <h1 data-aos="fade-up" class="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900">
-                Perguntas e respostas. <br class="hidden lg:inline-block"><span class="sm:text-4xl text-3xl font-light mt-5">Prácito e muito, muito fácil.</span>
+                Perguntas e respostas. <br class="hidden lg:inline-block"><span class="sm:text-4xl text-3xl font-light mt-5">Prático e muito, muito fácil.</span>
             </h1>
             <p data-aos="fade-up" data-aos-delay="400" class="mb-8 leading-relaxed">
                 Criar questionários não precisa ser complicado. Já imaginou escrever em texto corrido e ter um formulário pronto para uso (com o que o digital tem a oferecer)?
-                Basta compartilhar um link e receber respostas (com acompanhamento em tempo real). Chega de sofrer, crie formulários, enquetes e afins usando o <span class="text-blue-700 font-semibold">Practice Forms</span>.
+                Basta compartilhar um link e receber respostas (com acompanhamento em tempo real). Chega de sofrer: crie formulários, enquetes e afins usando o <span class="text-blue-700 font-semibold">PRACTICE Forms</span>.
             </p>
             <div data-aos="fade-up" data-aos-delay="600" class="flex justify-center">
                 <a href="{{ route('form.create') }}">
-                    <div tabindex="0" class="btn btn-primary inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg"">
+                    <div tabindex="0" class="btn btn-primary inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">
                         Criar
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -57,7 +57,7 @@
                 <br class="hidden lg:inline-block">
             </h1>
             <p data-aos="fade-up" data-aos-delay="200" class="leading-relaxed text-center w-1/2 m-auto">
-                Escreva perguntas como se fosse enviar um e-mail. Deixe o <span class="text-blue-700 font-semibold">Practice Forms</span> transformar esse texto em um questionário digital. Quer perguntas abertas? Múltipla escolha? Likert? Envio de arquivos? Temos todos os tipos.
+                Escreva perguntas como se fosse enviar um e-mail. Deixe o <span class="text-blue-700 font-semibold">PRACTICE Forms</span> transformar esse texto em um questionário digital. Quer perguntas abertas? Múltipla escolha? Likert? Envio de arquivos? Temos todos os tipos.
             </p>
 
             <p data-aos="fade-up" data-aos-delay="200" class="pt-5 font-semibold text-center w-1/2 m-auto">
@@ -81,7 +81,7 @@
                 <br class="hidden lg:inline-block">
             </h1>
             <p data-aos="fade-up" class="mb-8 leading-relaxed">
-                Mais importante que suas perguntas são as respostas recebidas. Veja em tempo real as respostas do seu questonário. Faça relatórios, transforme gráficos em figuras para baixar. Lembra que falamos em ser fácil?
+                Mais importante que suas perguntas são as respostas recebidas. Veja em tempo real as respostas do seu questionário. Faça relatórios, transforme gráficos em figuras para baixar. Lembra que falamos em ser fácil?
             </p>
         </div>
     </div>
