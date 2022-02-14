@@ -39,6 +39,7 @@
                             <th>Título</th>
                             <th>Respostas</th>
                             <th>Data</th>
+                            <th>Ações</th>
                         </tr>
                     </thead>                
                     <tbody>
@@ -59,6 +60,9 @@
                                 <td>
                                     <div>{{ $form->created_at }}</div>
                                     <div class="text-sm opacity-50">Última atualização: {{ $form->updated_at }}</div>
+                                </td>
+                                <td>
+                                    <a href="{{ route('form.delete', [$form->id ,$form->hash] ) }}" class="btn btn-danger">Remover</a>
                                 </td>
                             </tr>
                         @endforeach

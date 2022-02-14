@@ -2,10 +2,10 @@
     <div x-data="{ tab: window.location.hash ? window.location.hash.substring(1) : 'questions' }" id="tab_wrapper">
 
         <div class="tabs row">
-            <a :class="{ 'tab-active': tab === 'questions' }" @click.prevent="tab = 'questions'; window.location.hash = 'questions'" href="#" class="tab tab-lg tab-lifted col-2">Perguntas</a>
-            <a :class="{ 'tab-active': tab === 'permissions' }" @click.prevent="tab = 'permissions'; window.location.hash = 'permissions'" href="#" class="tab tab-lg tab-lifted col-2">Permissões</a>
-            <a :class="{ 'tab-active': tab === 'replies' }" @click.prevent="tab = 'replies'; window.location.hash = 'replies'" href="#" class="tab tab-lg tab-lifted col-2">Respostas <span id="repliesBadge"></span></a>
-            <a href="#" class="tab tab-lg tab-lifted text-white col-6">|</a>
+            <a :class="{ 'tab-active': tab === 'questions' }" @click.prevent="tab = 'questions'; window.location.hash = 'questions'" href="#" class="tab tab-lifted col-md-2 col-sm-4">Perguntas</a>
+            <a :class="{ 'tab-active': tab === 'permissions' }" @click.prevent="tab = 'permissions'; window.location.hash = 'permissions'" href="#" class="tab tab-lifted col-md-2 col-sm-4">Permissões</a>
+            <a :class="{ 'tab-active': tab === 'replies' }" @click.prevent="tab = 'replies'; window.location.hash = 'replies'" href="#" class="tab tab-lifted col-md-2 col-sm-4">Respostas <span id="repliesBadge"></span></a>
+            <!-- <a href="#" class="tab tab-lg tab-lifted text-white col-6">|</a> -->
         </div>
 
         <div x-show="tab === 'questions'" class="row pb-4 pt-4">
@@ -19,21 +19,20 @@
             </div>            
             <div class="row">
                 <div class="col-12 pt-2">
-                    <div class="flex w-full">
-                        <div class="w-1/2 mr-4">
+                    <div class="d-md-flex w-full">
+                        <div class="col-md-6">
                             <label for="user_questions" class="label">
-                                <span class="label-text">Descrição das perguntas</span>
+                                <span class="label-text">Descrição da pergunta</span>
                             </label>
-                            <textarea wire:model="form.user_questions" name="user_questions" placeholder="Ex.: Qual sua cor favorita?" class="textarea textarea-bordered h-screen w-full"></textarea>
+                            <textarea wire:model="form.user_questions" name="user_questions" placeholder="Ex.: Qual sua cor favorita?" class="textarea textarea-bordered w-full custom-height-question"></textarea>
                         </div>
-                        <div class="w-1/2">
+                        <div class="col-md-5 offset-md-1">
                             <label class="label">
                                 <span class="label-text">Visualização de respondente</span>
                             </label>
-                            <div class="mockup-window bg-base-300 h-screen">
-                                <div class="absolute top-3 right-2">kjh</div>
+                            <div class="mockup-window bg-base-300 custom-height-question">
                                 <div class="w-full h-full p-2 bg-gray-100 overflow-scroll">
-                                    <div x-html="$refs.poll_view.value"></div>
+                                    <div x-html="$refs.poll_view.value" class="pb-10"></div>
                                 </div>
                             </div>
                         </div>
@@ -46,7 +45,7 @@
         
         <div x-show="tab === 'permissions'" class="row p-2">
             <div class="row">
-                <div class="col-6 p-4">
+                <div class="col-md-6 col-sm-12 p-4">
                     <label class="cursor-pointer label flex">
                         <span class="label-text">
                             Aceitando respostas<br />
@@ -59,7 +58,7 @@
                     </label>                
                 </div>
 
-                <div class="col-6 p-4">
+                <div class="col-md-6 col-sm-12 p-4">
                     <label class="cursor-pointer label flex">
                         <span class="label-text">
                             Exigir autenticação para responder<br />
@@ -72,7 +71,7 @@
                     </label>                
                 </div>
 
-                <div class="col-6 p-4">
+                <div class="col-md-6 col-sm-12 p-4">
                     <label class="cursor-pointer label flex">
                         <span class="label-text">
                             Respostas únicas<br />

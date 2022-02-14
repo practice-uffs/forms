@@ -53,6 +53,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/criar', [FormController::class, 'create'])->name('form.create');
     Route::get('/editar/{form}', [FormController::class, 'edit'])->name('form.edit');
     Route::get('/resultado/{form}/{hash}', [FormController::class, 'result'])->name('form.result');
+    Route::get('/remover/{form}/{hash}', [FormController::class, 'delete'])->name('form.delete');
 
     // Admin
     Route::group(['middleware' => 'check.admin'], function () {

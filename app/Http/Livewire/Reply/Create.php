@@ -54,13 +54,18 @@ class Create extends \App\Http\Livewire\Crud\Main
             // nomes no estilo "poll_0", "poll_1", etc, para cada um dos campos
             // extras. Na hora de salvar, buscamos por eles em particular
             // e guardamos em um campo separado do banco.
-            $key = 'poll_' . $index;
+            $key = "poll_" . $index;
 
             // Vamos colocar como label do campo o próprio texto usado para
             // criar essa pergunta.
+
+          
+
+
             $modelCrudInfo['fields'][$key] = $poll[$index];
             $modelCrudInfo['fields'][$key]['label'] = $field['text'] ?? '';
             $modelCrudInfo['fields'][$key]['validation'] = 'present';
+        
         }
 
         return $modelCrudInfo;
