@@ -17,7 +17,7 @@
             <div class="row">
                 <div class="offset-md-4 col-md-8 content-end text-right">
                     <div class="float-right ml-6 enlarge-img-hover" x-on:mouseover="enlarge = true" x-on:mouseleave="enlarge = false" >
-                        {!! QrCode::size(80)->generate($reply_link); !!}
+                        {!! QrCode::size(100)->generate($reply_link); !!}
                     </div>
                     
                     <div class="z-30">
