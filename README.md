@@ -45,10 +45,10 @@ Feito a instalação das dependências, é necessário obter uma cópia do proje
 Para isso, rode:
 
 ```
-git clone --recurse-submodules https://github.com/practice-uffs/forms && cd mural
+git clone --recurse-submodules https://github.com/practice-uffs/forms && cd forms
 ```
 
-Isso criará e trocará para a pasta `mural` com o código do projeto.
+Isso criará e trocará para a pasta `forms` com o código do projeto.
 
 #### 2.1 PHP
 
