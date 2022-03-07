@@ -62,7 +62,7 @@
                                     <div class="text-sm opacity-50">Última atualização: {{ $form->updated_at }}</div>
                                 </td>
                                 <td>
-                                    <a href="{{ route('form.delete', [$form->id ,$form->hash] ) }}" class="btn btn-danger">Remover</a>
+                                    <a href="{{ route('form.delete', [$form->id ,$form->hash] ) }}" onclick="if (confirm('Tem certeza que deseja descartar este formulário?')){return true;}else{event.stopPropagation(); event.preventDefault();};" class="btn btn-danger">Remover</a>
                                 </td>
                             </tr>
                         @endforeach

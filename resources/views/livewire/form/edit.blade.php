@@ -95,4 +95,7 @@
             </div>
         </div>
     </div>
+    <a href="{{ route('form.delete', [$form->id ,$form->hash]) }}" onclick="if (confirm('Tem certeza que deseja descartar este formulário?')){return true;}else{event.stopPropagation(); event.preventDefault();};"  class="btn btn-danger">Cancelar</a>   
 </div>
+
+
