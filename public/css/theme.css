@@ -296,6 +296,10 @@ section {
   min-width: 200px;
 }
 
+.color-background-form {
+  background-color: #264653;
+}
+
 .navbar .dropdown ul a {
   padding: 10px 20px;
   font-size: 15px;
@@ -762,7 +766,7 @@ section.hero-slim {
   text-transform: uppercase;
   font-size: 15px;
   font-weight: 600;
-  color: #012970;
+  color: #264653;
   padding: 12px 0;
   margin-right: 25px;
   margin-bottom: -2px;
@@ -770,8 +774,8 @@ section.hero-slim {
 }
 
 .features .feture-tabs .nav-link.active {
-  color: #4154f1;
-  border-bottom: 3px solid #4154f1;
+  color: #19226e;
+  border-bottom: 3px solid #19226e;
 }
 
 .features .feture-tabs .tab-content h4 {

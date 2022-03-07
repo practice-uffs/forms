@@ -11,7 +11,7 @@
     <form id="loginForm" class="login-form col-md-6 mx-auto form-signin text-center " action="" method="post" >
         @csrf
         <a href="{{ route('index') }}">
-            <img class="mb-5" src="{{ asset('img/logo-practice.png') }}" alt="Logo do Practice" width="272" >
+            <img class="mb-5" src="{{ asset('img/forms-icon.png') }}" alt="Logo do Practice" width="272" >
         </a>
         <h1 class="h4 mb-3 font-weight-normal">Entre com seu idUFFS</h1>
         @if ($errors->any()) 
@@ -46,7 +46,7 @@
                    autocomplete="current-password">
         </div>
 
-        <button type="submit" id="btn-submit" class="btn btn-lg btn-block btn-primary col-12" onclick="el = document.getElementById('btn-submit'); el.innerHTML = '<i class=\'bi bi-arrow-repeat\'></i>'; el.disabled = true; el.innerHTML = '<div class=\'spinner-border\'></div> Aguarde'; document.forms.loginForm.submit();">ENTRAR</button>
+        <button type="submit" id="btn-submit" class="btn btn-lg btn-block btn-primary col-12 color-background-form" onclick="el = document.getElementById('btn-submit'); el.innerHTML = '<i class=\'bi bi-arrow-repeat\'></i>'; el.disabled = true; el.innerHTML = '<div class=\'spinner-border\'></div> Aguarde'; document.forms.loginForm.submit();">ENTRAR</button>
 
         <!-- Divider Text -->
         <div class="form-group col-lg-12 mx-auto d-flex align-items-center my-4">

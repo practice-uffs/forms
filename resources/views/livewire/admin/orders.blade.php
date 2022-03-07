@@ -87,7 +87,7 @@
                     @forelse ($orders as $order)
                         <tr>
                             <th>
-                                <a href="{{ route('order.show', [$order['id']]) }}" class="btn btn-primary">Ver</a>
+                                <a href="{{ route('order.show', [$order['id']]) }}" class="btn btn-primary color-background-form">Ver</a>
                             </th>
                             <td>
                                 <div class="flex items-center space-x-3">

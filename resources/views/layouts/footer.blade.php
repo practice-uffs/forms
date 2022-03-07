@@ -20,7 +20,7 @@
                                 @csrf
                                 <div class="relative mt-3">
                                     <input type="email" name="email" placeholder="Ex. fulano@email.com" class="w-full pr-16 input input-primary input-bordered"> 
-                                    <button class="absolute right-0 top-0 rounded-l-none btn btn-primary">Inscrever</button>
+                                    <button class="absolute right-0 top-0 rounded-l-none btn btn-primary color-background-form  ">Inscrever</button>
                                 </div>
                             </form>
 
