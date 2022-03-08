@@ -40,7 +40,7 @@
         </span>
     @endif
 
-    <button type="submit" id="btn-submit" class="btn btn-lg btn-block btn-primary col-12"
+    <button type="submit" id="btn-submit" class="btn btn-lg btn-block btn-primary col-12 color-background-form"
         onclick="el = document.getElementById('btn-submit'); el.innerHTML = '<i class=\'bi bi-arrow-repeat\'></i>'; el.disabled = true; el.innerHTML = '<div class=\'spinner-border\'></div> Aguarde'; document.forms.loginForm.submit();"
         @if ($disabledSubmit == true)
         disabled
