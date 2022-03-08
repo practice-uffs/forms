@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Model\Form;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use App\Http\Controllers\HomeController;
 
 class FormController extends Controller
 {
@@ -28,6 +29,8 @@ class FormController extends Controller
             'user_id' => Auth::user()->id,
             'hash' => Str::random(32),
         ]);
+        
+        $form->save();
 
         return redirect(route('form.edit', $form));
     }
@@ -65,5 +68,22 @@ class FormController extends Controller
         }
 
         return response()->json($form->result, 200, [], JSON_NUMERIC_CHECK);
-    }    
+    }  
+    
+    public function delete(Form $form, string $hash)
+    {
+        if ($form->hash !== $hash) {
+            abort(404);
+        }
+
+        if($form->replies->count()){
+            $form->replies()->delete();
+        }
+        
+        $form->delete();
+
+        return redirect(route('home'));
+        
+    }
+    
 }

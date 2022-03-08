@@ -67,6 +67,24 @@ section {
   color: #012970;
 }
 
+
+@media (max-width: 576px) {
+  
+  .tab-lifted{
+    border: 1px solid #e5e7eb !important;
+    border-radius: 10px;
+    margin-bottom: 10px;;
+  }
+
+  .tab-lifted.tab-active{
+    border: 1px solid #4154f1 !important;
+    text-decoration: none;
+  }
+}
+
+
+
+
 @media (max-width: 768px) {
   .section-header p {
     font-size: 28px;
@@ -276,6 +294,10 @@ section {
 
 .navbar .dropdown ul li {
   min-width: 200px;
+}
+
+.color-background-form {
+  background-color: #264653;
 }
 
 .navbar .dropdown ul a {
@@ -744,7 +766,7 @@ section.hero-slim {
   text-transform: uppercase;
   font-size: 15px;
   font-weight: 600;
-  color: #012970;
+  color: #264653;
   padding: 12px 0;
   margin-right: 25px;
   margin-bottom: -2px;
@@ -752,8 +774,8 @@ section.hero-slim {
 }
 
 .features .feture-tabs .nav-link.active {
-  color: #4154f1;
-  border-bottom: 3px solid #4154f1;
+  color: #19226e;
+  border-bottom: 3px solid #19226e;
 }
 
 .features .feture-tabs .tab-content h4 {
@@ -2069,4 +2091,26 @@ section.hero-slim {
   text-align: center;
   font-size: 13px;
   color: #012970;
+}
+
+.mockup-window div{
+  padding: 0.5rem 1rem;
+}
+
+.custom-height-question{
+  height:200px;
+}
+
+.custom-height-question input{
+  width:100%;
+  border-radius: 5px;
+  height: 30px;
+  padding: 1px;
+  padding-left: 10px;
+  margin-top: 10px;
+}
+
+.custom-svg-expanded svg{
+    width: 90%;
+    margin: auto;
 }
