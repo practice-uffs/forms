@@ -13,8 +13,8 @@
 
                 <div data-aos="fade-up" data-aos-delay="600">
                     <div class="text-center text-lg-start">
-                      <a href="{{ route('form.create') }}" class="btn-get-started d-inline-flex align-items-center justify-content-center align-self-center">
-                          <span class="">CRIAR</span>
+                      <a style="background-color: #264653" href="{{ route('form.create') }}" class="btn-get-started d-inline-flex align-items-center justify-content-center align-self-center ">
+                          <span>CRIAR</span>
                           <i class="bi bi-arrow-right-circle"></i>
                       </a>
                     </div>
@@ -39,13 +39,14 @@
                             <th>Título</th>
                             <th>Respostas</th>
                             <th>Data</th>
+                            <th>Ações</th>
                         </tr>
                     </thead>                
                     <tbody>
                         @foreach ($forms as $form)
                             <tr>
                                 <td>
-                                    <a href="{{ route('form.edit', [$form->id]) }}" class="btn btn-primary">Ver</a>
+                                    <a href="{{ route('form.edit', [$form->id]) }}" class="btn btn-primary color-background-form">Ver</a>
                                 </td>                                
                                 <td>
                                     {{ $form->title ?? 'Questionário '.$form->id }}
@@ -59,6 +60,9 @@
                                 <td>
                                     <div>{{ $form->created_at }}</div>
                                     <div class="text-sm opacity-50">Última atualização: {{ $form->updated_at }}</div>
+                                </td>
+                                <td>
+                                    <a href="{{ route('form.delete', [$form->id ,$form->hash] ) }}" onclick="if (confirm('Tem certeza que deseja descartar este formulário?')){return true;}else{event.stopPropagation(); event.preventDefault();};" class="btn btn-danger">Remover</a>
                                 </td>
                             </tr>
                         @endforeach
