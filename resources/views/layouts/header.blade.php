@@ -55,7 +55,7 @@
                         <li><a href="{{ route('form.create') }}" class="nav-link @if (Route::is('form.create')) active @endif">Criar</a></li>
                     @endif
                     
-                    <li><a href="{{ route('login') }}" class="getstarted">Entrar <i class="bi bi-box-arrow-in-right"></i></a></li>
+                    <li><a style="background-color: #264653" href="{{ route('login') }}" class="getstarted">Entrar <i class="bi bi-box-arrow-in-right"></i></a></li>
                 @endguest
             </ul>
         </nav>
@@ -103,10 +103,10 @@
                     
                     @guest
                         @if (@$layout_header_simplified == false)
-                            <li><a href="{{ route('form.create') }}" class="nav-link @if (Route::is('form.create')) active @endif">Criar</a></li>
+                            <li><a style="background-color: #264653" href="{{ route('form.create') }}" class="nav-link @if (Route::is('form.create')) active @endif">Criar</a></li>
                         @endif
                         
-                        <li><a href="{{ route('login') }}" class="getstarted">Entrar <i class="bi bi-box-arrow-in-right"></i></a></li>
+                        <li><a style="background-color: #264653" href="{{ route('login') }}" class="getstarted">Entrar <i class="bi bi-box-arrow-in-right"></i></a></li>
                     @endguest
                 </ul>
             </li>
