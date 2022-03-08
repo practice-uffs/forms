@@ -29,8 +29,7 @@ class FormController extends Controller
             'user_id' => Auth::user()->id,
             'hash' => Str::random(32),
         ]);
-
-        $form->title = 'Formulário '.$form->id;
+        
         $form->save();
 
         return redirect(route('form.edit', $form));
@@ -77,6 +76,10 @@ class FormController extends Controller
             abort(404);
         }
 
+        if($form->replies->count()){
+            $form->replies()->delete();
+        }
+        
         $form->delete();
 
         return redirect(route('home'));
