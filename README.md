@@ -24,19 +24,27 @@ O forms possui um conjunto considerável de features:
 
 Para executar o projeto, você precisa ter o seguinte instalado:
 
-- [Git](https://git-scm.com);
-- [PHP](https://www.php.net/downloads);
+### 1.1 Git
+```
+sudo apt install git
+```
+
+
+### 1.2 PHP
+```
+sudo apt install php7.4-cli
+```
+
 - [Composer](https://getcomposer.org/download/);
 - [NodeJS](https://nodejs.org/en/);
 - [NPM](https://www.npmjs.com/package/npm);
+
 
 Você precisa de várias extensões PHP instaladas também:
 
 ```
 sudo apt install php-cli php-mbstring php-zip php-xml php-curl
 ```
-
-O mural, desde sua versão `v2`, exige `php >= 8.0`.
 
 ### 2. Configuração
 
