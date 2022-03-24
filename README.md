@@ -42,15 +42,15 @@ sudo apt install php7.4-cli
 sudo apt install nodejs
 ```
 
-#### 1.4.1 Módulo "n" e alterando versão do Node
-```
-sudo npm install -g n
-sudo n stable
-```
-
 ### 1.5 NPM
 ```
 sudo apt install npm
+```
+
+#### 1.5.1 Módulo "n" e alterando versão do Node
+```
+sudo npm install -g n
+sudo n stable
 ```
 
 ### 1.6 Extensões necessárias
