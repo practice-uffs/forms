@@ -124,9 +124,14 @@ class Form extends Model
                 foreach($entry->data as $reply) {
                     $text = $reply['text'];
                     $answer = $reply['answer'];
+                    $type = $reply['type'];
 
                     if (!isset($replies[$text])) {
                         $replies[$text] = [];
+                    }
+
+                    if (!isset($replies[$text]['type'])) {
+                        $replies[$text]['type'] = $type;
                     }
 
                     if (!isset($reply['options'])) {
