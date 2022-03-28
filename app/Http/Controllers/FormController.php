@@ -66,7 +66,6 @@ class FormController extends Controller
         if ($form->hash !== $hash) {
             abort(404);
         }
-
         return response()->json($form->result, 200, [], JSON_NUMERIC_CHECK);
     }  
     
@@ -83,14 +82,12 @@ class FormController extends Controller
         $form->delete();
 
         return redirect(route('home'));
-        
     }
 
 
-    public function report(Form $form){
-
+    public function report(Form $form)
+    {
         $form_replies = $form->replies()->get();
-
         $columns = array('Pergunta', 'Tipo', 'Resposta');
 
         $headers = array(
@@ -106,29 +103,17 @@ class FormController extends Controller
             fputcsv($file, $columns);
 
             foreach ($form_replies as $reply) {
-
-            
-
                 $data = $reply->data;
                 foreach ($data as $question_reply){
-
-                    // dd($item);
                     $row['Pergunta'] = json_encode($question_reply['text']);
                     $row['Tipo'] = json_encode($question_reply['type']);
                     $row['Resposta'] = json_encode($question_reply['answer']);
-
                     fputcsv($file, array($row['Pergunta'], $row['Tipo'], $row['Resposta']));
                 }
-                
             }
-
             fclose($file);
         };
-
-        
         return response()->stream($callback, 200, $headers);
-
-
     }
     
 }
