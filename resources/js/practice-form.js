@@ -1,3 +1,5 @@
+const { isSet } = require("lodash");
+
 var PracticeForms = {
     config: {
         formId: null,
@@ -42,19 +44,8 @@ var PracticeForms = {
         console.error(error);
     },
 
-    renderQuestionResult: function(questionId, question, replies) {
-        const type = question.type;
-
-        if (type == 'input') {
-            this.renderQuestionResultTypedInput(questionId, question, replies);
-
-        } else if (type == 'select') {
-            this.renderQuestionResultTypedSelect(questionId, question, replies);
-        }
-    },
-
     renderNoRepliesYet: function() {
-        return `<div class="text-gray-400 text-center pt-32 text-xl">
+        return `<div class="text-gray-400 text-center pt-16 pb-16 text-xl">
                    Nenhuma resposta ainda
                </div>`
     },
@@ -67,39 +58,31 @@ var PracticeForms = {
         return this.chartIds[questionId];
     },  
 
-    renderQuestionResultTypedInput: function(questionId, question, replies) {
-        var id = this.getChartIdFromQuestionId(questionId);
-        var selector = '#' + this.config.repliesContainerId;
+    renderQuestionResultTypedInput: function(question, result) {
         var rows = [];
+        var rowsAsHtml;
+        
+        var chartExists = $('#' + this.config.repliesContainerId + ' .no-replies-yet');
+     
+        rows.push('<div class="mb-4 w-full">');
+        rows.push('<p class="font-bold text-center mb-4">' + question + (result.questions[question] == undefined ? ' (Desativada) ' : '') + '</p>');
 
-        replies = replies || [];
+        //percorre todas as respostas
+        for(reply in result.replies[question]){
+            rows.push('<div class="border h-10 p-2 chart-text-entry">' + result.replies[question][reply] + '</div>');
+        }
+        rows.push('</div>');
 
-        replies.map(function(reply) {
-            rows.push('<div class="border h-10 p-2 chart-text-entry">' + reply + '</div>');
-        })
-
-        var rowsAsHtml = rows.join('');
-        var chartExists = document.getElementById(id);
+        rowsAsHtml = rows.join('');
 
         if (chartExists) {
-            $(`#${id} .chart-text-entries`).html(rowsAsHtml);
-            $(`#${id} .chart-text-entry:last-child`).fadeOut().fadeIn();
+            $(`#${this.config.repliesContainerId} .no-replies-yet`).append(rowsAsHtml);
             return;
         }
-
-        $(selector).append(
-            `<div id="${id}" class="mb-4 w-full">
-                <p class="font-bold text-center mb-4">${question.text}</p>
-                <div class="mb-4 w-full h-80 overflow-y-scroll chart-text-entries">` +
-                    (rows.length == 0 ? this.renderNoRepliesYet() : rowsAsHtml) +
-                `</div>
-            </div>`
-        );
     },
 
-    renderQuestionResultTypedSelect: function(questionId, question, replies) {
-        var answerLabels = Object.keys(replies);
-        var answerValues = Object.values(replies);
+    renderQuestionResultTypedSelect: function(questionTitle, answerLabels, answerValues) {
+
         var answerValuesSum = answerValues.reduce(function(a, b) { return a + b; }, 0);
 
         var options = {
@@ -187,7 +170,7 @@ var PracticeForms = {
 
             },
             title: {
-                text: question.text,
+                text: questionTitle,
                 floating: true,
                 margin: 70,
                 align: 'center',
@@ -199,12 +182,12 @@ var PracticeForms = {
                 }
             }
         };
-        
-        this.createChart(questionId, options);
+        this.createChart(questionTitle, options);
     },
 
     createChart: function(questionId, options) {
         var id = this.getChartIdFromQuestionId(questionId);
+
         var selector = '#' + this.config.repliesContainerId;
         var chartExists = document.getElementById(id);
 
@@ -222,13 +205,61 @@ var PracticeForms = {
     },
 
     renderRepliesFromResult: function(result) {
-        for(var id in result.questions) {
-            this.renderQuestionResult(id, result.questions[id], result.replies[id]);
+
+        //percorre todas as perguntas
+        for(question in result.replies) {
+
+            $type = result.replies[question]['type'];
+            delete result.replies[question]['type'];
+            
+
+          
+
+            switch ($type) {
+                case 'select':
+                    this.renderQuestionResultTypedSelect(question, Object.keys(result.replies[question]), Object.values(result.replies[question]));
+                    break;
+                default:
+                    this.renderQuestionResultTypedInput(question, result);
+            }
+        }
+
+        //percorre todas as perguntas sem respostas
+        for(question in result.questions) {
+            if(result.replies[question] == undefined){
+                this.renderQuestionNotReplied(question);
+            }
         }
     },
 
+     
+    renderQuestionNotReplied: function(question) {
+        var rows = [];
+        var rowsAsHtml;
+        
+        var chartExists = $('#' + this.config.repliesContainerId + ' .no-replies-yet');
+     
+        rows.push('<div class="mb-4 w-full">');
+        rows.push('<p class="font-bold text-center mb-4">' + question + '</p>');
+
+     
+        rows.push(this.renderNoRepliesYet());
+
+        rows.push('</div>');
+
+        rowsAsHtml = rows.join('');
+
+        if (chartExists) {
+            $(`#${this.config.repliesContainerId} .no-replies-yet`).append(rowsAsHtml);
+            return;
+        }
+
+
+    },
+ 
     updateRepliesCountBadge: function(result) {
         var count = result.stats.repliesCount;
+        console.log('hey');
         var selector = '#' + this.config.repliesBadgeContainerId;
         $(selector).html(`
             <div class="badge badge-sm badge-primary badge-outline ml-2">
@@ -248,7 +279,7 @@ var PracticeForms = {
 
         this.renderRepliesFromResult(result);
         this.updateRepliesCountBadge(result);
-    },
+    }
 
 };
 

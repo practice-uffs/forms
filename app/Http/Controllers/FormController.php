@@ -85,5 +85,50 @@ class FormController extends Controller
         return redirect(route('home'));
         
     }
+
+
+    public function report(Form $form){
+
+        $form_replies = $form->replies()->get();
+
+        $columns = array('Pergunta', 'Tipo', 'Resposta');
+
+        $headers = array(
+            "Content-type"        => "text/csv",
+            "Content-Disposition" => "attachment; filename=respostas_formulario_$form->id.csv",
+            "Pragma"              => "no-cache",
+            "Cache-Control"       => "must-revalidate, post-check=0, pre-check=0",
+            "Expires"             => "0"
+        );
+
+        $callback = function() use($form_replies, $columns) {
+            $file = fopen('php://output', 'w');
+            fputcsv($file, $columns);
+
+            foreach ($form_replies as $reply) {
+
+            
+
+                $data = $reply->data;
+                foreach ($data as $question_reply){
+
+                    // dd($item);
+                    $row['Pergunta'] = json_encode($question_reply['text']);
+                    $row['Tipo'] = json_encode($question_reply['type']);
+                    $row['Resposta'] = json_encode($question_reply['answer']);
+
+                    fputcsv($file, array($row['Pergunta'], $row['Tipo'], $row['Resposta']));
+                }
+                
+            }
+
+            fclose($file);
+        };
+
+        
+        return response()->stream($callback, 200, $headers);
+
+
+    }
     
 }
