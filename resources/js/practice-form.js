@@ -212,9 +212,6 @@ var PracticeForms = {
             $type = result.replies[question]['type'];
             delete result.replies[question]['type'];
             
-
-          
-
             switch ($type) {
                 case 'select':
                     this.renderQuestionResultTypedSelect(question, Object.keys(result.replies[question]), Object.values(result.replies[question]));
@@ -241,10 +238,7 @@ var PracticeForms = {
      
         rows.push('<div class="mb-4 w-full">');
         rows.push('<p class="font-bold text-center mb-4">' + question + '</p>');
-
-     
         rows.push(this.renderNoRepliesYet());
-
         rows.push('</div>');
 
         rowsAsHtml = rows.join('');
@@ -253,13 +247,10 @@ var PracticeForms = {
             $(`#${this.config.repliesContainerId} .no-replies-yet`).append(rowsAsHtml);
             return;
         }
-
-
     },
  
     updateRepliesCountBadge: function(result) {
         var count = result.stats.repliesCount;
-        console.log('hey');
         var selector = '#' + this.config.repliesBadgeContainerId;
         $(selector).html(`
             <div class="badge badge-sm badge-primary badge-outline ml-2">
