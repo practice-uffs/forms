@@ -45,7 +45,7 @@ var PracticeForms = {
     },
 
     renderNoRepliesYet: function() {
-        return `<div class="text-gray-400 text-center pt-16 pb-16 text-xl">
+        return `<div class="text-gray-400 text-center pt-4 pb-4 text-xl">
                    Nenhuma resposta ainda
                </div>`
     },
@@ -65,7 +65,7 @@ var PracticeForms = {
         var chartExists = $('#' + this.config.repliesContainerId + ' .no-replies-yet');
      
         rows.push('<div class="mb-4 w-full">');
-        rows.push('<p class="font-bold text-center mb-4">' + question + (result.questions[question] == undefined ? ' (Desativada) ' : '') + '</p>');
+        rows.push('<div class="font-bold text-center mb-4 mt-10">' + question + (result.questions[question] == undefined ? ' <p class="badge badge-pill badge-error p-2 pt-1 pb-1 border border-warning">Desativada</p>' : '') + '</div>');
 
         //percorre todas as respostas
         for(reply in result.replies[question]){
@@ -81,7 +81,10 @@ var PracticeForms = {
         }
     },
 
-    renderQuestionResultTypedSelect: function(questionTitle, answerLabels, answerValues) {
+    renderQuestionResultTypedSelect: function(question, result) {
+        answerLabels = Object.keys(result.replies[question]);
+        answerValues = Object.values(result.replies[question]);
+
 
         var answerValuesSum = answerValues.reduce(function(a, b) { return a + b; }, 0);
 
@@ -170,7 +173,7 @@ var PracticeForms = {
 
             },
             title: {
-                text: questionTitle,
+                text: '',
                 floating: true,
                 margin: 70,
                 align: 'center',
@@ -182,10 +185,10 @@ var PracticeForms = {
                 }
             }
         };
-        this.createChart(questionTitle, options);
+        this.createChart(question, options, result);
     },
 
-    createChart: function(questionId, options) {
+    createChart: function(questionId, options, result) {
         var id = this.getChartIdFromQuestionId(questionId);
 
         var selector = '#' + this.config.repliesContainerId;
@@ -198,6 +201,12 @@ var PracticeForms = {
 
         $(selector).append('<div id="' + id + '" class="mb-4"></div>');
         
+        var str = '<div class="font-bold text-center mt-10">' + questionId + (result.questions[questionId] == undefined ? ' <p class="badge badge-pill badge-error p-2 pt-1 pb-1 border border-warning">Desativada</p>' : '') + '</div>';
+        
+        var parser = new DOMParser();
+	    var title_element = parser.parseFromString(str, 'text/html');
+
+        document.getElementById(id).append(title_element.body);
         var chart = new ApexCharts(document.querySelector('#' + id), options);
         chart.render();
 
@@ -217,7 +226,7 @@ var PracticeForms = {
 
             switch ($type) {
                 case 'select':
-                    this.renderQuestionResultTypedSelect(question, Object.keys(result.replies[question]), Object.values(result.replies[question]));
+                    this.renderQuestionResultTypedSelect(question, result);
                     break;
                 default:
                     this.renderQuestionResultTypedInput(question, result);
