@@ -24,19 +24,39 @@ O forms possui um conjunto considerável de features:
 
 Para executar o projeto, você precisa ter o seguinte instalado:
 
-- [Git](https://git-scm.com);
-- [PHP](https://www.php.net/downloads);
+### 1.1 Git
+```
+sudo apt install git
+```
+
+### 1.2 PHP
+```
+sudo apt install php7.4-cli
+```
+
+### 1.3 Composer
 - [Composer](https://getcomposer.org/download/);
-- [NodeJS](https://nodejs.org/en/);
-- [NPM](https://www.npmjs.com/package/npm);
 
-Você precisa de várias extensões PHP instaladas também:
-
+### 1.4 Node JS
 ```
-sudo apt install php-cli php-mbstring php-zip php-xml php-curl
+sudo apt install nodejs
 ```
 
-O mural, desde sua versão `v2`, exige `php >= 8.0`.
+### 1.5 NPM
+```
+sudo apt install npm
+```
+
+#### 1.5.1 Módulo "n" e alterando versão do Node
+```
+sudo npm install -g n
+sudo n stable
+```
+
+### 1.6 Extensões necessárias
+```
+sudo apt install php-cli php-mbstring php-zip php-xml php-curl php-gd
+```
 
 ### 2. Configuração
 
@@ -58,7 +78,13 @@ Instale as dependências do PHP usando o comando abaixo:
 composer install
 ```
 
-#### 2.2 Banco de Dados
+#### 2.2 Instalando sqLite 3
+
+```
+sudo apt install php-sqlite3
+```
+
+#### 2.3 Banco de Dados
 
 O banco de dados mais simples para uso é o SQLite. Para criar uma base usando esse SGBD, rode:
 
@@ -66,7 +92,7 @@ O banco de dados mais simples para uso é o SQLite. Para criar uma base usando e
 touch database/database.sqlite
 ```
 
-#### 2.3 Node
+#### 2.4 Node
 
 Instale também as dependências do NodeJS executando:
 
@@ -74,7 +100,7 @@ Instale também as dependências do NodeJS executando:
 npm install
 ```
 
-#### 2.4 Laravel
+#### 2.5 Laravel
 
 Crie o arquivo `.env` a partir do arquivo `.env.example` gerado automaticamente pelo Laravel:
 

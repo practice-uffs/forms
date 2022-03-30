@@ -85,7 +85,6 @@ var PracticeForms = {
         answerLabels = Object.keys(result.replies[question]);
         answerValues = Object.values(result.replies[question]);
 
-
         var answerValuesSum = answerValues.reduce(function(a, b) { return a + b; }, 0);
 
         var options = {
@@ -170,7 +169,6 @@ var PracticeForms = {
                         return `${val} (${percent}%)`;
                     },
                 }
-
             },
             title: {
                 text: '',
@@ -199,14 +197,10 @@ var PracticeForms = {
             return;
         }
 
-        $(selector).append('<div id="' + id + '" class="mb-4"></div>');
-        
         var str = '<div class="font-bold text-center mt-10">' + questionId + (result.questions[questionId] == undefined ? ' <p class="badge badge-pill badge-error p-2 pt-1 pb-1 border border-warning">Desativada</p>' : '') + '</div>';
-        
-        var parser = new DOMParser();
-	    var title_element = parser.parseFromString(str, 'text/html');
 
-        document.getElementById(id).append(title_element.body);
+        $(selector).append(str + '<div id="' + id + '" class="mb-4"></div>');
+
         var chart = new ApexCharts(document.querySelector('#' + id), options);
         chart.render();
 
@@ -220,9 +214,6 @@ var PracticeForms = {
 
             $type = result.replies[question]['type'];
             delete result.replies[question]['type'];
-            
-
-          
 
             switch ($type) {
                 case 'select':
@@ -250,10 +241,7 @@ var PracticeForms = {
      
         rows.push('<div class="mb-4 w-full">');
         rows.push('<p class="font-bold text-center mb-4">' + question + '</p>');
-
-     
         rows.push(this.renderNoRepliesYet());
-
         rows.push('</div>');
 
         rowsAsHtml = rows.join('');
@@ -268,7 +256,6 @@ var PracticeForms = {
  
     updateRepliesCountBadge: function(result) {
         var count = result.stats.repliesCount;
-        console.log('hey');
         var selector = '#' + this.config.repliesBadgeContainerId;
         $(selector).html(`
             <div class="badge badge-sm badge-primary badge-outline ml-2">
