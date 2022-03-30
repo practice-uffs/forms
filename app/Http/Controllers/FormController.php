@@ -91,7 +91,7 @@ class FormController extends Controller
         $columns = array('Pergunta', 'Tipo', 'Resposta');
 
         $headers = array(
-            "Content-type"        => "text/csv",
+            "Content-type"        => "text/html",
             "Content-Disposition" => "attachment; filename=respostas_formulario_$form->id.csv",
             "Pragma"              => "no-cache",
             "Cache-Control"       => "must-revalidate, post-check=0, pre-check=0",
@@ -105,10 +105,19 @@ class FormController extends Controller
             foreach ($form_replies as $reply) {
                 $data = $reply->data;
                 foreach ($data as $question_reply){
-                    $row['Pergunta'] = json_encode($question_reply['text']);
-                    $row['Tipo'] = json_encode($question_reply['type']);
-                    $row['Resposta'] = json_encode($question_reply['answer']);
-                    fputcsv($file, array($row['Pergunta'], $row['Tipo'], $row['Resposta']));
+                    $pergunta = str_replace('"', '', json_encode($question_reply['text']));
+                    $tipo = str_replace('"', '', json_encode($question_reply['type']));
+                    $resposta = str_replace('"', '', json_encode($question_reply['answer']));
+
+                    if($tipo == 'select'){
+                        $options = $question_reply['options'];
+
+
+                        $resposta = $options[$resposta];
+                    
+                    }
+        
+                    fputcsv($file, array($pergunta, $tipo, $resposta));
                 }
             }
             fclose($file);
