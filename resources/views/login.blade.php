@@ -3,7 +3,11 @@
 @section('content')
     <div class="login container row mx-auto my-5 pt-5">
         <div class="login-img col-md-5 pr-lg-5 mb-5 mb-md-0 mt-5">
-            <img src="assets/img/undow.co/login.svg" alt="" class="img-fluid">
+            <div class="d-flex justify-content-center">
+                <a href="{{ route('index') }}">
+                    <img class="img-fluid" src="{{ asset('img/forms-icon.png') }}" alt="Logo do Forms" width="272">
+                </a>
+            </div>
             <h1>Conecte-se ao PRACTICE <b>Forms</b></h1>
             <p class="font-italic text-muted mb-0">Utilize seu idUFFS para conectar-se e aproveitar tudo que nossa plataforma
                 oferece.</p>
@@ -12,7 +16,7 @@
         <form id="loginForm" class="login-form col-md-6 mx-auto form-signin text-center " action="" method="post">
             @csrf
             <a href="{{ route('index') }}">
-                <img class="mb-5" src="{{ asset('img/forms-icon.png') }}" alt="Logo do Practice" width="272">
+                <img class="mb-5" src="{{ asset('img/logo-practice.png') }}" alt="Logo do Practice" width="272">
             </a>
             <h1 class="h4 mb-3 font-weight-normal">Entre com seu idUFFS</h1>
             @if ($errors->any())
