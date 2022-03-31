@@ -1,4 +1,6 @@
 <div>
+ 
+    
     <div x-data="{ tab: window.location.hash ? window.location.hash.substring(1) : 'questions' }" id="tab_wrapper">
 
         <div class="tabs row">
@@ -39,6 +41,10 @@
                     </div>
                 </div>
             </div>
+            <div class="w-100 mt-10">
+                <a href="{{ route('form.delete', [$form->id ,$form->hash]) }}" onclick="if (confirm('Tem certeza que deseja descartar este formulário?')){return true;}else{event.stopPropagation(); event.preventDefault();};"  class="btn btn-danger">Cancelar formulário</a>   
+            </div>
+
         </div>
 
         <textarea wire:model="poll_view" name="poll_view" x-ref="poll_view" class="hidden"></textarea>
@@ -90,12 +96,12 @@
         </div>
         
         <div x-show="tab === 'replies'" class="row p-2 pt-4" id="replies">
+            <div class="w-100"><a href="{{ route('form.report', [$form->id ,$form->hash]) }}"  class="btn btn-danger float-right">Baixar respostas</a></div>
             <div class="row">
                 <div class="col-12 no-replies-yet"></div>
             </div>
         </div>
     </div>
-    <a href="{{ route('form.delete', [$form->id ,$form->hash]) }}" onclick="if (confirm('Tem certeza que deseja descartar este formulário?')){return true;}else{event.stopPropagation(); event.preventDefault();};"  class="btn btn-danger">Cancelar</a>   
 </div>
 
 

@@ -66,7 +66,6 @@ class FormController extends Controller
         if ($form->hash !== $hash) {
             abort(404);
         }
-
         return response()->json($form->result, 200, [], JSON_NUMERIC_CHECK);
     }  
     
@@ -83,7 +82,46 @@ class FormController extends Controller
         $form->delete();
 
         return redirect(route('home'));
-        
     }
-    
+
+
+    public function report(Form $form)
+    {
+        $form_replies = $form->replies()->get();
+        $columns = array('Pergunta', 'Tipo', 'Resposta');
+
+        $headers = array(
+            "Content-type"        => "text/html",
+            "Content-Disposition" => "attachment; filename=respostas_formulario_$form->id.csv",
+            "Pragma"              => "no-cache",
+            "Cache-Control"       => "must-revalidate, post-check=0, pre-check=0",
+            "Expires"             => "0"
+        );
+
+        $callback = function() use($form_replies, $columns) {
+            $file = fopen('php://output', 'w');
+            fputcsv($file, $columns);
+
+            foreach ($form_replies as $reply) {
+                $data = $reply->data;
+                foreach ($data as $question_reply){
+                    $pergunta = str_replace('"', '', json_encode($question_reply['text']));
+                    $tipo = str_replace('"', '', json_encode($question_reply['type']));
+                    $resposta = str_replace('"', '', json_encode($question_reply['answer']));
+
+                    if($tipo == 'select'){
+                        $options = $question_reply['options'];
+
+
+                        $resposta = $options[$resposta];
+                    
+                    }
+        
+                    fputcsv($file, array($pergunta, $tipo, $resposta));
+                }
+            }
+            fclose($file);
+        };
+        return response()->stream($callback, 200, $headers);
+    }    
 }
