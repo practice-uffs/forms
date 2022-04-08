@@ -1,0 +1,30 @@
+name: deploy-forms-test
+on:
+  push:
+    branches:
+      - dev
+env:
+  PROD_HOST: forms.tests.practice.uffs.cc
+  PROD_WEB_DIRECTORY: /home/ccuffspracticetests/forms.tests.practice.uffs.cc
+  COMPOSER_BIN: php-8.0 ~/.php/composer/composer
+  PHP_BIN: php-8.0
+jobs:
+  deploy:
+    name: Deploy to forms.tests
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Prepare deploy server
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ env.PROD_HOST }}
+        username: ${{ secrets.TEST_USERNAME }}
+        password: ${{ secrets.TEST_PASSWORD }}
+        script: |
+          cd ${{ env.PROD_WEB_DIRECTORY }}
+          git reset --hard
+          git pull
+          ${{ env.COMPOSER_BIN }} install -q --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
+          ${{ env.PHP_BIN }} artisan migrate
+          npm install
+          npm run dev
