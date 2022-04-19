@@ -22,7 +22,7 @@
     </div>
 @endsection
 
-<section class="text-gray-600 body-font hero">
+<section class="text-gray-600 body-font">
     <div class="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center">
         <div class="lg:flex-grow md:w-1/2 lg:pl-24 md:pl-16 flex flex-col md:items-start text-left items-center">
             <h1 data-aos="fade-up" class="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900">
@@ -56,7 +56,7 @@
                 Texto é sua ferramenta
                 <br class="hidden lg:inline-block">
             </h1>
-            <p data-aos="fade-up" data-aos-delay="200" class="leading-relaxed text-center w-1/2 m-auto">
+            <p data-aos="fade-up" data-aos-delay="200" class="leading-relaxed text-center md:w-50 m-auto">
                 Escreva perguntas como se fosse enviar um e-mail. Deixe o <span class="text-blue-700 font-semibold">PRACTICE Forms</span> transformar esse texto em um questionário digital. Quer perguntas abertas? Múltipla escolha? Likert? Envio de arquivos? Temos todos os tipos.
             </p>
 
@@ -71,8 +71,8 @@
 </section>
 
 <section class="text-gray-600 body-font">
-    <div class="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center">
-        <div class="lg:max-w-lg lg:w-full md:w-1/2 w-5/6 mb-10 md:mb-0" data-aos="zoom-out">
+    <div class="container mx-auto flex md:flex-row md:flex-row-reverse sm:flex-row sm:flex-row-reverse flex-col items-center">
+        <div class="lg:max-w-lg lg:w-full w-100 md:mb-0" data-aos="zoom-out">
             @include('components.demo-chart')
         </div>
         <div class="lg:flex-grow md:w-1/2 lg:pl-24 md:pl-16 flex flex-col md:items-start text-left items-center">

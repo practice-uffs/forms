@@ -1,4 +1,4 @@
-<div class="chart-demo">
+<div class="chart-demo w-100">
     <svg viewbox="0 0 560 260">
         <defs>
             <filter id="dropshadow">

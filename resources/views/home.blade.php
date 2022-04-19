@@ -48,7 +48,7 @@
                                 <td>
                                     <a href="{{ route('form.edit', [$form->id]) }}" class="btn color-background-form">Ver</a>
                                 </td>                                
-                                <td>
+                                <td class="text-wrap">
                                     {{ $form->title ?? 'Questionário '.$form->id }}
                                 </td>
                                 <td>

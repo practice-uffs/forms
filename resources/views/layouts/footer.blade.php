@@ -3,38 +3,6 @@
     <div class="footer-top bg-gray-200">
         <div class="container">
             <div class="row gy-4">
-                <!-- <div class="col-lg-4 col-md-12 text-left">
-                    <div class="row">
-                        <div class="col-lg-12 text-left">
-                          <h4>
-                              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline-block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
-                              </svg>
-                              Nossa Newsletter
-                          </h4>
-                          <p>Fique por dentro de todas as novidades do programa e dos projetos que estamos trabalhando.
-                            Inscreva-se para receber periodicamente a nossa newsletter em seu e-mail. </p>
-                        </div>
-                        <div>
-                            <form action="{{ route('subscribers.store') }}" method="post">
-                                @csrf
-                                <div class="relative mt-3">
-                                    <input type="email" name="email" placeholder="Ex. fulano@email.com" class="w-full pr-16 input input-primary input-bordered"> 
-                                    <button class="absolute right-0 top-0 rounded-l-none btn btn-primary color-background-form">Inscrever</button>
-                                </div>
-                            </form>
-
-                            <p class="text-xs text-gray-500 mt-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                </svg>
-                                Tambem odiamos spam! Enviamos e-mails interessantes e com baixa frequência.
-                            </p>
-                        </div> 
-                    </div>
-                </div> -->
-
-
                 <div class="col-lg-5 col-md-12 footer-contact text-center text-md-start">
                     <h4>
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline-block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
