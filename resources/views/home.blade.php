@@ -30,7 +30,7 @@
             <h2>Suas criações</h2>
         </header>
 
-        <div class="row">
+        <div class="row" style="overflow-x:scroll">
             <div class="col-12">
                 <table class="table w-full">
                     <thead>
@@ -46,9 +46,9 @@
                         @foreach ($forms as $form)
                             <tr>
                                 <td>
-                                    <a href="{{ route('form.edit', [$form->id]) }}" class="btn btn-primary color-background-form">Ver</a>
+                                    <a href="{{ route('form.edit', [$form->id]) }}" class="btn color-background-form">Ver</a>
                                 </td>                                
-                                <td>
+                                <td class="text-wrap">
                                     {{ $form->title ?? 'Questionário '.$form->id }}
                                 </td>
                                 <td>

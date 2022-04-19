@@ -32,18 +32,20 @@
                         </li>
                     @endadmin
 
-                    <li class="ml-8 mr-2 text-right">
-                        <p class="font-semibold">{{ auth()->user()->first_name }}</p>
-                        <p class="text-xs font-extralight -mt-1 text-gray-400">{{ auth()->user()->username }}</p>
-                    </li>
-
-                    <li class="flex-none">
+                    
+                    <li class="ml-8 mr-2 text-right d-flex">
+                        <div class="d-none d-sm-block">
+                            <p class="font-semibold">{{ auth()->user()->first_name }}</p>
+                            <p class="text-xs font-extralight -mt-1 text-gray-400">{{ auth()->user()->username }}</p>
+                        </div>
                         <div class="avatar">
                             <div class="rounded-full w-10 h-10 m-1">
                                 <img src="https://cc.uffs.edu.br/avatar/iduffs/{{ auth()->user()->uid }}" />
                             </div>
                         </div>
                     </li>
+
+                    
 
                     <li>
                         <a href="{{ route('logout') }}">Sair</a>
@@ -60,32 +62,34 @@
             </ul>
         </nav>
 
-        <nav class="lg:invisible absolute left-2 w-full bg-white">
+        <nav class="lg:invisible absolute left-2 w-full bg-white pb-4">
             <div class="float-left mt-10 w-100">
-                <a href="{{ route('index') }}" class="logo d-flex align-items-center">
-                    <img src="{{ asset('img/forms-icon.png') }}" alt="">
-                    <span>Forms</span>
-                </a>
+                <div class="ml-10 mt-10 float-left">
+                    <a href="{{ route('index') }}" class="logo d-sm-flex align-items-center">
+                        <img src="{{ asset('img/forms-icon.png') }}" alt="" class="mb-2">
+                        <span>Forms</span>
+                    </a>
+                </div>
                 @auth
-                <div class="float-right mt-0 mr-10 d-flex">
-                    <div class="text-right">
+                <div class="float-right mt-10 mr-10 d-flex">
+                    <div class="text-right d-none d-sm-block">
                         <p class="font-semibold">{{ auth()->user()->first_name }}</p>
-                        <p class="text-xs font-extralight text-gray-400">{{ auth()->user()->username }}</p>
+                        <p class="font-extralight text-gray-400">{{ auth()->user()->username }}</p>
                     </div>
-                    <div class="avatar m-auto">
+                    <div class="avatar m-auto d-none d-md-block d-lg-none">
                         <div class="rounded-full w-10 h-10 m-1">
                             <img src="https://cc.uffs.edu.br/avatar/iduffs/{{ auth()->user()->uid }}" />
                         </div>
                     </div>
                 </div>
                 @endauth
-                <li class="dropdown mr-5 float-right pr-5">
+                <li class="dropdown mr-5 mt-10 float-right">
                     <div style="background-color: #264653" tabindex="0" class="btn btn-primary"><i class="bi bi-chevron-down"></i></div>
-                    <ul class="shadow menu dropdown-content bg-base-100 rounded-box w-52 mr-24">
+                    <ul class="shadow menu dropdown-content bg-base-100 rounded-box w-52 float-right right-0">
                         
                         @auth
                             @if (@$layout_header_simplified == false)
-                                <li><a href="{{ route('home') }}" class="nav-link @if (Route::is('home')) active @endif" >Minhas criações</a></li>
+                                <li><a href="{{ route('home') }}" class="nav-link @if (Route::is('home')) active @endif" >Minhas criações ({{auth()->user()->username}})</a></li>
                                 <li><a href="{{ route('form.create') }}" class="nav-link @if (Route::is('form.create')) active @endif" >Criar</a></li>                  
                             @endif
 
