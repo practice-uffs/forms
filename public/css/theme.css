@@ -2115,3 +2115,28 @@ section.hero-slim {
     width: 90%;
     margin: auto;
 }
+
+.btn-light-custom{
+  background-color: transparent !important;
+  color: #570df8 !important;
+  border-color: #570df8 !important;
+  text-decoration: none !important;
+}
+
+.btn-light-custom:hover{
+  background-color:#570df8 !important;
+  color: white !important;
+}
+
+
+.btn-danger-custom{
+  background-color: transparent !important;
+  color: #ef4444 !important;
+  border-color: #ef4444 !important;
+  text-decoration: none !important;
+}
+
+.btn-danger-custom:hover{
+  background-color:#ef4444 !important;
+  color: white !important;
+}

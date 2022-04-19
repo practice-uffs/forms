@@ -46,7 +46,7 @@
                         @foreach ($forms as $form)
                             <tr>
                                 <td>
-                                    <a href="{{ route('form.edit', [$form->id]) }}" class="btn color-background-form">Ver</a>
+                                    <a href="{{ route('form.edit', [$form->id]) }}" class="btn btn-light-custom">Ver</a>
                                 </td>                                
                                 <td class="text-wrap">
                                     {{ $form->title ?? 'Questionário '.$form->id }}
@@ -62,7 +62,7 @@
                                     <div class="text-sm opacity-50">Última atualização: {{ $form->updated_at }}</div>
                                 </td>
                                 <td>
-                                    <a href="{{ route('form.delete', [$form->id ,$form->hash] ) }}" onclick="if (confirm('Tem certeza que deseja descartar este formulário?')){return true;}else{event.stopPropagation(); event.preventDefault();};" class="btn btn-danger">Remover</a>
+                                    <a href="{{ route('form.delete', [$form->id ,$form->hash] ) }}" onclick="if (confirm('Tem certeza que deseja descartar este formulário?')){return true;}else{event.stopPropagation(); event.preventDefault();};" class="btn btn-danger-custom">Remover</a>
                                 </td>
                             </tr>
                         @endforeach

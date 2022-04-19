@@ -71,8 +71,8 @@
 </section>
 
 <section class="text-gray-600 body-font">
-    <div class="container mx-auto flex md:flex-row md:flex-row-reverse sm:flex-row sm:flex-row-reverse flex-col items-center">
-        <div class="lg:max-w-lg lg:w-full w-100 md:mb-0" data-aos="zoom-out">
+    <div class="container mx-auto flex md:flex-row flex-col items-center">
+        <div class="lg:max-w-lg lg:w-full w-100 mb-10" data-aos="zoom-out">
             @include('components.demo-chart')
         </div>
         <div class="lg:flex-grow md:w-1/2 lg:pl-24 md:pl-16 flex flex-col md:items-start text-left items-center">
