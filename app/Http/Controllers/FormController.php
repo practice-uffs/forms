@@ -111,12 +111,8 @@ class FormController extends Controller
 
                     if($tipo == 'select'){
                         $options = $question_reply['options'];
-
-
                         $resposta = $options[$resposta];
-                    
                     }
-        
                     fputcsv($file, array($pergunta, $tipo, $resposta));
                 }
             }
