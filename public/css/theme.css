@@ -2114,3 +2114,10 @@ section.hero-slim {
     width: 90%;
     margin: auto;
 }
+
+.footer {
+  place-items: inherit;
+  column-gap: 0px;
+  row-gap: 0;
+  grid-auto-flow: row;
+}
