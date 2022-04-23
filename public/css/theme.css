@@ -2140,3 +2140,9 @@ section.hero-slim {
   background-color:#ef4444 !important;
   color: white !important;
 }
+.footer {
+  place-items: inherit;
+  column-gap: 0px;
+  row-gap: 0;
+  grid-auto-flow: row;
+}
