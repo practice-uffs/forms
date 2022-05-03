@@ -1,6 +1,6 @@
 <!-- ======= Footer ======= -->
-<footer id="footer" class="footer mt-12">
-    <div class="footer-top bg-gray-200">
+<footer id="footer" class="footer mt-12 d-block">
+    <div class="footer-top bg-gray-200 w-100 float-left">
         <div class="container">
             <div class="row gy-4">
                 <div class="col-lg-5 col-md-12 footer-contact text-center text-md-start">
@@ -63,7 +63,7 @@
             </div>
         </div>
     </div>
-    <div class="bg-gray-100">
+    <div class="bg-gray-100 w-100 float-left">
         <div class="container py-6 mx-auto flex items-center sm:flex-row flex-col">
             <p class="text-sm text-gray-400">
                 Feito com ❤️ pela 

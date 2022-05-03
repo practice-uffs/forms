@@ -96,7 +96,9 @@
         </div>
         
         <div x-show="tab === 'replies'" class="row p-2 pt-4" id="replies">
+            @if(count($form->replies))
             <div class="w-100"><a href="{{ route('form.report', [$form->id ,$form->hash]) }}"  class="btn btn-light-custom float-right">Baixar respostas</a></div>
+            @endif
             <div class="row">
                 <div class="col-12 no-replies-yet"></div>
             </div>
