@@ -1,5 +1,5 @@
 <header id="header" class="header fixed-top">
-    <div class="container-lg d-flex align-items-center justify-content-between">
+    <div class="container ml-0 mr-0 md:mr-auto md:ml-auto d-flex justify-content-between">
         <a href="{{ route('index') }}" class="logo d-flex align-items-center">
             <img src="{{ asset('img/forms-icon.png') }}" alt="">
             <span>Forms</span>
@@ -33,8 +33,8 @@
                     @endadmin
 
                     
-                    <li class="ml-8 mr-2 text-right d-flex">
-                        <div class="d-none d-sm-block">
+                    <li class="ml-8 mr-2 text-right d-flex align-items-center">
+                        <div class="d-none d-md-block h-full">
                             <p class="font-semibold">{{ auth()->user()->first_name }}</p>
                             <p class="text-xs font-extralight -mt-1 text-gray-400">{{ auth()->user()->username }}</p>
                         </div>
@@ -62,30 +62,17 @@
             </ul>
         </nav>
 
-        <nav class="lg:invisible absolute left-2 w-full bg-white pb-4">
-            <div class="float-left mt-10 w-100">
-                <div class="ml-10 mt-10 float-left">
-                    <a href="{{ route('index') }}" class="logo d-sm-flex align-items-center">
-                        <img src="{{ asset('img/forms-icon.png') }}" alt="" class="mb-2">
+        <nav class="lg:invisible absolute w-full bg-white pb-4 pt-4">
+            <div class="d-flex justify-content-between">
+                <div class="float-left">
+                    <a href="{{ route('index') }}" class="logo d-flex align-items-center">
+                        <img src="{{ asset('img/forms-icon.png') }}" alt="">
                         <span>Forms</span>
                     </a>
                 </div>
-                @auth
-                <div class="float-right mt-10 mr-10 d-flex">
-                    <div class="text-right d-none d-sm-block">
-                        <p class="font-semibold">{{ auth()->user()->first_name }}</p>
-                        <p class="font-extralight text-gray-400">{{ auth()->user()->username }}</p>
-                    </div>
-                    <div class="avatar m-auto d-none d-md-block d-lg-none">
-                        <div class="rounded-full w-10 h-10 m-1">
-                            <img src="https://cc.uffs.edu.br/avatar/iduffs/{{ auth()->user()->uid }}" />
-                        </div>
-                    </div>
-                </div>
-                @endauth
-                <li class="dropdown mr-5 mt-10 float-right">
+                <li class="dropdown mr-5">
                     <div style="background-color: #264653" tabindex="0" class="btn btn-primary"><i class="bi bi-chevron-down"></i></div>
-                    <ul class="shadow menu dropdown-content bg-base-100 rounded-box w-52 float-right right-0">
+                    <ul class="shadow menu dropdown-content bg-base-100 rounded-box w-52 float-right right-0 mt-2">
                         
                         @auth
                             @if (@$layout_header_simplified == false)

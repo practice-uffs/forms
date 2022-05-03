@@ -117,3 +117,11 @@
     -webkit-animation-delay: 0s;
     animation-delay: 0s;
 }
+
+
+
+@media screen and (max-width: 767px){
+    .chart-demo{
+        height:45vw;
+    }
+}

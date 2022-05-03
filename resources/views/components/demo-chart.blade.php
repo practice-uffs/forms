@@ -1,5 +1,5 @@
-<div class="chart-demo">
-    <svg viewbox="0 0 560 260">
+<div class="chart-demo w-100 m-0">
+    <svg viewbox="0 0 560 260" class="mh-100">
         <defs>
             <filter id="dropshadow">
                 <feGaussianBlur in="SourceAlpha" stdDeviation="3"></feGaussianBlur>
