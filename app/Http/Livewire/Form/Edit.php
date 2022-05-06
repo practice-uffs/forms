@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Form;
 use App\Model\Form;
 use CCUFFS\Text\PollFromText;
 use Livewire\Component;
+use App\Events\FormUpdated;
 
 class Edit extends Component
 {
@@ -55,6 +56,7 @@ class Edit extends Component
         $this->validate();
 
         $this->form->save();
+        event(new FormUpdated($this->form->id));
     }
 
     public function updated($field, $value)

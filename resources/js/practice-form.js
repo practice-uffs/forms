@@ -1,4 +1,6 @@
-const { isSet } = require("lodash");
+const {
+    isSet
+} = require("lodash");
 
 var PracticeForms = {
     config: {
@@ -9,17 +11,22 @@ var PracticeForms = {
     },
 
     chartIds: {}, // dicionário questão -> id do elemento que contém o gráfico
-    charts: {},   // dicionário id elemento -> objeto gráfico
+    charts: {}, // dicionário id elemento -> objeto gráfico
 
-    subscribeToEchoChannels: function() {
+    subscribeToEchoChannels: function () {
         var self = this;
 
-        Echo.channel(`forms.${this.config.formId}`).listen('FormReplied', (e) => {
-            self.loadResult();
-        });      
+        Echo.channel(`forms.${this.config.formId}`)
+            .listen('FormReplied', (e) => {
+                self.loadResult();
+            })
+            .listen('FormUpdated', (e) => {
+                self.loadResult();
+            })
+
     },
 
-    init: function(config) {
+    init: function (config) {
         this.config = config;
 
         this.subscribeToEchoChannels();
@@ -28,7 +35,7 @@ var PracticeForms = {
         return this;
     },
 
-    loadResult: function() {
+    loadResult: function () {
         var self = this;
 
         axios.get(this.config.resultUrl)
@@ -40,35 +47,35 @@ var PracticeForms = {
             });
     },
 
-    onError: function(error) {
+    onError: function (error) {
         console.error(error);
     },
 
-    renderNoRepliesYet: function() {
+    renderNoRepliesYet: function () {
         return `<div class="text-gray-400 text-center pt-4 pb-4 text-xl">
                    Nenhuma resposta ainda
                </div>`
     },
 
-    getChartIdFromQuestionId: function(questionId) {
+    getChartIdFromQuestionId: function (questionId) {
         if (!this.chartIds[questionId]) {
             this.chartIds[questionId] = 'chart-' + Math.random().toString(36).substring(7);
         }
 
         return this.chartIds[questionId];
-    },  
+    },
 
-    renderQuestionResultTypedInput: function(question, result) {
+    renderQuestionResultTypedInput: function (question, result) {
         var rows = [];
         var rowsAsHtml;
-        
+
         var chartExists = $('#' + this.config.repliesContainerId + ' .no-replies-yet');
-     
+
         rows.push('<div class="mb-4 w-full">');
         rows.push('<div class="font-bold text-center mb-4 mt-10">' + question + (result.questions[question] == undefined ? ' <p class="badge badge-pill badge-error p-2 pt-1 pb-1 border border-warning">Desativada</p>' : '') + '</div>');
 
         //percorre todas as respostas
-        for(reply in result.replies[question]){
+        for (reply in result.replies[question]) {
             rows.push('<div class="border h-10 p-2 chart-text-entry">' + result.replies[question][reply] + '</div>');
         }
         rows.push('</div>');
@@ -81,11 +88,13 @@ var PracticeForms = {
         }
     },
 
-    renderQuestionResultTypedSelect: function(question, result) {
+    renderQuestionResultTypedSelect: function (question, result) {
         answerLabels = Object.keys(result.replies[question]);
         answerValues = Object.values(result.replies[question]);
 
-        var answerValuesSum = answerValues.reduce(function(a, b) { return a + b; }, 0);
+        var answerValuesSum = answerValues.reduce(function (a, b) {
+            return a + b;
+        }, 0);
 
         var options = {
             series: [{
@@ -147,7 +156,7 @@ var PracticeForms = {
                     style: {
                         fontSize: '1.1em',
                         cssClass: 'text-gray-500 text-md',
-                    }                    
+                    }
                 },
                 tooltip: {
                     enabled: false,
@@ -165,7 +174,7 @@ var PracticeForms = {
                     show: false,
                     offsetY: 10,
                     formatter: function (val) {
-                        var percent = (val/answerValuesSum * 100).toFixed(2);
+                        var percent = (val / answerValuesSum * 100).toFixed(2);
                         return `${val} (${percent}%)`;
                     },
                 }
@@ -176,9 +185,9 @@ var PracticeForms = {
                 margin: 70,
                 align: 'center',
                 style: {
-                    fontSize:  '1.2em',
-                    fontWeight:  '600',
-                    fontFamily:  'Roboto',
+                    fontSize: '1.2em',
+                    fontWeight: '600',
+                    fontFamily: 'Roboto',
                     color: '#444'
                 }
             }
@@ -186,7 +195,7 @@ var PracticeForms = {
         this.createChart(question, options, result);
     },
 
-    createChart: function(questionId, options, result) {
+    createChart: function (questionId, options, result) {
         var id = this.getChartIdFromQuestionId(questionId);
 
         var selector = '#' + this.config.repliesContainerId;
@@ -208,10 +217,10 @@ var PracticeForms = {
         this.charts[id] = chart;
     },
 
-    renderRepliesFromResult: function(result) {
+    renderRepliesFromResult: function (result) {
 
         //percorre todas as perguntas
-        for(question in result.replies) {
+        for (question in result.replies) {
 
             $type = result.replies[question]['type'];
             delete result.replies[question]['type'];
@@ -226,20 +235,20 @@ var PracticeForms = {
         }
 
         //percorre todas as perguntas sem respostas
-        for(question in result.questions) {
-            if(result.replies[question] == undefined){
+        for (question in result.questions) {
+            if (result.replies[question] == undefined) {
                 this.renderQuestionNotReplied(question);
             }
         }
     },
 
-     
-    renderQuestionNotReplied: function(question) {
+
+    renderQuestionNotReplied: function (question) {
         var rows = [];
         var rowsAsHtml;
-        
+
         var chartExists = $('#' + this.config.repliesContainerId + ' .no-replies-yet');
-     
+
         rows.push('<div class="mb-4 w-full">');
         rows.push('<p class="font-bold text-center mb-4">' + question + '</p>');
         rows.push(this.renderNoRepliesYet());
@@ -254,8 +263,8 @@ var PracticeForms = {
 
 
     },
- 
-    updateRepliesCountBadge: function(result) {
+
+    updateRepliesCountBadge: function (result) {
         var count = result.stats.repliesCount;
         var selector = '#' + this.config.repliesBadgeContainerId;
         $(selector).html(`
@@ -264,7 +273,7 @@ var PracticeForms = {
             </div>`).fadeOut().fadeIn();
     },
 
-    onResultLoaded: function(result) {
+    onResultLoaded: function (result) {
         var noRepliesYetElement = $('#' + this.config.repliesContainerId + ' .no-replies-yet');
 
         if (result.stats.repliesCount == 0) {
