@@ -22,10 +22,11 @@ class Create extends \App\Http\Livewire\Crud\Main
     protected function assetUserCanReply()
     {
         $user = auth()->user();
-
         if (!$this->form->canBeRepliedBy($user)) {
-            throw ValidationException::withMessages(['generic_error' => 'your error message']);
+            // throw ValidationException::withMessages(['generic_error' => 'your error message']);
+            return false;
         }
+        return true;  
     }
 
     /**
@@ -37,7 +38,7 @@ class Create extends \App\Http\Livewire\Crud\Main
      */
     protected function prepareModelCrudInfo(array $modelCrudInfo) :array
     {
-        $this->assetUserCanReply();
+        
 
         if (empty($this->form->questions)) {
             // Não há campos extras para uma solicitação desse tipo de serviço,
@@ -59,16 +60,14 @@ class Create extends \App\Http\Livewire\Crud\Main
             // Vamos colocar como label do campo o próprio texto usado para
             // criar essa pergunta.
 
-          
-
-
             $modelCrudInfo['fields'][$key] = $poll[$index];
             $modelCrudInfo['fields'][$key]['label'] = $field['text'] ?? '';
             $modelCrudInfo['fields'][$key]['validation'] = 'present';
         
         }
-
+        
         return $modelCrudInfo;
+       
     }
 
     /**

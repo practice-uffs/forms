@@ -8,7 +8,7 @@
         </div>
 
         <div class="flex-none">
-            <button class="btn btn-sm btn-success pt-0" wire:click="finished(false)">Ok</button>
+            <button class="btn btn-sm btn-success pt-0" wire:click="finished(false, {{$form->id}})">Ok</button>
         </div>
     </div>
 </div>
