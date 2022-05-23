@@ -141,7 +141,7 @@
                     <button wire:click="cancel()" class="btn float-right mr-6">Cancelar</button>
                 @endif
             @else
-                <button wire:click="store()" class="btn btn-wide btn-primary ml-auto mr-auto d-flex">Enviar</button>
+                <button wire:click="store({{$form->id}})" class="btn btn-wide btn-primary ml-auto mr-auto d-flex">Enviar</button>
             @endif
         @endif
     @endif

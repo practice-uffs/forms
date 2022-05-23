@@ -8,6 +8,10 @@ use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Arr;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use App\Model\Form;
+use App\Model\User;
+use App\Http\Controllers\ReplyController;
+use Auth;
 
 /**
  * 
@@ -302,26 +306,38 @@ class Main extends Component
         array_splice($this->data, 0);
     }
 
-    public function store()
+    public function store(Form $form)
     {
-        $this->validate();
-        $values = $this->getDataForInsertOrUpdate();
-        
-        // Remove any defined 'id' to ensure an insert is
-        // performed instead of an update 
-        unset($values['id']);
-
-        $values = $this->prepareValuesForCreate($values);
-        $entry = $this->model::create($values);
-
-        $this->modelCreated($entry);
-        $this->resetInput();
-        $this->finished(true);
+        $user =  Auth::user();
+        if($form->canBeRepliedBy($user)){
+            $this->validate();
+            $values = $this->getDataForInsertOrUpdate();
+            
+            // Remove any defined 'id' to ensure an insert is
+            // performed instead of an update 
+            unset($values['id']);
+    
+            $values = $this->prepareValuesForCreate($values);
+            $entry = $this->model::create($values);
+    
+            $this->modelCreated($entry);
+            $this->resetInput();
+            $this->finished(true);
+        }else{
+            return redirect(route('reply.create', ['form' => $form,'hash' => $form->hash]));
+        }
     }
 
-    public function finished($value)
+    public function finished($value, Form $form = null)
     {
         $this->finished = $value;
+
+        if($form != null and $value == false){
+            $user =  auth()->user();
+            if(!$form->canBeRepliedBy($user)){
+                return redirect(route('reply.create', ['form' => $form,'hash' => $form->hash]));
+            }
+        }
     }
 
     public function hideInlineEdit()
