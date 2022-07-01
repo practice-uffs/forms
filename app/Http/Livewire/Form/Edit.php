@@ -6,23 +6,29 @@ use App\Model\Form;
 use CCUFFS\Text\PollFromText;
 use Livewire\Component;
 use App\Events\FormUpdated;
+use Illuminate\Support\Facades\Input;
 
 class Edit extends Component
 {
     public Form $form;
     public string $poll_view = '';
+    public $question_config = 0;
 
     public $rules = [
         'form.title' => 'present',
         'form.user_questions' => 'present',
         'form.is_accepting_replies' => 'present',
         'form.is_auth_required' => 'present',
-        'form.is_one_reply_only' => 'present'
-   ];
+        'form.is_one_reply_only' => 'present',
+    ];
+
 
     public function mount(Form $form)
     {
         $this->form = $form;
+      
+        // $this->renderConfigReplies($this->form->user_questions);
+        
         $this->renderUserQuestion($this->form->user_questions);
     }
 
@@ -38,7 +44,7 @@ class Edit extends Component
 
         foreach($poll as $question) {
             $type = $question['type'];
-            $this->poll_view .= $question['text'] . '<br />';
+            $this->poll_view .= $question['text'] . '<br>';
             switch($question['type']) {
                 case 'input': $this->poll_view .= '<input type="'.$type.'">'; break;
                 case 'select':
@@ -54,22 +60,53 @@ class Edit extends Component
     public function update()
     {
         $this->validate();
-
         $this->form->save();
         event(new FormUpdated($this->form->id));
     }
 
     public function updated($field, $value)
     {
+
         if ($field == 'form.user_questions') {
             $this->renderUserQuestion($value);
+
+            $backup_questions = $this->form->questions;
             $this->form->questions = PollFromText::make($value);
+      
+            foreach($this->form->questions as $index => $form_question){
+                $this->form->questions[$index]['question_config'] = '0';
+                $this->rules["question_config"] = 'present';
+            }
+
+            foreach($this->form->questions as $index => $form_question){
+                foreach($backup_questions as $backup_question){
+                    if($this->form->questions[$index]['text'] == $backup_question['text']){
+                        $this->form->questions[$index]['question_config']= $backup_question['question_config'];
+                    }
+                }
+            }
+            
+            $this->form->save();            
         }
 
         if ($field == 'form.is_one_reply_only' && $value == true) {
             $this->form->is_auth_required = true;
         }
 
+        if($field == "question_config"){
+          
+            $update_config = explode(',', $value);
+            $this->form->questions[$update_config[0]]['question_config'] = $update_config[1];
+
+            // $this->question_config[$update_config[0]] = $update_config[1];
+            $this->form->save();
+
+            // var_dump($this->form->questions);
+        }
+
+       
+
         $this->update();
     }
+
 }

@@ -25,6 +25,7 @@ class FormController extends Controller
         $form = Form::create([
             'title' => '',
             'user_questions' => '',
+            'config_questions' => '',
             'questions' => [],
             'user_id' => Auth::user()->id,
             'hash' => Str::random(32),

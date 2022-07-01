@@ -32,6 +32,7 @@ class Form extends Model
         'title',
         'user_questions',
         'questions',
+        'config_questions',
         'hash',
         'status',
     ];
@@ -81,6 +82,16 @@ class Form extends Model
             'user_questions' => [
                 'label' => 'Perguntas',
                 'type' => 'poll',
+                'show' => 'create,edit',
+            ],  
+            'questions[]' => [
+                'label' => 'Configurações',
+                'type' => 'text',
+                'show' => 'create,edit',
+            ],  
+            'config_questions' => [
+                'label' => 'Configurações',
+                'type' => 'poll_config',
                 'show' => 'create,edit',
             ],            
         ]

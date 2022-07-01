@@ -1,10 +1,8 @@
 <div>
- 
-    
     <div x-data="{ tab: window.location.hash ? window.location.hash.substring(1) : 'questions' }" id="tab_wrapper">
-
         <div class="tabs row">
             <a :class="{ 'tab-active': tab === 'questions' }" @click.prevent="tab = 'questions'; window.location.hash = 'questions'" href="#" class="tab tab-lifted col-md-2 col-sm-4">Perguntas</a>
+            <a :class="{ 'tab-active': tab === 'config_questions' }" @click.prevent="tab = 'config_questions'; window.location.hash = 'config_questions'" href="#" class="tab tab-lifted col-md-2 col-sm-4">Configurar Perguntas</a>
             <a :class="{ 'tab-active': tab === 'permissions' }" @click.prevent="tab = 'permissions'; window.location.hash = 'permissions'" href="#" class="tab tab-lifted col-md-2 col-sm-4">Permissões</a>
             <a :class="{ 'tab-active': tab === 'replies' }" @click.prevent="tab = 'replies'; window.location.hash = 'replies'" href="#" class="tab tab-lifted col-md-2 col-sm-4">Respostas <span id="repliesBadge"></span></a>
             <!-- <a href="#" class="tab tab-lg tab-lifted text-white col-6">|</a> -->
@@ -44,7 +42,58 @@
             <div class="w-100 mt-10">
                 <a href="{{ route('form.delete', [$form->id ,$form->hash]) }}" onclick="if (confirm('Tem certeza que deseja descartar este formulário?')){return true;}else{event.stopPropagation(); event.preventDefault();};"  class="btn btn-danger-custom">Cancelar formulário</a>   
             </div>
+        </div>
 
+        <div x-show="tab === 'config_questions'" class="row pb-4 pt-4">       
+            <div class="row">
+                <div class="col-12 pt-2">
+                    <div class="w-full">
+                        <div class="col-12">
+                            <label for="config_questions" class="label">
+                                <span class="label-text">Selecione o tipo de resposta para cada pergunta:</span>
+                            </label>
+                        </div>
+                        @foreach ($form->questions as $index => $question)
+                            <div class="col-12">
+                                <label for="config_questions" class="label">
+                                    <span class="label-text">{{$question['text']}}</span>
+                                </label>
+                            </div>
+                            {{$question['question_config']}}
+                            {{$question['type']}}
+
+                            @if($question['type'] == 'input')
+                                <select wire:model="question_config" class="float-left">
+                                    <option value="{{$index}},0">Padrao</option>
+                                    <option value="{{$index}},1">Data</option>
+                                    <option value="{{$index}},2">Hora</option>
+                                    <option value="{{$index}},3">Telefone</option>
+                                    <option value="{{$index}},4">E-mail</option>
+                                    <option value="{{$index}},5">Arquivo</option>
+                                </select>
+
+                                <!-- <input type="radio" name="config_{{$index}}" wire:model="question_config" value="{{$index}},0"> Padrao
+                                <input type="radio" name="config_{{$index}}" wire:model="question_config" value="{{$index}},1"> Data
+                                <input type="radio" name="config_{{$index}}" wire:model="question_config" value="{{$index}},2"> Hora
+                                <input type="radio" name="config_{{$index}}" wire:model="question_config" value="{{$index}},3"> Telefone
+                                <input type="radio" name="config_{{$index}}" wire:model="question_config" value="{{$index}},4"> E-mail
+                                <input type="radio" name="config_{{$index}}" wire:model="question_config" value="{{$index}},5"> Arquivo -->
+
+
+                            @elseif($question['type'] == 'select')
+                                <select wire:model="question_config" class="float-left">
+                                    <option value="{{$index}},0">Select (Resposta Única)</option>
+                                    <option value="{{$index}},1">Radio (Resposta Única)</option>
+                                    <option value="{{$index}},2">Checkbox (Multiplas Respostas)</option>
+                                    <option value="{{$index}},3">Escala Horizontal</option>
+                                </select>
+                            @endif
+                            <br><br>
+
+                        @endforeach
+                    </div>
+                </div>
+            </div>
         </div>
 
         <textarea wire:model="poll_view" name="poll_view" x-ref="poll_view" class="hidden"></textarea>
