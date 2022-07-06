@@ -32,9 +32,26 @@ class Form extends Model
         'title',
         'user_questions',
         'questions',
-        'config_questions',
         'hash',
         'status',
+    ];
+
+
+    public $answer_types = [
+        'input' => [
+            0 => 'text',
+            1 => 'date',
+            2 => 'time',
+            3 => 'tel',
+            4 => 'email',
+            5 => 'file'
+        ],
+        'select' => [
+           0 => 'select',
+           1 => 'radio',
+           2 => 'checkbox',
+           3 => 'custom'
+        ]
     ];
 
 
@@ -88,12 +105,7 @@ class Form extends Model
                 'label' => 'Configurações',
                 'type' => 'text',
                 'show' => 'create,edit',
-            ],  
-            'config_questions' => [
-                'label' => 'Configurações',
-                'type' => 'poll_config',
-                'show' => 'create,edit',
-            ],            
+            ]           
         ]
     ];
 

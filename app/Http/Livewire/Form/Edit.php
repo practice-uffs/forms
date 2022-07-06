@@ -94,7 +94,7 @@ class Edit extends Component
         }
 
         if($field == "question_config"){
-          
+            
             $update_config = explode(',', $value);
             $this->form->questions[$update_config[0]]['question_config'] = $update_config[1];
 
