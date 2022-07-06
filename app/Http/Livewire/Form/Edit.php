@@ -6,7 +6,6 @@ use App\Model\Form;
 use CCUFFS\Text\PollFromText;
 use Livewire\Component;
 use App\Events\FormUpdated;
-use Illuminate\Support\Facades\Input;
 
 class Edit extends Component
 {
@@ -19,16 +18,13 @@ class Edit extends Component
         'form.user_questions' => 'present',
         'form.is_accepting_replies' => 'present',
         'form.is_auth_required' => 'present',
-        'form.is_one_reply_only' => 'present',
+        'form.is_one_reply_only' => 'present'
     ];
 
 
     public function mount(Form $form)
     {
         $this->form = $form;
-      
-        // $this->renderConfigReplies($this->form->user_questions);
-        
         $this->renderUserQuestion($this->form->user_questions);
     }
 
@@ -85,7 +81,6 @@ class Edit extends Component
                     }
                 }
             }
-            
             $this->form->save();            
         }
 
@@ -94,17 +89,10 @@ class Edit extends Component
         }
 
         if($field == "question_config"){
-            
             $update_config = explode(',', $value);
             $this->form->questions[$update_config[0]]['question_config'] = $update_config[1];
-
-            // $this->question_config[$update_config[0]] = $update_config[1];
             $this->form->save();
-
-            // var_dump($this->form->questions);
         }
-
-       
 
         $this->update();
     }

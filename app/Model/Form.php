@@ -100,12 +100,7 @@ class Form extends Model
                 'label' => 'Perguntas',
                 'type' => 'poll',
                 'show' => 'create,edit',
-            ],  
-            'questions[]' => [
-                'label' => 'Configurações',
-                'type' => 'text',
-                'show' => 'create,edit',
-            ]           
+            ]        
         ]
     ];
 
