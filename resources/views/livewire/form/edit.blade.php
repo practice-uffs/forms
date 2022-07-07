@@ -1,10 +1,8 @@
 <div>
- 
-    
     <div x-data="{ tab: window.location.hash ? window.location.hash.substring(1) : 'questions' }" id="tab_wrapper">
-
         <div class="tabs row">
             <a :class="{ 'tab-active': tab === 'questions' }" @click.prevent="tab = 'questions'; window.location.hash = 'questions'" href="#" class="tab tab-lifted col-md-2 col-sm-4">Perguntas</a>
+            <a :class="{ 'tab-active': tab === 'config_questions' }" @click.prevent="tab = 'config_questions'; window.location.hash = 'config_questions'" href="#" class="tab tab-lifted col-md-2 col-sm-4">Configurar Respostas</a>
             <a :class="{ 'tab-active': tab === 'permissions' }" @click.prevent="tab = 'permissions'; window.location.hash = 'permissions'" href="#" class="tab tab-lifted col-md-2 col-sm-4">Permissões</a>
             <a :class="{ 'tab-active': tab === 'replies' }" @click.prevent="tab = 'replies'; window.location.hash = 'replies'" href="#" class="tab tab-lifted col-md-2 col-sm-4">Respostas <span id="repliesBadge"></span></a>
             <!-- <a href="#" class="tab tab-lg tab-lifted text-white col-6">|</a> -->
@@ -44,7 +42,41 @@
             <div class="w-100 mt-10">
                 <a href="{{ route('form.delete', [$form->id ,$form->hash]) }}" onclick="if (confirm('Tem certeza que deseja descartar este formulário?')){return true;}else{event.stopPropagation(); event.preventDefault();};"  class="btn btn-danger-custom">Cancelar formulário</a>   
             </div>
+        </div>
 
+        <div x-show="tab === 'config_questions'" class="row pb-4 pt-4">       
+            <div class="row">
+                <div class="col-12 pt-2">
+                    <div class="w-full">
+                        <div class="col-12">
+                            <label class="label">
+                                <span class="label-text">Selecione o tipo de resposta para cada pergunta:</span>
+                            </label>
+                        </div>
+                        @foreach ($form->questions as $question_id => $question)
+                            <div class="col-md-4">
+                                <div class="form-control border-radius-5">
+                                    <label>
+                                        <span class="label-text">Pergunta: <strong>{{$question['text']}}</strong></span>
+                                    </label>   
+                                    <label>
+                                        <span class="label-text">Aceitando respostas do tipo: <strong>{{$form->answer_types[$question['type']][$question['question_config']]}}</strong></span>
+                                    </label>
+                                    <label class="d-block">
+                                        <span class="label-text">Mudar para:</span>
+                                        <select wire:model="question_config">
+                                            @foreach ($form->answer_types[$question['type']] as $index_type => $type)
+                                                <option value="{{$question_id}},{{$index_type}}">{{$type}}</option>
+                                            @endforeach
+                                        </select>
+                                    </label>
+                                </div>
+                            </div>
+                            <br><br>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
         </div>
 
         <textarea wire:model="poll_view" name="poll_view" x-ref="poll_view" class="hidden"></textarea>

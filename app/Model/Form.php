@@ -37,6 +37,24 @@ class Form extends Model
     ];
 
 
+    public $answer_types = [
+        'input' => [
+            0 => 'text',
+            1 => 'date',
+            2 => 'time',
+            3 => 'tel',
+            4 => 'email',
+            5 => 'file'
+        ],
+        'select' => [
+           0 => 'select',
+           1 => 'radio',
+           2 => 'checkbox',
+           3 => 'custom'
+        ]
+    ];
+
+
     /**
      * The attributes that should be cast.
      *
@@ -82,7 +100,7 @@ class Form extends Model
                 'label' => 'Perguntas',
                 'type' => 'poll',
                 'show' => 'create,edit',
-            ],            
+            ]        
         ]
     ];
 
