@@ -180,7 +180,6 @@ class Main extends Component
 
         if ($edit != null) {
             $this->data = $this->prepareModelData($edit->toArray());
-           
         }
     }
 
@@ -311,8 +310,6 @@ class Main extends Component
             }
         })->toArray();
 
-        // dd($values);
-
         return $values;
     }
 
@@ -334,7 +331,6 @@ class Main extends Component
 
     public function store(Form $form)
     {
-        // dd($this->data);
         //percorre o array procurando checkboxes para concatenar e salvar num único item
         foreach($this->data as $index => $data){
             if(!isset($this->field['data.'.$index])){
@@ -354,7 +350,6 @@ class Main extends Component
                 }
             }
         }
-        // dd($this->data);
 
         $user =  Auth::user();
         if($form->canBeRepliedBy($user)){

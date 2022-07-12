@@ -11,7 +11,6 @@ class Edit extends Component
 {
     public Form $form;
     public string $poll_view = '';
-    public $question_config = 0;
 
     public $rules = [
         'form.title' => 'present',
@@ -20,7 +19,6 @@ class Edit extends Component
         'form.is_auth_required' => 'present',
         'form.is_one_reply_only' => 'present'
     ];
-
 
     public function mount(Form $form)
     {
@@ -70,11 +68,12 @@ class Edit extends Component
             $backup_questions = $this->form->questions;
             $this->form->questions = PollFromText::make($value);
       
+            //seta a configação para as questões definidas
             foreach($this->form->questions as $index => $form_question){
                 $this->form->questions[$index]['question_config'] = '0';
-                // $this->rules["question_config"] = 'present';
             }
 
+            //verifica e mantém configuração caso já houver sido configurada anteriormente
             foreach($this->form->questions as $index => $form_question){
                 foreach($backup_questions as $backup_question){
                     if($this->form->questions[$index]['text'] == $backup_question['text']){
@@ -89,19 +88,13 @@ class Edit extends Component
             $this->form->is_auth_required = true;
         }
 
-        // if($field == "question_config"){
-        //     $update_config = explode(',', $value);
-        //     $this->form->questions[$update_config[0]]['question_config'] = $update_config[1];
-        //     $this->form->save();
-        // }
-
         $this->update();
     }
 
 
 
-    public function changeQuestionConfig($question_id, $index_type){
-
+    public function changeQuestionConfig($question_id, $index_type)
+    {
         $this->form->questions[$question_id]['question_config'] = $index_type;
         $this->form->save();
         $this->renderUserQuestion($this->form->user_questions);
