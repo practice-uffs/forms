@@ -58,6 +58,7 @@ class Edit extends Component
         $this->validate();
         $this->form->save();
         event(new FormUpdated($this->form->id));
+        $this->renderUserQuestion($this->form->user_questions);
     }
 
     public function updated($field, $value)
@@ -71,13 +72,13 @@ class Edit extends Component
       
             foreach($this->form->questions as $index => $form_question){
                 $this->form->questions[$index]['question_config'] = '0';
-                $this->rules["question_config"] = 'present';
+                // $this->rules["question_config"] = 'present';
             }
 
             foreach($this->form->questions as $index => $form_question){
                 foreach($backup_questions as $backup_question){
                     if($this->form->questions[$index]['text'] == $backup_question['text']){
-                        $this->form->questions[$index]['question_config']= $backup_question['question_config'];
+                        $this->form->questions[$index]['question_config'] = $backup_question['question_config'];
                     }
                 }
             }
@@ -88,13 +89,24 @@ class Edit extends Component
             $this->form->is_auth_required = true;
         }
 
-        if($field == "question_config"){
-            $update_config = explode(',', $value);
-            $this->form->questions[$update_config[0]]['question_config'] = $update_config[1];
-            $this->form->save();
-        }
+        // if($field == "question_config"){
+        //     $update_config = explode(',', $value);
+        //     $this->form->questions[$update_config[0]]['question_config'] = $update_config[1];
+        //     $this->form->save();
+        // }
 
         $this->update();
     }
+
+
+
+    public function changeQuestionConfig($question_id, $index_type){
+
+        $this->form->questions[$question_id]['question_config'] = $index_type;
+        $this->form->save();
+        $this->renderUserQuestion($this->form->user_questions);
+    }
+
+
 
 }

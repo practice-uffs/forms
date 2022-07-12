@@ -1,5 +1,5 @@
 const {
-    isSet
+    isSet, defaultsDeep
 } = require("lodash");
 
 var PracticeForms = {
@@ -219,18 +219,45 @@ var PracticeForms = {
 
     renderRepliesFromResult: function (result) {
 
+        console.log(result);
+        // return;
+
         //percorre todas as perguntas
         for (question in result.replies) {
 
             $type = result.replies[question]['type'];
             delete result.replies[question]['type'];
 
+            question_config = result.questions[question]['question_config'];
+           
             switch ($type) {
                 case 'select':
-                    this.renderQuestionResultTypedSelect(question, result);
+                    switch(question_config){
+                        case 0:
+                            this.renderQuestionResultTypedSelect(question, result);
+                            break;
+                        case 1:
+                            this.renderQuestionResultTypedSelect(question, result);
+                            break;
+                        case 2:
+                            //tem que quebrar em váriaas replies
+
+                            // result.replies[question].forEach(element => { 
+                                // options = element.split(',');
+                                // element = options[0];
+                            // delete result.replies[question]['type'];
+                            this.renderQuestionResultTypedSelect(question, result);
+                            break;
+                            // });
+                            // this.renderQuestionResultTypedSelect(question, result);
+                        default:
+                            break;
+                    }
+                   
                     break;
                 default:
                     this.renderQuestionResultTypedInput(question, result);
+                    break;
             }
         }
 
@@ -263,6 +290,30 @@ var PracticeForms = {
 
 
     },
+
+    renderQuestionNotReplied: function (question) {
+        var rows = [];
+        var rowsAsHtml;
+
+        var chartExists = $('#' + this.config.repliesContainerId + ' .no-replies-yet');
+
+        rows.push('<div class="mb-4 w-full">');
+        rows.push('<p class="font-bold text-center mb-4">' + question + '</p>');
+        rows.push(this.renderNoRepliesYet());
+        rows.push('</div>');
+
+        rowsAsHtml = rows.join('');
+
+        if (chartExists) {
+            $(`#${this.config.repliesContainerId} .no-replies-yet`).append(rowsAsHtml);
+            return;
+        }
+
+
+    },
+
+
+    
 
     updateRepliesCountBadge: function (result) {
         var count = result.stats.repliesCount;

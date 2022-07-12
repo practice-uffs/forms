@@ -157,13 +157,40 @@ class Form extends Model
                         continue;
                     }
 
-                    $answerLabel = $reply['options'][$answer];
 
-                    if (!isset($replies[$text][$answerLabel])) {
-                        $replies[$text][$answerLabel] = 0;
+
+                    if ($reply['question_config'] == 2) {
+                        $answer_exploded = explode(',', $answer);
+                        if(count($answer_exploded) > 1){
+                            foreach($answer_exploded as $new_answer){
+                                $answerLabel = $reply['options'][$new_answer];
+
+                                if (!isset($replies[$text][$answerLabel])) {
+                                    $replies[$text][$answerLabel] = 0;
+                                }
+            
+                                $replies[$text][$answerLabel]++;
+                            }
+                        }else{
+                            $answerLabel = $reply['options'][$answer];
+
+                            if (!isset($replies[$text][$answerLabel])) {
+                                $replies[$text][$answerLabel] = 0;
+                            }
+        
+                            $replies[$text][$answerLabel]++;
+                        }
+                        
+                    }else{
+
+                        $answerLabel = $reply['options'][$answer];
+
+                        if (!isset($replies[$text][$answerLabel])) {
+                            $replies[$text][$answerLabel] = 0;
+                        }
+
+                        $replies[$text][$answerLabel]++;
                     }
-
-                    $replies[$text][$answerLabel]++;
                 }
             }
         });
