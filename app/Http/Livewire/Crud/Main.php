@@ -156,6 +156,28 @@ class Main extends Component
 
         $this->fields = $this->createPublicFieldsProperty();
 
+        foreach($this->fields as $index => $field){
+            switch($field['type']){
+                case 'input':
+                    switch($field['question_config']){
+                        case 0: $this->fields[$index]['type'] = 'text'; break;
+                        case 1: $this->fields[$index]['type'] = 'date'; break;
+                        case 2: $this->fields[$index]['type'] = 'time'; break;
+                        case 3: $this->fields[$index]['type'] = 'tel'; break;
+                        case 4: $this->fields[$index]['type'] = 'email'; break;
+                        case 5: $this->fields[$index]['type'] = 'file'; break;
+                    }
+                    break;
+                case 'select':
+                    switch($field['question_config']){
+                        case 0: $this->fields[$index]['type'] = 'select'; break;
+                        case 1: $this->fields[$index]['type'] = 'radio'; break;
+                        case 2: $this->fields[$index]['type'] = 'checkbox'; break;
+                    }
+                    break;
+            }
+        }
+
         if ($edit != null) {
             $this->data = $this->prepareModelData($edit->toArray());
         }
@@ -308,6 +330,26 @@ class Main extends Component
 
     public function store(Form $form)
     {
+        //percorre o array procurando checkboxes para concatenar e salvar num único item
+        foreach($this->data as $index => $data){
+            if(!isset($this->field['data.'.$index])){
+                if($data !== false){
+                    $index_exploded = explode('#', $index);
+                    if(isset($this->data[$index_exploded[0]])){
+                        if($this->fields['data.'.$index_exploded[0]]['type'] == 'checkbox'){
+                            $this->data[$index_exploded[0]] .= ','.$data;
+                            unset($this->data[$index]); //unset do item já concatenado
+                        }   
+                    }else{
+                        $this->data[$index_exploded[0]] = $data;
+                        unset($this->data[$index]); //unset do item já concatenado
+                    }
+                }else{
+                    unset($this->data[$index]); //unset de item = false (marca automaticamente ao desselecionar um checkbox)
+                }
+            }
+        }
+
         $user =  Auth::user();
         if($form->canBeRepliedBy($user)){
             $this->validate();

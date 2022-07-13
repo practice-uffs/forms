@@ -1,5 +1,5 @@
 const {
-    isSet
+    isSet, defaultsDeep
 } = require("lodash");
 
 var PracticeForms = {
@@ -207,9 +207,7 @@ var PracticeForms = {
         }
 
         var str = '<div class="font-bold text-center mt-10">' + questionId + (result.questions[questionId] == undefined ? ' <p class="badge badge-pill badge-error p-2 pt-1 pb-1 border border-warning">Desativada</p>' : '') + '</div>';
-
         $(selector).append(str + '<div id="' + id + '" class="mb-4">' + this.renderNoRepliesYet() + '</div>');
-
 
         var chart = new ApexCharts(document.querySelector('#' + id), options);
         chart.render();
@@ -224,13 +222,14 @@ var PracticeForms = {
 
             $type = result.replies[question]['type'];
             delete result.replies[question]['type'];
-
+           
             switch ($type) {
                 case 'select':
                     this.renderQuestionResultTypedSelect(question, result);
                     break;
                 default:
                     this.renderQuestionResultTypedInput(question, result);
+                    break;
             }
         }
 
@@ -241,7 +240,6 @@ var PracticeForms = {
             }
         }
     },
-
 
     renderQuestionNotReplied: function (question) {
         var rows = [];
@@ -260,8 +258,6 @@ var PracticeForms = {
             $(`#${this.config.repliesContainerId} .no-replies-yet`).append(rowsAsHtml);
             return;
         }
-
-
     },
 
     updateRepliesCountBadge: function (result) {

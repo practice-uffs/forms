@@ -53,22 +53,21 @@
                                 <span class="label-text">Selecione o tipo de resposta para cada pergunta:</span>
                             </label>
                         </div>
+                       
                         @foreach ($form->questions as $question_id => $question)
+                       
                             <div class="col-md-4">
                                 <div class="form-control border-radius-5">
                                     <label>
                                         <span class="label-text">Pergunta: <strong>{{$question['text']}}</strong></span>
                                     </label>   
                                     <label>
-                                        <span class="label-text">Aceitando respostas do tipo: <strong>{{$form->answer_types[$question['type']][$question['question_config']]}}</strong></span>
+                                        <span class="label-text">Aceitar resposta do tipo:</span>
                                     </label>
                                     <label class="d-block">
-                                        <span class="label-text">Mudar para:</span>
-                                        <select wire:model="question_config">
                                             @foreach ($form->answer_types[$question['type']] as $index_type => $type)
-                                                <option value="{{$question_id}},{{$index_type}}">{{$type}}</option>
+                                                <button class="badge badge-sm badge-primary ml-2 {{ ($form->answer_types[$question['type']][$question['question_config']] == $type ? '' : 'badge-outline' )}}" wire:click="changeQuestionConfig({{$question_id}},{{$index_type}})">{{$type}}</button>
                                             @endforeach
-                                        </select>
                                     </label>
                                 </div>
                             </div>

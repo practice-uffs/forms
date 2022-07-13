@@ -36,7 +36,7 @@ class Form extends Model
         'status',
     ];
 
-
+    //mapeamento dos tipos de respostas
     public $answer_types = [
         'input' => [
             0 => 'text',
@@ -157,13 +157,33 @@ class Form extends Model
                         continue;
                     }
 
-                    $answerLabel = $reply['options'][$answer];
+                    //tratamento para checkbox, a resposta deixa de ser concatenada para facilitar a exibição no relatório
+                    if ($reply['question_config'] == 2) {
+                        $answer_exploded = explode(',', $answer);
+                        if(count($answer_exploded) > 1){
+                            foreach($answer_exploded as $new_answer){
 
-                    if (!isset($replies[$text][$answerLabel])) {
-                        $replies[$text][$answerLabel] = 0;
+                                $answerLabel = $reply['options'][$new_answer];
+                                if (!isset($replies[$text][$answerLabel])) {
+                                    $replies[$text][$answerLabel] = 0;
+                                }
+                                $replies[$text][$answerLabel]++;
+
+                            }
+                        }else{
+                            $answerLabel = $reply['options'][$answer];
+                            if (!isset($replies[$text][$answerLabel])) {
+                                $replies[$text][$answerLabel] = 0;
+                            }
+                            $replies[$text][$answerLabel]++;
+                        }
+                    }else{
+                        $answerLabel = $reply['options'][$answer];
+                        if (!isset($replies[$text][$answerLabel])) {
+                            $replies[$text][$answerLabel] = 0;
+                        }
+                        $replies[$text][$answerLabel]++;
                     }
-
-                    $replies[$text][$answerLabel]++;
                 }
             }
         });
