@@ -41,8 +41,6 @@ class LoginController extends Controller
         $auth = new \CCUFFS\Auth\AuthIdUFFS();
         $userData = $auth->login($credentials);
 
-        // dd($userData);
-
         if (!$userData) {
             session(["_loginAttempts" => session()->get("_loginAttempts") - 1]);
 
