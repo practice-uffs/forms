@@ -56,7 +56,6 @@ class Edit extends Component
         $this->validate();
         $this->form->save();
         event(new FormUpdated($this->form->id));
-        $this->renderUserQuestion($this->form->user_questions);
     }
 
     public function updated($field, $value)
@@ -91,15 +90,11 @@ class Edit extends Component
         $this->update();
     }
 
-
-
     public function changeQuestionConfig($question_id, $index_type)
     {
         $this->form->questions[$question_id]['question_config'] = $index_type;
         $this->form->save();
         $this->renderUserQuestion($this->form->user_questions);
     }
-
-
 
 }

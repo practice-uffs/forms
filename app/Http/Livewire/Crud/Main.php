@@ -298,7 +298,6 @@ class Main extends Component
     }
 
     protected function getDataForInsertOrUpdate() {
-        // dd($this->data);
         $values = collect($this->data)->map(function($item) {
             if(is_a($item, UploadedFile::class)) {
                 // This field is a uploaded file. We need to store it
