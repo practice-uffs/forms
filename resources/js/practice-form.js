@@ -1,5 +1,5 @@
 const {
-    isSet, defaultsDeep
+    isSet, defaultsDeep, split
 } = require("lodash");
 
 var PracticeForms = {
@@ -71,12 +71,21 @@ var PracticeForms = {
 
         var chartExists = $('#' + this.config.repliesContainerId + ' .no-replies-yet');
 
-        rows.push('<div class="mb-4 w-full">');
-        rows.push('<div class="font-bold text-center mb-4 mt-10">' + question + (result.questions[question] == undefined ? ' <p class="badge badge-pill badge-error p-2 pt-1 pb-1 border border-warning">Desativada</p>' : '') + '</div>');
+        var checkfilename = result.replies[question][0].split('/');
 
-        //percorre todas as respostas
+        rows.push('<div class="mb-4 w-full">');
+        rows.push('<div class="font-bold text-center mb-4 mt-10">' + question + (checkfilename[0] == 'crud_uploads' ? '<a class="m-1" href="/download/zip/'+this.config.formId+'/'+question+'">(Baixar arquivos)</a>' : '') + (result.questions[question] == undefined ? ' <p class="badge badge-pill badge-error p-2 pt-1 pb-1 m-1 border border-warning">Desativada</p>' : '') + '</div>');
+
+        //percorre todas as respostas  
         for (reply in result.replies[question]) {
-            rows.push('<div class="border h-10 p-2 chart-text-entry">' + result.replies[question][reply] + '</div>');
+            checkfilename = result.replies[question][reply].split('/');
+            //detecta resposta do tipo file
+            if(checkfilename[0] == 'crud_uploads'){
+                rows.push('<div class="border h-10 p-2 chart-text-entry"><a href="/download/'+checkfilename[1]+'">' + result.replies[question][reply] + '</href></div>');
+            }else{
+                rows.push('<div class="border h-10 p-2 chart-text-entry">' + result.replies[question][reply] + '</div>');
+            }
+            
         }
         rows.push('</div>');
 
@@ -220,6 +229,7 @@ var PracticeForms = {
         //percorre todas as perguntas
         for (question in result.replies) {
 
+          
             $type = result.replies[question]['type'];
             delete result.replies[question]['type'];
            
