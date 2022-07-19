@@ -55,6 +55,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/resultado/{form}/{hash}', [FormController::class, 'result'])->name('form.result');
     Route::get('/remover/{form}/{hash}', [FormController::class, 'delete'])->name('form.delete');
     Route::get('/report/{form}', [FormController::class, 'report'])->name('form.report');
+    Route::get('/download/{filename}', [FormController::class, 'getDownload'])->name('question.download');
+    Route::get('/download/zip/{form}/{question}',  [FormController::class, 'getDownloadZip'])->name('question.downloadZip');
 
     // Admin
     Route::group(['middleware' => 'check.admin'], function () {

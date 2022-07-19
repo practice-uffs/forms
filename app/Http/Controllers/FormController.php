@@ -7,6 +7,9 @@ use App\Model\Form;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use App\Http\Controllers\HomeController;
+use Illuminate\Support\Facades\Storage;
+use ZipArchive;
+use File;
 
 class FormController extends Controller
 {
@@ -120,4 +123,39 @@ class FormController extends Controller
         };
         return response()->stream($callback, 200, $headers);
     }    
+
+    public function getDownload(Form $form, String $filename)
+    {
+        $file_path = storage_path('app/crud_uploads/'.$filename);
+        return response()->download($file_path);
+    }
+
+    public function getDownloadZip(Form $form, String $question)
+    {
+        $zip = new ZipArchive;
+
+        //clear question text to create filename
+        $zipfilename = urlencode($question);
+        // $zipfilename = mb_ereg_replace("([\.]{2,})", '', $zipfilename);
+
+        $zipfilename = 'Form_'.$form->id.'_'.$zipfilename.'.zip';
+
+        if ($zip->open(storage_path('app/tmp/'.$zipfilename), ZipArchive::CREATE) === TRUE)
+        {
+            $form_replies = $form->replies()->get('data');
+            foreach ($form_replies as $reply){
+                foreach ($reply['data'] as $question_reply){
+                    if($question_reply['text'] == $question){
+                        if($file = File::get(storage_path('app/'.$question_reply['answer']))){
+                            $filename = explode('/', $question_reply['answer']);
+                            $zip->addFile(storage_path('app/'.$question_reply['answer']), $filename[1]);
+                        }
+                    }
+                }
+            }
+            $zip->close();
+        }
+
+        return response()->download(storage_path('app/tmp/'.$zipfilename));
+    }
 }
