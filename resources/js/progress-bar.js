@@ -49,14 +49,11 @@ var ProgressBar = {
 
         switch(type){
             case 'file':
-                console.log(value);
                 if(ProgressBar.config.answeredFields[key] != undefined){
                     ProgressBar.config.answeredFields[key] += value;
                 }else{
                     ProgressBar.config.answeredFields[key] = 1;
                 }
-              
-                console.log('filevalue: '+ProgressBar.config.answeredFields[key]);
                 break;
             case 'checkbox':
                 if(ProgressBar.config.answeredFields[key]){
@@ -97,11 +94,9 @@ var ProgressBar = {
 
         //if the total changes, call updateWidth function setting a direction
         if(computeTotalAnsweredFields > ProgressBar.config.totalAnsweredFields){
-            // console.log('Up answeredFields: ' + ProgressBar.config.answeredFields[key]);
             ProgressBar.config.totalAnsweredFields = computeTotalAnsweredFields;
             this.updateWidth('up');
         }else if(computeTotalAnsweredFields < ProgressBar.config.totalAnsweredFields){
-            // console.log('Down answeredFields: ' + ProgressBar.config.answeredFields[key]);
             ProgressBar.config.totalAnsweredFields = computeTotalAnsweredFields;
             this.updateWidth('down');
         }else{
