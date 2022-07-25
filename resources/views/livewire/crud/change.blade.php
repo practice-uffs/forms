@@ -1,6 +1,10 @@
 <div>
     @include('livewire.crud.success')
 
+    <div id="myProgress mb-10">
+        <div id="myBar"></div>
+    </div>
+
     @if (!$finished)
         @error('generic_error')
             <div class="alert alert-error">
@@ -24,7 +28,7 @@
                     <label class="cursor-pointer label flex">
                         <span class="label-text bold">{{ $field['label'] }} <br /><span class="text-gray-400">{{ @$field['placeholder'] }}</span></span> 
                         <div>
-                            <input wire:model="{{ $key }}" type="checkbox" class="toggle toggle-primary"> 
+                            <input wire:model="{{ $key }}" type="checkbox"  onChange="ProgressBar.fieldChanged('{{ $key }}', this.value, '{{ $field['type'] }}')" class="toggle toggle-primary"> 
                             <span class="toggle-mark"></span>
                         </div>
                     </label>
@@ -35,7 +39,7 @@
                         <span class="label-text"><strong>{{ $field['label'] }}</strong></span> 
                         <a href="#" class="label-text-alt"></a>
                     </label> 
-                    <select wire:model="{{ $key }}" class="select select-bordered w-full @error($key) select-error @enderror">
+                    <select wire:model="{{ $key }}" onChange="ProgressBar.fieldChanged('{{ $key }}', this.value, '{{ $field['type'] }}')" class="select select-bordered w-full @error($key) select-error @enderror">
                         <option value=""> -- selecione --</option> 
                         @foreach ($field['options'] as $info)
                             <option value="{{ $info['id']}}">{{ $info['text']}}</option> 
@@ -48,7 +52,7 @@
                         @foreach ($field['options'] as $info)
                             <label class="cursor-pointer mr-5">
                                 <div class="inline-block">
-                                    <input wire:model="{{ $key }}" type="radio" checked="checked" class="radio radio-primary" value="{{ $info['id']}}"> 
+                                    <input wire:model="{{ $key }}" type="radio" checked="checked"  onChange="ProgressBar.fieldChanged('{{ $key }}', this.value, '{{ $field['type'] }}')" class="radio radio-primary" value="{{ $info['id']}}"> 
                                     <span class="radio-mark mr-1"></span>
                                 </div>
                                 <span class="label-text {{ @$field['style'] }}">{{ $info['text']}}</span> 
@@ -63,7 +67,7 @@
                         @foreach ($field['options'] as $checkbox_index => $info)
                             <label class="cursor-pointer mr-5">
                                 <div class="inline-block">
-                                    <input wire:model="{{ $key }}#{{ $checkbox_index }}" type="checkbox" checked="checked" class="checkbox checkbox-primary" value="{{ $info['id']}}"> 
+                                    <input wire:model="{{ $key }}#{{ $checkbox_index }}"  onChange="ProgressBar.fieldChanged('{{ $key }}', this.checked, '{{ $field['type'] }}')" type="checkbox" checked="checked" class="checkbox checkbox-primary" value="{{ $info['id']}}"> 
                                     <span class="radio-mark mr-1"></span>
                                 </div>
                                 <span class="label-text {{ @$field['style'] }}">{{ $info['text']}}</span> 
@@ -75,7 +79,7 @@
                     <label for="{{ $key }}" class="label">
                         <span class="label-text"><strong>{{ $field['label'] }}</strong></span>
                     </label>
-                    <input wire:model="{{ $key }}" type="date" name="{{ $key }}" placeholder="{{ @$field['placeholder'] }}" class="input input-bordered @error($key) input-error @enderror max-w-md" />
+                    <input wire:model="{{ $key }}" type="date" name="{{ $key }}"  onChange="ProgressBar.fieldChanged('{{ $key }}', this.value, '{{ $field['type'] }}')" placeholder="{{ @$field['placeholder'] }}" class="input input-bordered @error($key) input-error @enderror max-w-md" />
                     @break
                 @case('file')
                     <label class="label">
@@ -93,13 +97,16 @@
                                 labelFileProcessingComplete: 'Upload finalizado',
                                 server: {
                                     process: (fieldName, file, metadata, load, error, progress, abort, transfer, options) => {
-                                        @this.upload('{{ $key }}', file, load, error, progress)
+                                        @this.upload('{{ $key }}', file, load, error, progress);
+                                        ProgressBar.fieldChanged('{{ $key }}', 1, '{{ $field['type'] }}');
                                     },
                                     revert: (filename, load) => {
-                                        @this.removeUpload('{{ $key }}', filename, load)
+                                        @this.removeUpload('{{ $key }}', filename, load);
+                                        ProgressBar.fieldChanged('{{ $key }}',  -1, '{{ $field['type'] }}');
                                     },
                                 },
                             });
+                           
                     ">
                         <input type="file" name="{{ $key }}" x-ref="input">
                     </div>
@@ -132,13 +139,13 @@
                     <label for="{{ $key }}" class="label">
                         <span class="label-text"><strong>{{ $field['label'] }}</strong></span>
                     </label>
-                    <textarea wire:model="{{ $key }}" name="{{ $key }}" placeholder="{{ @$field['placeholder'] }}" class="textarea textarea-bordered h-48 mb-2 @error($key) textarea-error @enderror"></textarea>
+                    <textarea wire:model="{{ $key }}" name="{{ $key }}" onChange="ProgressBar.fieldChanged('{{ $key }}', this.value, '{{ $field['type'] }}')" placeholder="{{ @$field['placeholder'] }}" class="textarea textarea-bordered h-48 mb-2 @error($key) textarea-error @enderror"></textarea>
                     @break
                 @default
                     <label for="{{ $key }}" class="label">
                         <span class="label-text"><strong>{{ $field['label'] }}</strong></span>
                     </label>
-                    <input wire:model="{{ $key }}" type="text" name="{{ $key }}" placeholder="{{ @$field['placeholder'] }}" class="input input-bordered @error($key) input-error @enderror w-full" />
+                    <input wire:model="{{ $key }}" onChange="ProgressBar.fieldChanged('{{ $key }}', this.value, '{{ $field['type'] }}')" type="text" name="{{ $key }}" placeholder="{{ @$field['placeholder'] }}" class="input input-bordered @error($key) input-error @enderror w-full" />
                     @break
                 @endswitch
 
@@ -162,3 +169,21 @@
         @endif
     @endif
 </div> 
+
+
+@section('scripts')
+
+<script>
+    $(function () {
+        ProgressBar.init({
+            countFields : {{count($fields)}},
+            answeredFields : [],
+            totalAnsweredFields : 0,
+
+            containerId : 'myBar',
+            containerWidth : 1,
+        });
+    });
+</script>
+
+@endsection

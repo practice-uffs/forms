@@ -11,3 +11,4 @@ import ApexCharts from 'apexcharts'
 window.ApexCharts = ApexCharts;
 
 require('./practice-form');
+require('./progress-bar');
