@@ -15,6 +15,7 @@
         "composer/ca-bundle": "^1.2",
         "doctrine/dbal": "^3.0",
         "fideloper/proxy": "^4.2",
+        "firebase/php-jwt": "^6.3",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.2",
         "guzzlehttp/psr7": "1.7",
