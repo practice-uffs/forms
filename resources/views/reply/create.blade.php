@@ -2,11 +2,19 @@
 @section('content')
 
 <section>
-    <div class="container">
+    <div class="container pt-10">
         <header class="section-header">
             <h2>Responder</h2>
             <p>{{ $form->title }}</p>
         </header>
+
+        @section('ProgressBar')
+        <div class="container">
+            <div id="myProgress mb-10">
+                <div id="myBar"></div>
+            </div>
+        </div>
+        @endsection
 
         <div class="row mb-4">
             <div class="col-12 text-sm text-gray-400">
@@ -27,4 +35,24 @@
             </div>
         </div>
     </div>
+@endsection
+
+
+
+
+@section('scripts')
+
+<script>
+    $(function () {
+        ProgressBar.init({
+            countFields : {{count($form->questions)}},
+            answeredFields : [],
+            totalAnsweredFields : 0,
+
+            containerId : 'myBar',
+            containerWidth : 1,
+        });
+    });
+</script>
+
 @endsection
