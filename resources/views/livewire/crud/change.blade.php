@@ -1,10 +1,6 @@
 <div>
     @include('livewire.crud.success')
 
-    <div id="myProgress mb-10">
-        <div id="myBar"></div>
-    </div>
-
     @if (!$finished)
         @error('generic_error')
             <div class="alert alert-error">
@@ -168,22 +164,4 @@
             @endif
         @endif
     @endif
-</div> 
-
-
-@section('scripts')
-
-<script>
-    $(function () {
-        ProgressBar.init({
-            countFields : {{count($fields)}},
-            answeredFields : [],
-            totalAnsweredFields : 0,
-
-            containerId : 'myBar',
-            containerWidth : 1,
-        });
-    });
-</script>
-
-@endsection
+</div>

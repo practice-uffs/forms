@@ -100,8 +100,7 @@
                     </ul>
                 </li>
             </div>
-
-            
         </nav>
     </div>
+    @yield('ProgressBar')
 </header>
