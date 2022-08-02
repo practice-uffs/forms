@@ -1,7 +1,3 @@
-<script>  
-    document.documentElement.style.setProperty('--body-default-color', '#f1f0ef');
-</script>
-
 @extends('layouts.base')
 @section('content')
 
@@ -42,7 +38,9 @@
 @section('scripts')
 
 <script>
+    document.documentElement.style.setProperty('--body-default-color', '#f1f0ef');
     $(function () {
+       
         ProgressBar.init({
             countFields : {{count($form->questions)}},
             answeredFields : [],
