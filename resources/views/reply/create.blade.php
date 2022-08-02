@@ -1,26 +1,28 @@
+<script>  
+    document.documentElement.style.setProperty('--body-default-color', '#f1f0ef');
+</script>
+
 @extends('layouts.base')
 @section('content')
 
+
+@section('ProgressBar')
+    <div class="container pl-5 pr-5">
+        <h2 class="mb-1 mt-1 fw-bolder position-absolute" style="color: var(--dark-blue-color)">Questões Respondidas</h2>
+        <h2 class="mb-1 mt-1 fw-bolder float-right" style="color: var(--dark-blue-color)" id="ProgressBarCounter">0%</h2>
+        <div class="rounded overflow-hidden border w-100" style="background-color: var(--body-default-color);">
+            <div id="ProgressBarElement" class="bg-success opacity float-left w-5 mw-10 h-5 progress-bar-striped"></div>
+        </div>
+    </div>
+@endsection
+
+
 <section>
-    <div class="container pt-10">
+    <div class="container pt-20">
         <header class="section-header">
             <h2>Responder</h2>
             <p>{{ $form->title }}</p>
         </header>
-
-        @section('ProgressBar')
-        <div class="container">
-            <div id="myProgress mb-10">
-                <div id="myBar"></div>
-            </div>
-        </div>
-        @endsection
-
-        <div class="row mb-4">
-            <div class="col-12 text-sm text-gray-400">
-            </div>
-        </div>
-
         <div class="row">
             <div class="col-12">
                 @livewire('reply.create', [
@@ -37,9 +39,6 @@
     </div>
 @endsection
 
-
-
-
 @section('scripts')
 
 <script>
@@ -49,7 +48,8 @@
             answeredFields : [],
             totalAnsweredFields : 0,
 
-            containerId : 'myBar',
+            containerId : 'ProgressBarElement',
+            counterId : 'ProgressBarCounter',
             containerWidth : 1,
         });
     });

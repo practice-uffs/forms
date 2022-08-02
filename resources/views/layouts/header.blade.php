@@ -1,11 +1,11 @@
 <header id="header" class="header fixed-top">
-    <div class="container ml-0 mr-0 md:mr-auto md:ml-auto d-flex justify-content-between">
+    <div class="container pl-5 pr-5 md:mr-auto md:ml-auto d-flex justify-content-between">
         <a href="{{ route('index') }}" class="logo d-flex align-items-center">
             <img src="{{ asset('img/forms-icon.png') }}" alt="">
             <span>Forms</span>
         </a>
 
-        <nav id="navbar" class="navbar">
+        <nav id="navbar" class="navbar float-right d-none d-md-block">
             <ul>
                 @auth
                     @if (@$layout_header_simplified == false)
@@ -31,10 +31,8 @@
                             </ul>
                         </li>
                     @endadmin
-
-                    
                     <li class="ml-8 mr-2 text-right d-flex align-items-center">
-                        <div class="d-none d-md-block h-full">
+                        <div class="h-full">
                             <p class="font-semibold">{{ auth()->user()->first_name }}</p>
                             <p class="text-xs font-extralight -mt-1 text-gray-400">{{ auth()->user()->username }}</p>
                         </div>
@@ -44,9 +42,6 @@
                             </div>
                         </div>
                     </li>
-
-                    
-
                     <li>
                         <a href="{{ route('logout') }}">Sair</a>
                     </li>
@@ -62,44 +57,36 @@
             </ul>
         </nav>
 
-        <nav class="lg:invisible absolute w-full bg-white pb-4 pt-4">
-            <div class="d-flex justify-content-between">
-                <div class="float-left">
-                    <a href="{{ route('index') }}" class="logo d-flex align-items-center">
-                        <img src="{{ asset('img/forms-icon.png') }}" alt="">
-                        <span>Forms</span>
-                    </a>
-                </div>
-                <li class="dropdown mr-5">
-                    <div style="background-color: #264653" tabindex="0" class="btn btn-primary"><i class="bi bi-chevron-down"></i></div>
-                    <ul class="shadow menu dropdown-content bg-base-100 rounded-box w-52 float-right right-0 mt-2">
-                        
-                        @auth
-                            @if (@$layout_header_simplified == false)
-                                <li><a href="{{ route('home') }}" class="nav-link @if (Route::is('home')) active @endif" >Minhas criações ({{auth()->user()->username}})</a></li>
-                                <li><a href="{{ route('form.create') }}" class="nav-link @if (Route::is('form.create')) active @endif" >Criar</a></li>                  
-                            @endif
+        <nav class="d-block d-md-none float-right pb-2 pt-2">
+            <li class="dropdown">
+                <div style="background-color: #264653" tabindex="0" class="btn btn-primary"><i class="bi bi-chevron-down"></i></div>
+                <ul class="shadow menu dropdown-content bg-base-100 rounded-box w-52 float-right right-0 mt-2">
+                    
+                    @auth
+                        @if (@$layout_header_simplified == false)
+                            <li><a href="{{ route('home') }}" class="nav-link @if (Route::is('home')) active @endif" >Minhas criações ({{auth()->user()->username}})</a></li>
+                            <li><a href="{{ route('form.create') }}" class="nav-link @if (Route::is('form.create')) active @endif" >Criar</a></li>                  
+                        @endif
 
-                            @admin
-                                <li><a href="{{ route('admin.user') }}" class="nav-link @if (Route::is('admin.user')) active @endif" >Usuários</a></li>   
-                                <li><a href="{{ route('admin.subscriber') }}" class="nav-link @if (Route::is('admin.subscriber')) active @endif" >Newsletter</a></li>   
-                            @endadmin
+                        @admin
+                            <li><a href="{{ route('admin.user') }}" class="nav-link @if (Route::is('admin.user')) active @endif" >Usuários</a></li>   
+                            <li><a href="{{ route('admin.subscriber') }}" class="nav-link @if (Route::is('admin.subscriber')) active @endif" >Newsletter</a></li>   
+                        @endadmin
 
-                            <li>
-                                <a href="{{ route('logout') }}">Sair</a>
-                            </li>
-                        @endauth
+                        <li>
+                            <a href="{{ route('logout') }}">Sair</a>
+                        </li>
+                    @endauth
+                    
+                    @guest
+                        @if (@$layout_header_simplified == false)
+                            <li><a href="{{ route('form.create') }}" class="nav-link @if (Route::is('form.create')) active @endif">Criar</a></li>
+                        @endif
                         
-                        @guest
-                            @if (@$layout_header_simplified == false)
-                                <li><a href="{{ route('form.create') }}" class="nav-link @if (Route::is('form.create')) active @endif">Criar</a></li>
-                            @endif
-                            
-                            <li><a href="{{ route('login') }}" class="getstarted">Entrar </a></li>
-                        @endguest
-                    </ul>
-                </li>
-            </div>
+                        <li><a href="{{ route('login') }}" class="getstarted">Entrar </a></li>
+                    @endguest
+                </ul>
+            </li>
         </nav>
     </div>
     @yield('ProgressBar')

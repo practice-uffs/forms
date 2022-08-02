@@ -5,6 +5,7 @@ var ProgressBar = {
         totalAnsweredFields : 0,
     
         containerId : '',
+        counterId : '',
         containerWidth : 1, //percent
     },
  
@@ -18,6 +19,7 @@ var ProgressBar = {
         if (i == 0) {
             i = 1;
             var elementContainer = document.getElementById(ProgressBar.config.containerId);
+            var elementCounterContainer = document.getElementById(ProgressBar.config.counterId);
             var id = setInterval(frame, 25);
             
             function frame() {
@@ -26,6 +28,7 @@ var ProgressBar = {
                     clearInterval(id);
                     i = 0;
                     elementContainer.style.width = ProgressBar.config.containerWidth + "%";
+                    elementCounterContainer.innerHTML = ProgressBar.config.containerWidth + "%";
                 } else {
                     switch(direction){
                         case 'up':
@@ -37,8 +40,8 @@ var ProgressBar = {
                         default:
                             break;
                     }
-
                     elementContainer.style.width = ProgressBar.config.containerWidth + "%";
+                    elementCounterContainer.innerHTML = ProgressBar.config.containerWidth + "%";
                 }
             }
         }

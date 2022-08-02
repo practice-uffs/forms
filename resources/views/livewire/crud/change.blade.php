@@ -83,6 +83,7 @@
                         <a href="#" class="label-text-alt"></a>
                     </label>
                     <div
+                        class="float-left w-100"
                         wire:ignore
                         x-data="{pond: null}"
                         x-init="
@@ -102,8 +103,7 @@
                                     },
                                 },
                             });
-                           
-                    ">
+                        ">
                         <input type="file" name="{{ $key }}" x-ref="input">
                     </div>
                     @break

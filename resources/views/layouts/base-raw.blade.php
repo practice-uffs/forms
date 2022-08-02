@@ -28,7 +28,7 @@
           <link href="{{ asset('css/login.css') }}" rel="stylesheet">
           @livewireStyles
     </head>
-    <body >
+    <body>
         <div id="app">
             @yield('content')
         </div>

@@ -384,15 +384,6 @@ h1 b {
   color: #fff;
 }
 
-@media (max-width: 991px) {
-  .mobile-nav-toggle {
-    display: block;
-  }
-  .navbar ul {
-    display: none;
-  }
-}
-
 .navbar-mobile {
   position: fixed;
   overflow: hidden;
@@ -2172,15 +2163,13 @@ section.hero-slim {
   margin-top: 150px;
 }
 
-/* progress bar */
-#myProgress {
-  width: 100%;
-  background-color: grey;
+
+
+:root {
+  --body-default-color: #fff;
+  --dark-blue-color: #013289;
 }
 
-#myBar {
-  width: 1%;
-  height: 30px;
-  background-color: green;
-}
+body { background-color: var(--body-default-color); }
+
 
