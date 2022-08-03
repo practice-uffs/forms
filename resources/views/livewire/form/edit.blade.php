@@ -131,7 +131,7 @@
             <div class="w-100"><a href="{{ route('form.report', [$form->id ,$form->hash]) }}"  class="btn btn-light-custom float-right">Baixar respostas</a></div>
             @endif
             <div class="row">
-                <div class="col-12 no-replies-yet"></div>
+                <div class="col-12 no-replies-yet"><div class="text-gray-400 text-center pt-4 pb-4 text-xl">Nenhuma resposta ainda</div></div>
             </div>
         </div>
     </div>

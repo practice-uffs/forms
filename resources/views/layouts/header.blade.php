@@ -1,4 +1,4 @@
-<header id="header" class="header fixed-top">
+<header id="header" class="header fixed-top bg-white">
     <div class="container pl-5 pr-5 md:mr-auto md:ml-auto d-flex justify-content-between">
         <a href="{{ route('index') }}" class="logo d-flex align-items-center">
             <img src="{{ asset('img/forms-icon.png') }}" alt="">
@@ -91,3 +91,4 @@
     </div>
     @yield('ProgressBar')
 </header>
+@yield('FormHeader')

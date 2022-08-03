@@ -14,11 +14,19 @@
 
 
 <section>
-    <div class="container pt-20">
-        <header class="section-header">
-            <h2>Responder</h2>
-            <p>{{ $form->title }}</p>
+    <div class="container">
+        @section("FormHeader")
+        <header class="section-header bg-white pt-20 mt-20">
+            <div class="d-block w-100 mb-10">
+                <div class="container w-100 mr-auto ml-auto h-auto"><h2 class="float-right h-auto pr-2"><strong>{{ str_replace('-', '/', date('d-m-Y')) }}</strong></h2></div>
+                <h2 class="w-100 position-absolute">Responder</h2>
+            </div>
+            <p class="d-block p-2">{{ $form->title }}</p>
+
+            
+               
         </header>
+        @endsection
         <div class="row">
             <div class="col-12">
                 @livewire('reply.create', [

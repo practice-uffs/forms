@@ -71,6 +71,8 @@ h1 b {
 .section-header {
   text-align: center;
   padding-bottom: 40px;
+  left: 0;
+  width: 100%;
 }
 
 .section-header h2 {
@@ -2170,6 +2172,38 @@ section.hero-slim {
   --dark-blue-color: #013289;
 }
 
-body { background-color: var(--body-default-color); }
+body { background-color: var(--body-default-color); min-height: 100vh }
 
+.container-question{
+  /* border-bottom: 1px dashed #333; */
+  height: auto;
+  float: left;
+  width: 100%;
+  border-radius: 5px;
+  background-color: white;
+  border-left: 5px solid #198754;
 
+}
+
+.container-question .label, .container-question .h4{
+  color: #012970;
+}
+
+.container-question .inline-block{
+  vertical-align: top;
+}
+
+.container-question input[type = 'text'], .container-question select{
+  height: 2rem;
+  border-radius: 5px;
+  min-height: unset;
+
+}
+
+.filepond--root{
+  margin-bottom: 0 !important;
+}
+
+a.filepond--credits{
+  display:none;
+}
