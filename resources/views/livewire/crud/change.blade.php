@@ -19,7 +19,7 @@
                 @if (isset($field['show']) && ( ($editing && !Str::contains($field['show'], 'edit')) || (!$editing && !Str::contains($field['show'], 'create'))))
                     @continue
                 @endif
-                <div class="container-question mb-5 p-4 pb-5 shadow-sm">
+                <div class="container-question mb-2 p-4 pb-5 shadow-sm">
                 @switch(@$field['type'])
 
                     @case('boolean')
