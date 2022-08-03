@@ -55,7 +55,7 @@
                                         <input wire:model="{{ $key }}" type="radio" checked="checked"  onChange="ProgressBar.fieldChanged('{{ $key }}', this.value, '{{ $field['type'] }}')" class="radio radio-primary" value="{{ $info['id']}}"> 
                                         <span class="radio-mark mr-1"></span>
                                     </div>
-                                    <span class="h4 {{ @$field['style'] }}">{{ $info['text']}}</span> 
+                                    <span class="h6 {{ @$field['style'] }}">{{ $info['text']}}</span> 
                                 </label>
                             @endforeach
                         </div>
@@ -72,7 +72,7 @@
                                         <input wire:model="{{ $key }}#{{ $checkbox_index }}"  onChange="ProgressBar.fieldChanged('{{ $key }}', this.checked, '{{ $field['type'] }}')" type="checkbox" checked="checked" class="checkbox checkbox-primary" value="{{ $info['id']}}"> 
                                         <span class="radio-mark mr-1"></span>
                                     </div>
-                                    <span class="h4 {{ @$field['style'] }}">{{ $info['text']}}</span> 
+                                    <span class="h6 {{ @$field['style'] }}">{{ $info['text']}}</span> 
                                 </label>
                             @endforeach
                         </div>
