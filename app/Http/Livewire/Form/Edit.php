@@ -5,11 +5,12 @@ namespace App\Http\Livewire\Form;
 use App\Model\Form;
 use CCUFFS\Text\PollFromText;
 use Livewire\Component;
+use App\Events\FormUpdated;
 
 class Edit extends Component
 {
     public Form $form;
-    public string $poll_view = '';    
+    public string $poll_view = '';
 
     public $rules = [
         'form.title' => 'present',
@@ -53,13 +54,15 @@ class Edit extends Component
     public function update()
     {
         $this->validate();
+
         $this->form->save();
+        event(new FormUpdated($this->form->id));
     }
 
     public function updated($field, $value)
     {
         if ($field == 'form.user_questions') {
-            $this->renderUserQuestion($value);   
+            $this->renderUserQuestion($value);
             $this->form->questions = PollFromText::make($value);
         }
 
@@ -67,6 +70,6 @@ class Edit extends Component
             $this->form->is_auth_required = true;
         }
 
-        $this->update();        
+        $this->update();
     }
 }

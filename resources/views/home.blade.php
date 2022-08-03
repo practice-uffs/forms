@@ -1,20 +1,20 @@
 @extends('layouts.base')
 @section('content')
 
-<section id="hero" class="hero hero-slim d-flex align-items-center">
+<section id="hero" class="hero hero-slim d-flex align-items-center overflow-visible mt-20">
     <div class="container">
-        <div class="row">
-            <div class="col-5 hero-img" data-aos="zoom-out" data-aos-delay="200">
-                <img src="{{ asset('img/undraw.co/my_answer.svg') }}" class="w-96 h-auto mx-auto" alt="">
+        <div class="row d-md-flex d-block">
+            <div class="col-md-5 col-sm-8 ml-auto mr-auto hero-img" data-aos="zoom-out" data-aos-delay="200">
+                <img src="{{ asset('img/undraw.co/my_answer.svg') }}" class="sm:w-50 w-96 h-auto mx-auto" alt="">
             </div>
-            <div class="col-7 d-flex flex-column justify-content-center">
+            <div class="col-7 d-flex flex-column justify-content-center ml-auto mr-auto">
                 <h1 data-aos="fade-up">Olá, tudo certo?</h1>
                 <h2 data-aos="fade-up" data-aos-delay="400">Vamos criar algo incrível hoje 🚀</h2>
 
                 <div data-aos="fade-up" data-aos-delay="600">
                     <div class="text-center text-lg-start">
-                      <a href="{{ route('form.create') }}" class="btn-get-started d-inline-flex align-items-center justify-content-center align-self-center">
-                          <span class="">CRIAR</span>
+                      <a style="background-color: #264653" href="{{ route('form.create') }}" class="btn-get-started d-inline-flex align-items-center justify-content-center align-self-center ">
+                          <span>CRIAR</span>
                           <i class="bi bi-arrow-right-circle"></i>
                       </a>
                     </div>
@@ -24,13 +24,13 @@
     </div>
 </section>
 
-<div class="container">
+<div class="container mt-20">
     @if (count($forms) > 0)
         <header class="section-header">
             <h2>Suas criações</h2>
         </header>
 
-        <div class="row">
+        <div class="row" style="overflow-x:scroll">
             <div class="col-12">
                 <table class="table w-full">
                     <thead>
@@ -39,15 +39,16 @@
                             <th>Título</th>
                             <th>Respostas</th>
                             <th>Data</th>
+                            <th>Ações</th>
                         </tr>
                     </thead>                
                     <tbody>
                         @foreach ($forms as $form)
                             <tr>
                                 <td>
-                                    <a href="{{ route('form.edit', [$form->id]) }}" class="btn btn-primary">Ver</a>
+                                    <a href="{{ route('form.edit', [$form->id]) }}" class="btn btn-light-custom">Ver</a>
                                 </td>                                
-                                <td>
+                                <td class="text-wrap custom-text-wrap-table">
                                     {{ $form->title ?? 'Questionário '.$form->id }}
                                 </td>
                                 <td>
@@ -59,6 +60,9 @@
                                 <td>
                                     <div>{{ $form->created_at }}</div>
                                     <div class="text-sm opacity-50">Última atualização: {{ $form->updated_at }}</div>
+                                </td>
+                                <td>
+                                    <a href="{{ route('form.delete', [$form->id ,$form->hash] ) }}" onclick="if (confirm('Tem certeza que deseja descartar este formulário?')){return true;}else{event.stopPropagation(); event.preventDefault();};" class="btn btn-danger-custom">Remover</a>
                                 </td>
                             </tr>
                         @endforeach

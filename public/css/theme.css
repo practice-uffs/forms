@@ -39,10 +39,7 @@ h1 b {
 /*--------------------------------------------------------------
 # Sections
 --------------------------------------------------------------*/
-section {
-  padding: 60px 0;
-  overflow: hidden;
-}
+
 
 .section-header {
   text-align: center;
@@ -66,6 +63,24 @@ section {
   font-weight: 300;
   color: #012970;
 }
+
+
+@media (max-width: 576px) {
+  
+  .tab-lifted{
+    border: 1px solid #e5e7eb !important;
+    border-radius: 10px;
+    margin-bottom: 10px;;
+  }
+
+  .tab-lifted.tab-active{
+    border: 1px solid #4154f1 !important;
+    text-decoration: none;
+  }
+}
+
+
+
 
 @media (max-width: 768px) {
   .section-header p {
@@ -173,12 +188,13 @@ section {
 .header {
   transition: all 0.5s;
   z-index: 997;
-  padding: 20px 0;
+  width: 100%;
+  padding-top:0px;
 }
 
 .header.header-scrolled {
   background: #fff;
-  padding: 15px 0;
+  padding: 10px 0;
   box-shadow: 0px 2px 20px rgba(1, 41, 112, 0.1);
 }
 
@@ -276,6 +292,10 @@ section {
 
 .navbar .dropdown ul li {
   min-width: 200px;
+}
+
+.color-background-form {
+  background-color: #264653;
 }
 
 .navbar .dropdown ul a {
@@ -437,7 +457,7 @@ section {
 }
 
 section.hero-slim {
-    height: 50vh;
+    height: 400px;
     padding-bottom: 10px;
 }
 
@@ -524,20 +544,6 @@ section.hero-slim {
   }
 }
 
-@media (max-width: 991px) {
-  .hero {
-    height: auto;
-    padding: 120px 0 60px 0;
-  }
-  .hero .hero-img {
-    text-align: center;
-    margin-top: 80px;
-  }
-  .hero .hero-img img {
-    width: 80%;
-  }
-}
-
 @media (max-width: 768px) {
   .hero {
     text-align: center;
@@ -549,7 +555,8 @@ section.hero-slim {
     font-size: 24px;
   }
   .hero .hero-img img {
-    width: 100%;
+    width: 50vw;
+    margin-bottom: 20px;
   }
 }
 
@@ -744,7 +751,7 @@ section.hero-slim {
   text-transform: uppercase;
   font-size: 15px;
   font-weight: 600;
-  color: #012970;
+  color: #264653;
   padding: 12px 0;
   margin-right: 25px;
   margin-bottom: -2px;
@@ -752,8 +759,8 @@ section.hero-slim {
 }
 
 .features .feture-tabs .nav-link.active {
-  color: #4154f1;
-  border-bottom: 3px solid #4154f1;
+  color: #19226e;
+  border-bottom: 3px solid #19226e;
 }
 
 .features .feture-tabs .tab-content h4 {
@@ -1962,6 +1969,10 @@ section.hero-slim {
   .footer .footer-top {
     background-position: center bottom;
   }
+
+  .section .hero-slim {
+    height:600px;
+  }
 }
 
 .footer .footer-top .footer-info {
@@ -2069,4 +2080,67 @@ section.hero-slim {
   text-align: center;
   font-size: 13px;
   color: #012970;
+}
+
+.mockup-window div{
+  padding: 0.5rem 1rem;
+}
+
+.custom-height-question{
+  height:200px;
+  padding-bottom: 35px;
+}
+
+.custom-height-question input{
+  width:100%;
+  border-radius: 5px;
+  height: 30px;
+  padding: 1px;
+  padding-left: 10px;
+  margin-top: 10px;
+}
+
+.custom-svg-expanded svg{
+    width: 90%;
+    margin: auto;
+}
+
+.btn-light-custom{
+  background-color: transparent !important;
+  color: #570df8 !important;
+  border-color: #570df8 !important;
+  text-decoration: none !important;
+}
+
+.btn-light-custom:hover{
+  background-color:#570df8 !important;
+  color: white !important;
+}
+
+
+.btn-danger-custom{
+  background-color: transparent !important;
+  color: #ef4444 !important;
+  border-color: #ef4444 !important;
+  text-decoration: none !important;
+}
+
+.btn-danger-custom:hover{
+  background-color:#ef4444 !important;
+  color: white !important;
+}
+.footer {
+  place-items: inherit;
+  column-gap: 0px;
+  row-gap: 0;
+  grid-auto-flow: row;
+}
+
+.custom-text-wrap-table{
+  min-width:400px; 
+  max-height: 200px;
+}
+
+.custom-container{
+  margin-top: 150px;
 }
