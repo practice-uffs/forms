@@ -71,6 +71,8 @@ h1 b {
 .section-header {
   text-align: center;
   padding-bottom: 40px;
+  left: 0;
+  width: 100%;
 }
 
 .section-header h2 {
@@ -382,15 +384,6 @@ h1 b {
 
 .mobile-nav-toggle.bi-x {
   color: #fff;
-}
-
-@media (max-width: 991px) {
-  .mobile-nav-toggle {
-    display: block;
-  }
-  .navbar ul {
-    display: none;
-  }
 }
 
 .navbar-mobile {
@@ -2172,15 +2165,45 @@ section.hero-slim {
   margin-top: 150px;
 }
 
-/* progress bar */
-#myProgress {
+
+
+:root {
+  --body-default-color: #fff;
+  --dark-blue-color: #013289;
+}
+
+body { background-color: var(--body-default-color); min-height: 100vh }
+
+.container-question{
+  /* border-bottom: 1px dashed #333; */
+  height: auto;
+  float: left;
   width: 100%;
-  background-color: grey;
+  border-radius: 5px;
+  background-color: white;
+  border-left: 5px solid #198754;
+
 }
 
-#myBar {
-  width: 1%;
-  height: 30px;
-  background-color: green;
+.container-question .label, .container-question .h4{
+  color: #012970;
 }
 
+.container-question .inline-block{
+  vertical-align: top;
+}
+
+.container-question input[type = 'text'], .container-question select{
+  height: 2rem;
+  border-radius: 5px;
+  min-height: unset;
+
+}
+
+.filepond--root{
+  margin-bottom: 0 !important;
+}
+
+a.filepond--credits{
+  display:none;
+}
