@@ -1,3 +1,7 @@
+const {
+    isSet, defaultsDeep, split
+} = require("lodash");
+
 var ProgressBar = {
     config: {
         countFields : 0,
@@ -5,6 +9,7 @@ var ProgressBar = {
         totalAnsweredFields : 0,
     
         containerId : '',
+        counterId : '',
         containerWidth : 1, //percent
     },
  
@@ -18,6 +23,7 @@ var ProgressBar = {
         if (i == 0) {
             i = 1;
             var elementContainer = document.getElementById(ProgressBar.config.containerId);
+            var elementCounterContainer = document.getElementById(ProgressBar.config.counterId);
             var id = setInterval(frame, 25);
             
             function frame() {
@@ -26,6 +32,7 @@ var ProgressBar = {
                     clearInterval(id);
                     i = 0;
                     elementContainer.style.width = ProgressBar.config.containerWidth + "%";
+                    elementCounterContainer.innerHTML = ProgressBar.config.containerWidth + "%";
                 } else {
                     switch(direction){
                         case 'up':
@@ -37,8 +44,8 @@ var ProgressBar = {
                         default:
                             break;
                     }
-
                     elementContainer.style.width = ProgressBar.config.containerWidth + "%";
+                    elementCounterContainer.innerHTML = ProgressBar.config.containerWidth + "%";
                 }
             }
         }
@@ -84,25 +91,39 @@ var ProgressBar = {
                 break;
         }
 
-        //recalculate total fields answered
-        var computeTotalAnsweredFields  = 0;
-        for(answeredField in ProgressBar.config.answeredFields){
-            if(ProgressBar.config.answeredFields[answeredField]){
-                computeTotalAnsweredFields ++;
-            }
-        }
-
-        //if the total changes, call updateWidth function setting a direction
-        if(computeTotalAnsweredFields > ProgressBar.config.totalAnsweredFields){
-            ProgressBar.config.totalAnsweredFields = computeTotalAnsweredFields;
-            this.updateWidth('up');
-        }else if(computeTotalAnsweredFields < ProgressBar.config.totalAnsweredFields){
-            ProgressBar.config.totalAnsweredFields = computeTotalAnsweredFields;
-            this.updateWidth('down');
-        }else{
-            this.updateWidth('keep');
-        }
+        this.refreshProgressBar();
+       
     },
+
+    refreshProgressBar(){
+         //recalculate total fields answered
+         var computeTotalAnsweredFields  = 0;
+         for(answeredField in ProgressBar.config.answeredFields){
+             if(ProgressBar.config.answeredFields[answeredField]){
+                 computeTotalAnsweredFields ++;
+             }
+         }
+ 
+         //if the total changes, call updateWidth function setting a direction
+         if(computeTotalAnsweredFields > ProgressBar.config.totalAnsweredFields){
+             ProgressBar.config.totalAnsweredFields = computeTotalAnsweredFields;
+             this.updateWidth('up');
+         }else if(computeTotalAnsweredFields < ProgressBar.config.totalAnsweredFields){
+             ProgressBar.config.totalAnsweredFields = computeTotalAnsweredFields;
+             this.updateWidth('down');
+         }else{
+             this.updateWidth('keep');
+         }
+    },
+
+    reset(){
+        ProgressBar.config.answeredFields = [];
+        ProgressBar.config.totalAnsweredFields = 0,
+        ProgressBar.config.containerWidth = 1;
+
+        this.refreshProgressBar();
+
+    }
 }
 
 window.ProgressBar = ProgressBar;

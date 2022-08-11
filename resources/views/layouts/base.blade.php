@@ -43,7 +43,7 @@
         @include('layouts.header')
         @yield('wideTopContent')
 
-        <div class="container pt-20">
+        <div class="container pt-10 pb-20">
             @yield('content')
         </div>
         
@@ -53,6 +53,30 @@
             @include('layouts.footer')
         @endif
         
+        <img id="aura_span" class="d-none" height="45px" width="45px" src="{{ asset('img/aura/aura_icon.png') }}" />
+
+        <iframe id="aura_iframe" class="d-none " src="{{ env('API_URL') }}v0/widgets/aura?token={{ Auth::user()->orcreatejwt ?? '' }}" frameborder="0"></iframe>
+        
+        <script>
+            var IsClicked = false
+            document.getElementById('aura_span').onclick = function(e){
+                IsClicked = !IsClicked
+                if (IsClicked){
+                    document.getElementById("aura_iframe").classList.remove('d-none')  
+                } else {
+                    document.getElementById("aura_iframe").classList.add('d-none')  
+                }
+            }
+            var xmlHttp = new XMLHttpRequest();
+            try {
+                xmlHttp.open( "GET", "{{ env('API_URL') }}v0/widgets/aura", false )
+                xmlHttp.send( null );
+                document.getElementById("aura_span").classList.remove('d-none')  
+            } catch(err) {
+                document.getElementById("aura_span").classList.add('d-none')  
+            }
+        </script>
+
         <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
         
         <!-- Vendor JS Files -->

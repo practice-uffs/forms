@@ -40,8 +40,8 @@ return [
                 'useTLS' => true,
                 'encrypted' => true,
                 'host' => '127.0.0.1',
-                'port' => 6001,
-                'scheme' => 'http'                
+                'port' => env('WS_PORT', 6001),
+                'scheme' => 'http'
             ],
         ],
 
