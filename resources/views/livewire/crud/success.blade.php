@@ -7,6 +7,6 @@
     </div>
 
     <div class="flex-none">
-        <button class="btn btn-sm btn-success pt-0" wire:click="finished(false, {{$form->id}})">Ok</button>
+        <button class="btn btn-sm btn-success pt-0" wire:click="finished(false, {{$form->id}})" onclick="ProgressBar.reset()">Ok</button>
     </div>
 </div>
