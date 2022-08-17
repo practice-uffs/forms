@@ -128,7 +128,7 @@
                         <span class="label-text">
                             Tempo Limite<br />
                             <span class="text-gray-400">
-                                Exibir  temporizador descrescente na tela do formulário.
+                                Exibir  temporizador decrescente na tela do formulário.
                             </span>
                         </span> 
                         <div class='flex'>
@@ -142,7 +142,7 @@
                             {{-- Minutos<br /> --}}
                             <span class="text-gray-400">
                                 {{-- Tempo em minutos que usuário terá para responder o formulário. --}}
-                                <p class="text-xs text-gray-500 mt-2">Tempo em minutos que usuário terá para responder o formulário:<br><br><strong>OBS:</strong> quando o tempo acabar, o respondente será avisado e a submissão será feita preenchendo os campos vazios com o contúdo "Sem resposta".</p>
+                                <p class="text-xs text-gray-500 mt-2">Define a data e horário limite que usuário terá para responder o formulário:<br><br><strong>OBS:</strong> quando o tempo acabar, o respondente poderá confirmar se deseja submeter as respostas preenchidas até o momento e a submissão será feita preenchendo os campos vazios com o contúdo "Sem resposta".</p>
                             </span>
                         </span> 
                         
