@@ -23,7 +23,6 @@ var PracticeForms = {
             .listen('FormUpdated', (e) => {
                 self.loadResult();
             })
-
     },
 
     init: function (config) {
@@ -229,7 +228,6 @@ var PracticeForms = {
         //percorre todas as perguntas
         for (question in result.replies) {
 
-          
             $type = result.replies[question]['type'];
             delete result.replies[question]['type'];
            

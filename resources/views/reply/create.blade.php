@@ -1,7 +1,6 @@
 @extends('layouts.base')
 @section('content')
 
-
 @section('ProgressBar')
     <div class="container pl-5 pr-5">
         <h2 class="mb-1 mt-1 fw-bolder position-absolute" style="color: var(--dark-blue-color)">Questões Respondidas</h2>
@@ -20,7 +19,6 @@
         </h1>
     </div>
 @endsection
-
 
 <section>
     <div class="container">
@@ -79,18 +77,19 @@
             // condição de parada com submissão do formulário
             if (interval < 0) {
                 clearInterval(x);
-                document.getElementById("time_counter").innerHTML = "Seu tempo expirou";
 
+                document.getElementById("time_counter").innerHTML = "Seu tempo expirou";
                 
-                $('#btn-store').click();
+                if (confirm('Seu tempo acabou, deseja submeter suas respostas mesmo assim?')) {
+                    $('#btn-store').click();
+                } else {
+                    window.location.reload();
+                }  
             }
         }, 1000);
-
-
     };
 
     $(function () {
-       
         ProgressBar.init({
             countFields : {{count($form->questions)}},
             answeredFields : [],
@@ -106,8 +105,6 @@
             return new bootstrap.Tooltip(tooltipTriggerEl)
         })
 
-
-
         if(timer){
             if (confirm('Questionário com tempo limite, clique em ok para iniciar a contagem!')) {
                 start_time_counter('{{$form->date_to_answer}}', '{{$form->time_to_answer}}');
@@ -116,11 +113,7 @@
                 window.location.reload();
             }
         }
-        
-
     });
-
-
 
 </script>
 
