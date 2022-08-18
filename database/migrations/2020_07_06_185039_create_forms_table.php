@@ -20,6 +20,11 @@ class CreateFormsTable extends Migration
             $table->boolean('is_accepting_replies')->index()->default(true);
             $table->boolean('is_auth_required')->index()->default(false);
             $table->boolean('is_one_reply_only')->index()->default(false);
+            $table->boolean('timer')->default(false);
+            
+            $table->date('date_to_answer')->nullable();
+            $table->time('time_to_answer')->nullable();
+
             $table->string('title');
             $table->text('user_questions')->default('');
             $table->text('questions');
