@@ -23,7 +23,6 @@ var PracticeForms = {
             .listen('FormUpdated', (e) => {
                 self.loadResult();
             })
-
     },
 
     init: function (config) {
@@ -216,7 +215,7 @@ var PracticeForms = {
         }
 
         var str = '<div class="font-bold text-center mt-10">' + questionId + (result.questions[questionId] == undefined ? ' <p class="badge badge-pill badge-error p-2 pt-1 pb-1 border border-warning">Desativada</p>' : '') + '</div>';
-        $(selector).append(str + '<div id="' + id + '" class="mb-4">' + this.renderNoRepliesYet() + '</div>');
+        $(selector).append(str + '<div id="' + id + '" class="mb-4"></div>');
 
         var chart = new ApexCharts(document.querySelector('#' + id), options);
         chart.render();
@@ -229,7 +228,6 @@ var PracticeForms = {
         //percorre todas as perguntas
         for (question in result.replies) {
 
-          
             $type = result.replies[question]['type'];
             delete result.replies[question]['type'];
            

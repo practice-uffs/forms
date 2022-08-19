@@ -174,7 +174,7 @@
                 @endif
             @else
                 <div class="mt-2 w-100 float-left">
-                    <button wire:click="store({{$form->id}})" class="btn btn-wide btn-success ml-auto mr-auto d-flex ">Enviar</button>
+                    <button wire:click="store({{$form->id}})" class="btn btn-wide btn-success ml-auto mr-auto d-flex" id="btn-store">Enviar</button>
                 </div>
             @endif
         @endif

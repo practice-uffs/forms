@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Model\Form;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
+use Carbon\Carbon;
 
 class ReplyController extends Controller
 {
@@ -22,6 +23,20 @@ class ReplyController extends Controller
 
         if (!$form->canBeRepliedBy($user)) {
             return view('reply.notallowed');
+        }
+
+        //time control
+        if($form->timer){
+            if($form->time_to_answer){
+                $now =  date("Y-m-d H:i:s", strtotime('now')-3600*3);
+                $date_time_to_answer =  date("Y-m-d H:i:s", strtotime($form->date_to_answer.$form->time_to_answer));
+             
+                if($date_time_to_answer < $now){
+                    return view('reply.notallowed');
+                }
+            }else{
+                return view('reply.notallowed');
+            }    
         }
 
         return view('reply.create', [

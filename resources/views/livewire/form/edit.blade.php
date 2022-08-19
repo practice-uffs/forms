@@ -123,6 +123,44 @@
                         </div>
                     </label>                
                 </div>
+                <div class="col-md-6 col-sm-12 p-4">
+                    <label class="cursor-pointer label flex">
+                        <span class="label-text">
+                            Tempo Limite<br />
+                            <span class="text-gray-400">
+                                Exibir  temporizador decrescente na tela do formulário.
+                            </span>
+                        </span> 
+                        <div class='flex'>
+                            <input wire:model="form.timer" type="checkbox" class="toggle toggle-primary">
+                            <span class="toggle-mark"></span>
+                        </div>
+                    </label>  
+                    
+                    <label class="cursor-pointer label flex">
+                        <span class="label-text">
+                            {{-- Minutos<br /> --}}
+                            <span class="text-gray-400">
+                                {{-- Tempo em minutos que usuário terá para responder o formulário. --}}
+                                <p class="text-xs text-gray-500 mt-2">Define a data e horário limite que usuário terá para responder o formulário:<br><br><strong>OBS:</strong> quando o tempo acabar, o respondente poderá confirmar se deseja submeter as respostas preenchidas até o momento e a submissão será feita preenchendo os campos vazios com o contúdo "Sem resposta".</p>
+                            </span>
+                        </span> 
+                        
+
+                        
+                    </label>  
+                    <div class=''>
+                        <div class="float-left mr-5 mb-2">
+                            <input wire:model="form.date_to_answer" type="date" class="input input-bordered">
+                        </div>
+                        <div class="float-left">
+                            <input wire:model="form.time_to_answer" type="time" class="input input-bordered">
+                        </div>
+                    </div> 
+
+
+                </div>
+
             </div>
         </div>
         

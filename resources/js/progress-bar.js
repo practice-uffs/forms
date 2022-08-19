@@ -1,7 +1,3 @@
-const {
-    isSet, defaultsDeep, split
-} = require("lodash");
-
 var ProgressBar = {
     config: {
         countFields : 0,

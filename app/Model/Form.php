@@ -34,6 +34,10 @@ class Form extends Model
         'questions',
         'hash',
         'status',
+        'timer',
+        'time_to_answer',
+        'date_to_answer'
+
     ];
 
     //mapeamento dos tipos de respostas
@@ -100,7 +104,26 @@ class Form extends Model
                 'label' => 'Perguntas',
                 'type' => 'poll',
                 'show' => 'create,edit',
-            ]        
+            ],
+            'timer' => [
+                'label' => 'Exibe tempo limite para responder formulário',
+                'type' => 'boolean',
+                'placeholder' => 'Ex.: Pesquisa de satisfação',
+                'validation' => 'present',
+            ], 
+            'time_to_answer' => [
+                'label' => 'Define tempo limite para responder formulário',
+                'type' => 'time',
+                'placeholder' => 'Horário',
+                'validation' => 'present',
+            ], 
+            
+            'date_to_answer' => [
+                'label' => 'Define tempo limite para responder formulário',
+                'type' => 'date',
+                'placeholder' => 'Data',
+                'validation' => 'present',
+            ], 
         ]
     ];
 
@@ -139,7 +162,7 @@ class Form extends Model
         
         $this->replies()->chunk(100, function ($chunk) use (&$replies) {
             foreach($chunk as $entry) {
-                foreach($entry->data as $reply) {
+                foreach($entry->data as $index => $reply) {
                     $text = $reply['text'];
                     $answer = $reply['answer'];
                     $type = $reply['type'];
@@ -155,6 +178,14 @@ class Form extends Model
                     if (!isset($reply['options'])) {
                         $replies[$text][] = $answer;
                         continue;
+                    }
+
+                    //remove selects sem respostas para não quebrar os gráficos
+                    if($type == 'select'){
+                        if($answer == "Sem resposta"){
+                            unset($entry->data[$index]);
+                            continue;
+                        }
                     }
 
                     //tratamento para checkbox, a resposta deixa de ser concatenada para facilitar a exibição no relatório
@@ -178,11 +209,13 @@ class Form extends Model
                             $replies[$text][$answerLabel]++;
                         }
                     }else{
-                        $answerLabel = $reply['options'][$answer];
-                        if (!isset($replies[$text][$answerLabel])) {
-                            $replies[$text][$answerLabel] = 0;
+                        if(isset($reply['options'][$answer])){
+                            $answerLabel = $reply['options'][$answer];
+                            if (!isset($replies[$text][$answerLabel])) {
+                                $replies[$text][$answerLabel] = 0;
+                            }
+                            $replies[$text][$answerLabel]++;
                         }
-                        $replies[$text][$answerLabel]++;
                     }
                 }
             }
@@ -195,6 +228,7 @@ class Form extends Model
             $quesitons[$text] = $question;
         });
 
+        // dd($replies);
         return [
             'replies' => $replies,
             'questions' => $quesitons,

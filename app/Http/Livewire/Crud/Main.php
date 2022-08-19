@@ -350,8 +350,35 @@ class Main extends Component
             }
         }
 
+
         $user =  Auth::user();
         if($form->canBeRepliedBy($user)){
+
+            //se houver uso de tempo limite
+            if($form->timer){ 
+                $now =  date("Y-m-d H:i:s", strtotime('now')-3600*3);
+                $date_time_to_answer =  date("Y-m-d H:i:s", strtotime($form->date_to_answer.$form->time_to_answer));
+                
+                //se o tempo acabou (a submissão foi forçada)
+                if($date_time_to_answer <= $now){
+    
+                    //se houver ao menos uma resposta
+                    if(count($this->data)){
+                        
+                        //preencher as respostas não respondidas em tempo com algum conteúdo para ser validado
+                        if(count($this->data) < count($form->questions)){
+                            for($i = 0; $i < count($form->questions); $i++){
+                                if(!isset($this->data['poll_'.$i]) or $this->data['poll_'.$i] == ''){
+                                    $this->data['poll_'.$i] = "Sem resposta";
+                                };
+                            }                        
+                        }
+                    }else{
+                        return redirect(route('reply.create', ['form' => $form,'hash' => $form->hash]));
+                    }
+                }
+            }
+
             $this->validate();
             $values = $this->getDataForInsertOrUpdate();
             
@@ -374,7 +401,24 @@ class Main extends Component
     {
         $this->finished = $value;
 
+
+        //se houver uso de tempo limite
+       
+
         if($form != null and $value == false){
+
+            //check if its avaliable to answer again
+            if($form->timer){ 
+                $now =  date("Y-m-d H:i:s", strtotime('now')-3600*3);
+                $date_time_to_answer =  date("Y-m-d H:i:s", strtotime($form->date_to_answer.$form->time_to_answer));
+                
+                //se o tempo acabou
+                if($date_time_to_answer <= $now){
+                    return redirect(route('reply.create', ['form' => $form,'hash' => $form->hash]));
+                }
+            }
+
+            
             $user =  auth()->user();
             if(!$form->canBeRepliedBy($user)){
                 return redirect(route('reply.create', ['form' => $form,'hash' => $form->hash]));

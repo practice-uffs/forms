@@ -17,7 +17,11 @@ class Edit extends Component
         'form.user_questions' => 'present',
         'form.is_accepting_replies' => 'present',
         'form.is_auth_required' => 'present',
-        'form.is_one_reply_only' => 'present'
+        'form.is_one_reply_only' => 'present',
+        'form.timer' => 'present',
+        'form.time_to_answer' => 'present',
+        'form.date_to_answer' => 'present'
+
     ];
 
     public function mount(Form $form)
