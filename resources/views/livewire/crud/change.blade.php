@@ -60,7 +60,7 @@
                             @endforeach
                         </div>
                         @break
-
+                    
                     @case('checkbox')
                         <label class="label">
                             <span class="h4">{{ $counter_question++ . '. ' . $field['label'] }}</span> 
@@ -78,12 +78,31 @@
                         </div>
                         @break
 
+                    
                     @case('date')
-                        <label class="label" for="{{ $key }}">
-                            <span class="h4">{{ $counter_question++ . '. ' . $field['label'] }}</span>
-                        </label>
-                        <input wire:model="{{ $key }}" type="date" name="{{ $key }}"  onChange="ProgressBar.fieldChanged('{{ $key }}', this.value, '{{ $field['type'] }}')" placeholder="{{ @$field['placeholder'] }}" class="input input-bordered @error($key) input-error @enderror max-w-md" />
+                    <label class="label" for="{{ $key }}">
+                        <span class="h4">{{ $counter_question++ . '. ' . $field['label'] }}</span>
+                    </label>
+                    <input wire:model="{{ $key }}" type="date" name="{{ $key }}"  onChange="ProgressBar.fieldChanged('{{ $key }}', this.value, '{{ @$field['type'] }}')" placeholder="{{ @$field['placeholder'] }}" class="input input-bordered @error($key) input-error @enderror max-w-md" />
+                    @break
+
+                    
+                    @case('time')
+                    <label class="label" for="{{ $key }}">
+                        <span class="h4">{{ $counter_question++ . '. ' . $field['label'] }}</span>
+                    </label>
+                    <input wire:model="{{ $key }}" type="time" name="{{ $key }}"  onChange="ProgressBar.fieldChanged('{{ $key }}', this.value, '{{ @$field['type'] }}')" placeholder="{{ @$field['placeholder'] }}" class="input input-bordered @error($key) input-error @enderror max-w-md" />
                         @break
+                    
+                    
+                    @case('email')
+                    <label class="label" for="{{ $key }}">
+                        <span class="h4">{{ $counter_question++ . '. ' . $field['label'] }}</span>
+                    </label>
+                    <input wire:model="{{ $key }}" type="email" name="{{ $key }}"  onChange="ProgressBar.fieldChanged('{{ $key }}', this.value, '{{ @$field['type'] }}')" placeholder="{{ @$field['placeholder'] }}" class="input input-bordered @error($key) input-error @enderror max-w-md" />
+                        @break
+
+
                     @case('file')
                         <label class="label">
                             <span class="h4">{{ $counter_question++ . '. ' . $field['label'] }}</span> 
@@ -156,9 +175,10 @@
 
                 @endswitch
 
+                
                 @error($key)
                     <div class="w-100">
-                        <span class="h4-alt text-red-500">{{ $message }}</span>
+                        <span class="h4-alt text-red-500">{{preg_replace('/data.poll [0-9]{1,}/', "'{$field['text']}'", $message)}}</span>
                     </div>
                 @enderror
 
