@@ -75,7 +75,7 @@ class Create extends \App\Http\Livewire\Crud\Main
                     break;
                 
                 case(3): // telephone
-                    $modelCrudInfo['fields'][$key]['validation'] = 'present|numeric|digits:12';
+                    $modelCrudInfo['fields'][$key]['validation'] = '';
                     $modelCrudInfo['fields'][$key]['placeholder'] = "(DDD) 123456789 ";
 
                     break;
