@@ -1,3 +1,6 @@
+@wireUiScripts
+<script src="//unpkg.com/alpinejs" defer></script>
+
 <div>
     @include('livewire.crud.success')
 
@@ -101,7 +104,13 @@
                     </label>
                     <input wire:model="{{ $key }}" type="email" name="{{ $key }}"  onChange="ProgressBar.fieldChanged('{{ $key }}', this.value, '{{ @$field['type'] }}')" placeholder="{{ @$field['placeholder'] }}" class="input input-bordered @error($key) input-error @enderror max-w-md" />
                         @break
-
+                    
+                    @case('tel')
+                        <label class="label" for="{{ $key }}">
+                            <span class="h4">{{ $counter_question++ . '. ' . $field['label'] }}</span>
+                        </label>
+                        <x-inputs.phone wire:model="{{ $key ?? '' }}" type="phone" name="{{ $key ?? ''}}"  onChange="ProgressBar.fieldChanged('{{ $key ?? ''}}', this.value, '{{ @$field['type'] }}')" placeholder="{{ @$field['placeholder'] }}" class="input input-bordered @error($key ?? '') input-error @enderror max-w-md" />
+                        @break
 
                     @case('file')
                         <label class="label">
