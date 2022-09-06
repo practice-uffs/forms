@@ -32,7 +32,8 @@
         "simplesoftwareio/simple-qrcode": "~4",
         "symfony/yaml": "^5.1",
         "tailflow/laravel-orion": "^2.1",
-        "tymon/jwt-auth": "^1.0"
+        "tymon/jwt-auth": "^1.0",
+        "wireui/wireui": "^1.15"
     },
     "require-dev": {
         "facade/ignition": "^2.0",
