@@ -74,7 +74,7 @@ class Main extends Component
      * 
      */
     protected function modelUpdated(Model $model) {
-        
+
     }    
 
     /**
@@ -307,7 +307,8 @@ class Main extends Component
             } else {
                 return $item;
             }
-        })->toArray();
+        })->toArray(); 
+
 
         return $values;
     }
@@ -459,6 +460,7 @@ class Main extends Component
         $id = empty($id) ? @$this->data['id'] : $id;
 
         if (!$id) {
+            dd($this->data);
             // TODO: fail?
             return;
         }

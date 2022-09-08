@@ -47,6 +47,24 @@
                         </div>
                         @break
 
+                    @case('email')
+                        <label class="label" for="{{ $key }}">
+                            <span class="h4">{{ $counter_question++ . '. ' . $field['label'] }}</span>
+                        </label>
+                        <input wire:model="{{ $key }}" type="email" name="{{ $key }}"  onChange="ProgressBar.fieldChanged('{{ $key }}', this.value, '{{ @$field['type'] }}')" placeholder="{{ @$field['placeholder'] }}" class="input input-bordered @error($key) input-error @enderror max-w-md" />
+                        @break
+    
+                    @case('time')
+                        <label class="label" for="{{ $key }}">
+                            <span class="h4">{{ $counter_question++ . '. ' . $field['label'] }}</span>
+                        </label>
+                        <input wire:model="{{ $key }}" type="time" name="{{ $key }}"  onChange="ProgressBar.fieldChanged('{{ $key }}', this.value, '{{ @$field['type'] }}')" placeholder="{{ @$field['placeholder'] }}" class="input input-bordered @error($key) input-error @enderror max-w-md" />
+                            @break
+
+
+
+
+
                     @case('boolean')
                         <label class="cursor-pointer label flex">
                             <span class="h4">{{ $counter_question++ . '. ' . $field['label'] }} <br/><span class="text-gray-400">{{ @$field['placeholder'] }}</span></span> 
@@ -58,11 +76,13 @@
                         @break
 
                     @case('select')
+                      
                         <label class="label">
                             <span class="h4">{{ $counter_question++ . '. ' . $field['label'] }}</span>
                         </label> 
                         <select wire:model="{{ $key }}" onChange="ProgressBar.fieldChanged('{{ $key }}', this.value, '{{ $field['type'] }}')" class="select select-bordered w-full @error($key) select-error @enderror">
-                            <option value=""> -- selecione --</option> 
+                            <option value> -- selecione --</option> 
+                            
                             @foreach ($field['options'] as $info)
                                 <option value="{{ $info['id']}}">{{ $info['text']}}</option> 
                             @endforeach
@@ -109,6 +129,7 @@
                         </label>
                         <input wire:model="{{ $key }}" type="date" name="{{ $key }}"  onChange="ProgressBar.fieldChanged('{{ $key }}', this.value, '{{ $field['type'] }}')" placeholder="{{ @$field['placeholder'] }}" class="input input-bordered @error($key) input-error @enderror max-w-md" />
                         @break
+                        
                     @case('file')
                         <label class="label">
                             <span class="h4">{{ $counter_question++ . '. ' . $field['label'] }}</span> 
