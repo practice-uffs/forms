@@ -62,33 +62,46 @@ class Create extends \App\Http\Livewire\Crud\Main
 
             $modelCrudInfo['fields'][$key] = $poll[$index];
             $modelCrudInfo['fields'][$key]['label'] = $field['text'] ?? '';
-            
-            
-            switch($field['question_config']){
-                
-                case(0): // text
-                    $modelCrudInfo['fields'][$key]['validation'] = 'present|min:3';
-                    $modelCrudInfo['fields'][$key]['placeholder'] = "Texto...";
-                    break;
-                case(2): // time
-                    $modelCrudInfo['fields'][$key]['validation'] = 'present|date_format:H:i';
-                    break;
-                
-                case(3): // telephone
-                    $modelCrudInfo['fields'][$key]['validation'] = '';
-                    $modelCrudInfo['fields'][$key]['placeholder'] = "(DDD) 123456789 ";
+            $modelCrudInfo['fields'][$key]['validation'] = 'present';
 
+            switch($field["type"]){
+                case('input'):
+                    switch($field['question_config']){
+
+                        case(0): // text
+                            $modelCrudInfo['fields'][$key]['validation'] = 'present|min:3';
+                            $modelCrudInfo['fields'][$key]['placeholder'] = "Texto...";
+                            break;
+                        case(2): // time
+                            $modelCrudInfo['fields'][$key]['validation'] = 'present|date_format:H:i';
+                            break;
+        
+                        case(3): // telephone
+                            $modelCrudInfo['fields'][$key]['placeholder'] = "(DDD) 123456789 ";
+        
+                             break;
+                        case(4): // email
+                            $modelCrudInfo['fields'][$key]['validation'] = 'present|email:rfc,dns';
+                            $modelCrudInfo['fields'][$key]['placeholder'] = "email@email.com";
+                            break;
+                        case(5): //file
+                            $modelCrudInfo['fields'][$key]['placeholder'] = "Clique para selecionar o arquivo";
+        
+                        default:
+                        $modelCrudInfo['fields'][$key]['validation'] = 'present';
+                    }
                     break;
-                case(4): // email
-                    $modelCrudInfo['fields'][$key]['validation'] = 'present|email:rfc,dns';
-                    $modelCrudInfo['fields'][$key]['placeholder'] = "email@email.com";
+                case('select'):
+                    switch($field['question_config']){
+                        case(0): // select convencional
+                            $modelCrudInfo['fields'][$key]['validation'] = 'required'; 
+                            break;
+                    }
                     break;
-                case(5):
-                    $modelCrudInfo['fields'][$key]['placeholder'] = "Clique para selecionar o arquivo";
-                
-                default:
-                $modelCrudInfo['fields'][$key]['validation'] = 'present';
             }
+         
+
+
         
         }
         

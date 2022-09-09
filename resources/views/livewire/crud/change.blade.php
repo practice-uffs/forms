@@ -25,6 +25,49 @@
                 <div class="container-question mb-2 p-4 pb-5 shadow-sm">
                 @switch(@$field['type'])
 
+                    @case('tel')
+                        <label class="label" for="{{ $key }}">
+                            <span class="h4">{{ $counter_question++ . '. ' . $field['label'] }}</span>
+                        </label>
+                        
+                        <div class="form-group mb-0"
+                            x-data="{ mask: '(00) 00000-0000' }"
+                            x-init="IMask($refs.phone, { mask })">
+                            <input x-ref="phone"
+                                class="input @error('phone') is-invalid @enderror input input-bordered max-w-md"
+                                required
+                                autofocus 
+                                wire:model="{{ $key }}" 
+                                type="text" 
+                                name="{{$key}}" 
+                                id="{{$key}}"  
+                                onChange="ProgressBar.fieldChanged('{{$key}}', this.value, '{{ $field['type'] }}')" 
+                                placeholder="{{ @$field['placeholder'] }}"
+                                />
+                            @error('phone')
+                                    <div class="mt-2 input-hint-error" role="alert">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        @break
+
+                    @case('email')
+                        <label class="label" for="{{ $key }}">
+                            <span class="h4">{{ $counter_question++ . '. ' . $field['label'] }}</span>
+                        </label>
+                        <input wire:model="{{ $key }}" type="email" name="{{ $key }}"  onChange="ProgressBar.fieldChanged('{{ $key }}', this.value, '{{ @$field['type'] }}')" placeholder="{{ @$field['placeholder'] }}" class="input input-bordered @error($key) input-error @enderror max-w-md" />
+                        @break
+    
+                    @case('time')
+                        <label class="label" for="{{ $key }}">
+                            <span class="h4">{{ $counter_question++ . '. ' . $field['label'] }}</span>
+                        </label>
+                        <input wire:model="{{ $key }}" type="time" name="{{ $key }}"  onChange="ProgressBar.fieldChanged('{{ $key }}', this.value, '{{ @$field['type'] }}')" placeholder="{{ @$field['placeholder'] }}" class="input input-bordered @error($key) input-error @enderror max-w-md" />
+                            @break
+
+
+
+
+
                     @case('boolean')
                         <label class="cursor-pointer label flex">
                             <span class="h4">{{ $counter_question++ . '. ' . $field['label'] }} <br/><span class="text-gray-400">{{ @$field['placeholder'] }}</span></span> 
@@ -36,11 +79,13 @@
                         @break
 
                     @case('select')
+                      
                         <label class="label">
                             <span class="h4">{{ $counter_question++ . '. ' . $field['label'] }}</span>
                         </label> 
                         <select wire:model="{{ $key }}" onChange="ProgressBar.fieldChanged('{{ $key }}', this.value, '{{ $field['type'] }}')" class="select select-bordered w-full @error($key) select-error @enderror">
-                            <option value=""> -- selecione --</option> 
+                            <option value> -- selecione --</option> 
+                            
                             @foreach ($field['options'] as $info)
                                 <option value="{{ $info['id']}}">{{ $info['text']}}</option> 
                             @endforeach
@@ -111,7 +156,7 @@
                         </label>
                         <x-inputs.phone wire:model="{{ $key ?? '' }}" type="phone" name="{{ $key ?? ''}}"  onChange="ProgressBar.fieldChanged('{{ $key ?? ''}}', this.value, '{{ @$field['type'] }}')" placeholder="{{ @$field['placeholder'] }}" class="input input-bordered @error($key ?? '') input-error @enderror max-w-md" />
                         @break
-
+                        
                     @case('file')
                         <label class="label">
                             <span class="h4">{{ $counter_question++ . '. ' . $field['label'] }}</span> 
@@ -179,7 +224,7 @@
                         <label class="label" for="{{ $key }}">
                             <span class="h4 h3">{{ $counter_question++ . '. ' . $field['label'] }}</span>
                         </label>
-                        <input wire:model="{{ $key }}" onChange="ProgressBar.fieldChanged('{{ $key }}', this.value, '{{ $field['type'] }}')" type="text" name="{{ $key }}" placeholder="{{ @$field['placeholder'] }}" class="input input-bordered @error($key) input-error @enderror w-full" />
+                        <input wire:model="{{ $key }}" name="{{$key}}" onChange="ProgressBar.fieldChanged('{{ $key }}', this.value, '{{ $field['type'] }}')" type="text" name="{{ $key }}" placeholder="{{ @$field['placeholder'] }}" class="input input-bordered @error($key) input-error @enderror w-full" />
                         @break
 
                 @endswitch
