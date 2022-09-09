@@ -331,9 +331,8 @@ class Main extends Component
 
     public function store(Form $form)
     {
+        
         //percorre o array procurando checkboxes para concatenar e salvar num único item
-
-        // dd($form);
         foreach($this->data as $index => $data){
             if(!isset($this->field['data.'.$index])){
                 if($data !== false){
@@ -460,7 +459,6 @@ class Main extends Component
         $id = empty($id) ? @$this->data['id'] : $id;
 
         if (!$id) {
-            dd($this->data);
             // TODO: fail?
             return;
         }
