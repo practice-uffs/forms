@@ -1,6 +1,3 @@
-@wireUiScripts
-<script src="//unpkg.com/alpinejs" defer></script>
-
 <div>
     @include('livewire.crud.success')
 
@@ -64,10 +61,6 @@
                         <input wire:model="{{ $key }}" type="time" name="{{ $key }}"  onChange="ProgressBar.fieldChanged('{{ $key }}', this.value, '{{ @$field['type'] }}')" placeholder="{{ @$field['placeholder'] }}" class="input input-bordered @error($key) input-error @enderror max-w-md" />
                             @break
 
-
-
-
-
                     @case('boolean')
                         <label class="cursor-pointer label flex">
                             <span class="h4">{{ $counter_question++ . '. ' . $field['label'] }} <br/><span class="text-gray-400">{{ @$field['placeholder'] }}</span></span> 
@@ -79,7 +72,6 @@
                         @break
 
                     @case('select')
-                      
                         <label class="label">
                             <span class="h4">{{ $counter_question++ . '. ' . $field['label'] }}</span>
                         </label> 
@@ -128,26 +120,24 @@
 
                     
                     @case('date')
-                    <label class="label" for="{{ $key }}">
-                        <span class="h4">{{ $counter_question++ . '. ' . $field['label'] }}</span>
-                    </label>
-                    <input wire:model="{{ $key }}" type="date" name="{{ $key }}"  onChange="ProgressBar.fieldChanged('{{ $key }}', this.value, '{{ @$field['type'] }}')" placeholder="{{ @$field['placeholder'] }}" class="input input-bordered @error($key) input-error @enderror max-w-md" />
-                    @break
-
-                    
-                    @case('time')
-                    <label class="label" for="{{ $key }}">
-                        <span class="h4">{{ $counter_question++ . '. ' . $field['label'] }}</span>
-                    </label>
-                    <input wire:model="{{ $key }}" type="time" name="{{ $key }}"  onChange="ProgressBar.fieldChanged('{{ $key }}', this.value, '{{ @$field['type'] }}')" placeholder="{{ @$field['placeholder'] }}" class="input input-bordered @error($key) input-error @enderror max-w-md" />
+                        <label class="label" for="{{ $key }}">
+                            <span class="h4">{{ $counter_question++ . '. ' . $field['label'] }}</span>
+                        </label>
+                        <input wire:model="{{ $key }}" type="date" name="{{ $key }}"  onChange="ProgressBar.fieldChanged('{{ $key }}', this.value, '{{ @$field['type'] }}')" placeholder="{{ @$field['placeholder'] }}" class="input input-bordered @error($key) input-error @enderror max-w-md" />
                         @break
                     
+                    @case('time')
+                        <label class="label" for="{{ $key }}">
+                            <span class="h4">{{ $counter_question++ . '. ' . $field['label'] }}</span>
+                        </label>
+                        <input wire:model="{{ $key }}" type="time" name="{{ $key }}"  onChange="ProgressBar.fieldChanged('{{ $key }}', this.value, '{{ @$field['type'] }}')" placeholder="{{ @$field['placeholder'] }}" class="input input-bordered @error($key) input-error @enderror max-w-md" />
+                        @break
                     
                     @case('email')
-                    <label class="label" for="{{ $key }}">
-                        <span class="h4">{{ $counter_question++ . '. ' . $field['label'] }}</span>
-                    </label>
-                    <input wire:model="{{ $key }}" type="email" name="{{ $key }}"  onChange="ProgressBar.fieldChanged('{{ $key }}', this.value, '{{ @$field['type'] }}')" placeholder="{{ @$field['placeholder'] }}" class="input input-bordered @error($key) input-error @enderror max-w-md" />
+                        <label class="label" for="{{ $key }}">
+                            <span class="h4">{{ $counter_question++ . '. ' . $field['label'] }}</span>
+                        </label>
+                        <input wire:model="{{ $key }}" type="email" name="{{ $key }}"  onChange="ProgressBar.fieldChanged('{{ $key }}', this.value, '{{ @$field['type'] }}')" placeholder="{{ @$field['placeholder'] }}" class="input input-bordered @error($key) input-error @enderror max-w-md" />
                         @break
                     
                     @case('tel')

@@ -460,7 +460,6 @@ class Main extends Component
         $id = empty($id) ? @$this->data['id'] : $id;
 
         if (!$id) {
-            dd($this->data);
             // TODO: fail?
             return;
         }

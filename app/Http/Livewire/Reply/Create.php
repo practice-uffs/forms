@@ -67,7 +67,6 @@ class Create extends \App\Http\Livewire\Crud\Main
             switch($field["type"]){
                 case('input'):
                     switch($field['question_config']){
-
                         case(0): // text
                             $modelCrudInfo['fields'][$key]['validation'] = 'present|min:3';
                             $modelCrudInfo['fields'][$key]['placeholder'] = "Texto...";
@@ -75,10 +74,8 @@ class Create extends \App\Http\Livewire\Crud\Main
                         case(2): // time
                             $modelCrudInfo['fields'][$key]['validation'] = 'present|date_format:H:i';
                             break;
-        
                         case(3): // telephone
                             $modelCrudInfo['fields'][$key]['placeholder'] = "(DDD) 123456789 ";
-        
                              break;
                         case(4): // email
                             $modelCrudInfo['fields'][$key]['validation'] = 'present|email:rfc,dns';
@@ -86,7 +83,6 @@ class Create extends \App\Http\Livewire\Crud\Main
                             break;
                         case(5): //file
                             $modelCrudInfo['fields'][$key]['placeholder'] = "Clique para selecionar o arquivo";
-        
                         default:
                         $modelCrudInfo['fields'][$key]['validation'] = 'present';
                     }
@@ -99,10 +95,6 @@ class Create extends \App\Http\Livewire\Crud\Main
                     }
                     break;
             }
-         
-
-
-        
         }
         
         return $modelCrudInfo;
