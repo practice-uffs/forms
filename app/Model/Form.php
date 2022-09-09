@@ -53,8 +53,7 @@ class Form extends Model
         'select' => [
            0 => 'select',
            1 => 'radio',
-           2 => 'checkbox',
-           3 => 'custom'
+           2 => 'checkbox'
         ]
     ];
 

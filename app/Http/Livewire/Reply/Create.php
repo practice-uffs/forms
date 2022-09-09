@@ -79,7 +79,7 @@ class Create extends \App\Http\Livewire\Crud\Main
                         case(3): // telephone
                             $modelCrudInfo['fields'][$key]['placeholder'] = "(DDD) 123456789 ";
         
-                            break;
+                             break;
                         case(4): // email
                             $modelCrudInfo['fields'][$key]['validation'] = 'present|email:rfc,dns';
                             $modelCrudInfo['fields'][$key]['placeholder'] = "email@email.com";
@@ -94,7 +94,7 @@ class Create extends \App\Http\Livewire\Crud\Main
                 case('select'):
                     switch($field['question_config']){
                         case(0): // select convencional
-                            $modelCrudInfo['fields'][$key]['validation'] = 'present'; 
+                            $modelCrudInfo['fields'][$key]['validation'] = 'required'; 
                             break;
                     }
                     break;
