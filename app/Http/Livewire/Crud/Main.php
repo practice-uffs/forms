@@ -331,29 +331,27 @@ class Main extends Component
 
     public function store(Form $form)
     {
-        //percorre o array procurando checkboxes para concatenar e salvar num único item
-
-        // dd($form);
-
-        $elements = [];
+        //controle de checkboxes para concatenar e salvar num único item
+        $marked_checkboxes = [];
         foreach($this->data as $index => $data){
             if(!isset($this->field['data.'.$index])){
+                //data é false quando desmarca um checkbox
                 if($data !== false){
+                    //quando checkbox, concatena todas as marcações pra salvar no banco
                     $index_exploded = explode('#', $index);
                     if(isset($this->data[$index_exploded[0]])){
                         if($this->fields['data.'.$index_exploded[0]]['type'] == 'checkbox'){
-                            $elements[$index] = $this->data[$index];
+                            $marked_checkboxes[$index] = $this->data[$index];
                             $this->data[$index_exploded[0]] .= ','.$data;
                             unset($this->data[$index]); //unset do item já concatenado
                         }   
                     }else{
-                        $elements[$index] = $this->data[$index];
+                        $marked_checkboxes[$index] = $this->data[$index];
                         $this->data[$index_exploded[0]] = $data;
                         unset($this->data[$index]); //unset do item já concatenado
                     }
                 }else{
-                      
-                    //unset de pergunta com checkbox desmarcado
+                    //unset de resposta com checkbox desmarcado
                     $index_exploded = explode('#', $index); 
                     $matches  = preg_grep("@".$index_exploded[0]."'(.*)'@", $this->data);
                     if(count($matches) == 0){
@@ -361,12 +359,10 @@ class Main extends Component
                     }
                  
                     unset($this->data[$index_exploded[0]]);
-                    unset($elements[$index_exploded[0]]);
+                    unset($marked_checkboxes[$index_exploded[0]]);
                 }
             }
         }
-       
-      
 
         $user =  Auth::user();
         if($form->canBeRepliedBy($user)){
@@ -396,15 +392,7 @@ class Main extends Component
                 }
             }
 
-
-            $this->data = array_merge($this->data, $elements);
-
-            
-            
-            // dd($this->data);
-      
-            // dd($this->data);
-
+            $this->data = array_merge($this->data, $marked_checkboxes); //mentém checkbox assinalados caso não passar na validação
 
             $this->validate();
 
@@ -429,13 +417,8 @@ class Main extends Component
     {
         $this->finished = $value;
 
-
-        //se houver uso de tempo limite
-       
-
         if($form != null and $value == false){
-
-            //check if its avaliable to answer again
+             //se houver uso de tempo limite
             if($form->timer){ 
                 $now =  date("Y-m-d H:i:s", strtotime('now')-3600*3);
                 $date_time_to_answer =  date("Y-m-d H:i:s", strtotime($form->date_to_answer.$form->time_to_answer));
@@ -446,7 +429,7 @@ class Main extends Component
                 }
             }
 
-            
+            //check if its avaliable to answer again
             $user =  auth()->user();
             if(!$form->canBeRepliedBy($user)){
                 return redirect(route('reply.create', ['form' => $form,'hash' => $form->hash]));
