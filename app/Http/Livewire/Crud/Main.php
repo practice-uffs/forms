@@ -334,25 +334,39 @@ class Main extends Component
         //percorre o array procurando checkboxes para concatenar e salvar num único item
 
         // dd($form);
+
+        $elements = [];
         foreach($this->data as $index => $data){
             if(!isset($this->field['data.'.$index])){
                 if($data !== false){
                     $index_exploded = explode('#', $index);
                     if(isset($this->data[$index_exploded[0]])){
                         if($this->fields['data.'.$index_exploded[0]]['type'] == 'checkbox'){
+                            $elements[$index] = $this->data[$index];
                             $this->data[$index_exploded[0]] .= ','.$data;
                             unset($this->data[$index]); //unset do item já concatenado
                         }   
                     }else{
+                        $elements[$index] = $this->data[$index];
                         $this->data[$index_exploded[0]] = $data;
                         unset($this->data[$index]); //unset do item já concatenado
                     }
                 }else{
-                    unset($this->data[$index]); //unset de item = false (marca automaticamente ao desselecionar um checkbox)
+                      
+                    //unset de pergunta com checkbox desmarcado
+                    $index_exploded = explode('#', $index); 
+                    $matches  = preg_grep("@".$index_exploded[0]."'(.*)'@", $this->data);
+                    if(count($matches) == 0){
+                        unset($this->data[$index]); 
+                    }
+                 
+                    unset($this->data[$index_exploded[0]]);
+                    unset($elements[$index_exploded[0]]);
                 }
             }
         }
-
+       
+      
 
         $user =  Auth::user();
         if($form->canBeRepliedBy($user)){
@@ -382,19 +396,30 @@ class Main extends Component
                 }
             }
 
-            $this->validate();
-            $values = $this->getDataForInsertOrUpdate();
+
+            $this->data = array_merge($this->data, $elements);
+
             
+            
+            // dd($this->data);
+      
+            // dd($this->data);
+
+
+            $this->validate();
+
+            $values = $this->getDataForInsertOrUpdate();
+
             // Remove any defined 'id' to ensure an insert is
             // performed instead of an update 
+            $values = $this->prepareValuesForCreate($values);
             unset($values['id']);
     
-            $values = $this->prepareValuesForCreate($values);
             $entry = $this->model::create($values);
-    
             $this->modelCreated($entry);
             $this->resetInput();
             $this->finished(true);
+         
         }else{
             return redirect(route('reply.create', ['form' => $form,'hash' => $form->hash]));
         }
