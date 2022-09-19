@@ -331,8 +331,10 @@ class Main extends Component
 
     public function store(Form $form)
     {
+     
+        $marked_checkboxes = []; //armazena o checkbox já concatenado para funcionar o autopreenchimento
+
         //controle de checkboxes para concatenar e salvar num único item
-        $marked_checkboxes = [];
         foreach($this->data as $index => $data){
             if(!isset($this->field['data.'.$index])){
                 //data é false quando desmarca um checkbox
@@ -341,13 +343,13 @@ class Main extends Component
                     $index_exploded = explode('#', $index);
                     if(isset($this->data[$index_exploded[0]])){
                         if($this->fields['data.'.$index_exploded[0]]['type'] == 'checkbox'){
-                            $marked_checkboxes[$index] = $this->data[$index];
-                            $this->data[$index_exploded[0]] .= ','.$data;
+                            $marked_checkboxes[$index] = $this->data[$index]; 
+                            $this->data[$index_exploded[0]] .= ','.$data; //concatena a resposta de múltiplos checkboxes
                             unset($this->data[$index]); //unset do item já concatenado
                         }   
                     }else{
                         $marked_checkboxes[$index] = $this->data[$index];
-                        $this->data[$index_exploded[0]] = $data;
+                        $this->data[$index_exploded[0]] = $data; //contatena um primeiro/único checkbox
                         unset($this->data[$index]); //unset do item já concatenado
                     }
                 }else{
