@@ -75,7 +75,8 @@ class Create extends \App\Http\Livewire\Crud\Main
                             $modelCrudInfo['fields'][$key]['validation'] = 'present|date_format:H:i';
                             break;
                         case(3): // telephone
-                            $modelCrudInfo['fields'][$key]['placeholder'] = "(DDD) 123456789 ";
+                            $modelCrudInfo['fields'][$key]['validation'] = 'present|digits:11';
+                            $modelCrudInfo['fields'][$key]['placeholder'] = "(__) _____-____ ";
                              break;
                         case(4): // email
                             $modelCrudInfo['fields'][$key]['validation'] = 'present|email:rfc,dns';

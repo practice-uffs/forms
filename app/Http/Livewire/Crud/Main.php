@@ -331,11 +331,17 @@ class Main extends Component
 
     public function store(Form $form)
     {
-     
         $marked_checkboxes = []; //armazena o checkbox já concatenado para funcionar o autopreenchimento
-
-        //controle de checkboxes para concatenar e salvar num único item
+        
         foreach($this->data as $index => $data){
+
+            //limpeza da máscara de telefone para validação dos dígitos
+            if($this->fields['data.'.$index]['type'] == 'tel'){   
+                $search = array('(', ')', '-', ' ');
+                $this->data[$index] =  str_replace($search, '', $this->data[$index]);
+            }
+         
+             //controle de checkboxes | concatena e salva um único answer
             if(!isset($this->field['data.'.$index])){
                 //data é false quando desmarca um checkbox
                 if($data !== false){
