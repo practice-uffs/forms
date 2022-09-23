@@ -341,9 +341,11 @@ class Main extends Component
             }
 
             //limpeza da máscara de telefone para validação dos dígitos
-            if($this->fields['data.'.$index]['type'] == 'tel' and isset($this->data[$index])){   
-                $search = array('(', ')', '-', ' ');
-                $this->data[$index] =  str_replace($search, '', $this->data[$index]);
+            if(isset($this->data[$index]) and isset($this->fields['data.'.$index]['type'])){
+                if($this->fields['data.'.$index]['type'] == 'tel'){   
+                    $search = array('(', ')', '-', ' ');
+                    $this->data[$index] =  str_replace($search, '', $this->data[$index]);
+                }
             }
          
              //controle de checkboxes | concatena e salva um único answer
