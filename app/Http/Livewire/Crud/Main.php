@@ -335,14 +335,19 @@ class Main extends Component
         
         foreach($this->data as $index => $data){
 
+            //limpando campos que foram preenchidos e depois removidos
+            if($this->data[$index] === ''){
+                unset($this->data[$index]);
+            }
+
             //limpeza da máscara de telefone para validação dos dígitos
-            if($this->fields['data.'.$index]['type'] == 'tel'){   
+            if($this->fields['data.'.$index]['type'] == 'tel' and isset($this->data[$index])){   
                 $search = array('(', ')', '-', ' ');
                 $this->data[$index] =  str_replace($search, '', $this->data[$index]);
             }
          
              //controle de checkboxes | concatena e salva um único answer
-            if(!isset($this->field['data.'.$index])){
+            if(!isset($this->fields['data.'.$index])){
                 //data é false quando desmarca um checkbox
                 if($data !== false){
                     //quando checkbox, concatena todas as marcações pra salvar no banco
